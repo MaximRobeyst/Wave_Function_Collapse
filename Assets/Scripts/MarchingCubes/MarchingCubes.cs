@@ -56,6 +56,7 @@ public class MarchingCubes : MonoBehaviour
 
     private void MarchCubes(PointDistribution pointDistribution)
     {
+        ClearInstances();
         _vertices.Clear();
         float[] cubeValues = new float[8];
         for(int i = 0; i < pointDistribution.Size - 1; ++i)
@@ -73,10 +74,20 @@ public class MarchingCubes : MonoBehaviour
                     cubeValues[6] = pointDistribution.Weights[pointDistribution.GetIndex(i + 1, j + 1, k + 1 )];
                     cubeValues[7] = pointDistribution.Weights[pointDistribution.GetIndex(i      , j + 1, k + 1 )];
 
-                    MarchCube(cubeValues, pointDistribution.SurfaceLevel, pointDistribution.GetPosition(i,j,k), _vertices);
+                    MarchCube(cubeValues, pointDistribution.SurfaceLevel, pointDistribution.GetPosition(i,j,k), _vertices, _instances);
                 }
             }
         }
+    }
+
+
+    void ClearInstances()
+    {
+        foreach (GameObject instance in _instances)
+        {
+            DestroyImmediate(instance);
+        }
+        _instances.Clear();
     }
 
     private void MarchCubes(PointDistribution pointDistribution, int step)
@@ -109,8 +120,17 @@ public class MarchingCubes : MonoBehaviour
         }
     }
 
-    public static void MarchCube(float[] cubeValues, float surfaceLevel, Vector3 point, List<Vector3> vertices)
+    public static void MarchCube(float[] cubeValues, float surfaceLevel, Vector3 point, List<Vector3> vertices, List<GameObject> instances = null)
     {
+        MarchingCubeValues index = (MarchingCubeValues)MarchingCubes.GetLookUpIndex(cubeValues, surfaceLevel);
+        if (LookUpTable.GetMesh(index) != null && instances != null)
+        {
+            GameObject instance = Instantiate(LookUpTable.GetMesh(index), point + Vector3.one * 0.5f, Quaternion.identity);
+
+            instances.Add(instance);
+            return;
+        }
+
         int[] triagulation = LookUpTable.triangulation[GetLookUpIndex(cubeValues, surfaceLevel)];
 
         foreach(int edgeIndex in triagulation)

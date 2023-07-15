@@ -8,7 +8,7 @@ public class MarchingCubeMeshes
 {
     [EnumFlags]
     public MarchingCubeValues MarchingCubeValues;
-
+    [ShowAssetPreview(128, 128)]
     public GameObject Mesh;
 }
 
