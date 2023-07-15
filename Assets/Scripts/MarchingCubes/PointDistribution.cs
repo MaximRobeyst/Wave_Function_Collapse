@@ -6,7 +6,9 @@ using UnityEngine;
 public class PointDistribution : MonoBehaviour
 {
     [SerializeField] private int _Size = 8;
+    [SerializeField] private int _step = 0;
     [SerializeField, Range(0, 1)] private float _surfaceLevel = 0.0f;
+    [SerializeField] private Material _material;
 
     private float[] _weights;
 
@@ -14,10 +16,9 @@ public class PointDistribution : MonoBehaviour
     public float SurfaceLevel => _surfaceLevel;
     public int Size => _Size;
 
-
-
     private void OnDrawGizmos()
     {
+        if (_weights == null || _weights.Length == 0) return;
         Vector3 startPosition = new Vector3(-_Size / 2.0f, -_Size / 2.0f, -_Size / 2.0f);
 
         for(int i = 0; i < _Size; ++i)
@@ -35,11 +36,29 @@ public class PointDistribution : MonoBehaviour
                 }
             }
         }
+
+        int step = 0;
+
+        for (int i = 0; i < _Size; ++i)
+        {
+            for (int j = 0; j < _Size; ++j)
+            {
+                for (int k = 0; k < _Size; ++k)
+                {
+                    if(_step == step)
+                    {
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawWireCube(GetPosition(i,j,k) + (Vector3.one / 2.0f), Vector3.one);
+                    }
+                    ++step;
+                }
+            }
+        }
     }
 
     public int GetIndex(int x, int y, int z)
     {
-        return (x * _Size * _Size) + (y * _Size) + z;
+        return (z * _Size * _Size) + (y * _Size) + x;
     }
 
     public Vector3 GetPosition(int x , int y, int z)

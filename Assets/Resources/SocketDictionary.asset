@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d73f5092a47cac4d9455a79e3c73241, type: 3}
   m_Name: SocketDictionary
   m_EditorClassIdentifier: 
+  SocketInfo: []

@@ -1,6 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Flags]
+public enum MarchingCubeValues
+{
+    A_RightBottomBack = 1 << 0,       // A
+    B_LeftBottomBack = 1 << 1,        // B
+    C_LeftBottomForward = 1 << 2,    // C
+    D_RightBottomForward = 1 << 3,   // D
+    E_RightUpBack = 1 << 4,   // E
+    F_LeftUpBack = 1 << 5,    // F
+    G_LeftUpForward = 1 << 6, // G
+    H_RightUpForward = 1 << 7,    //H
+}
 
 public class LookUpTable : MonoBehaviour
 {
@@ -263,6 +277,11 @@ public class LookUpTable : MonoBehaviour
         0x109,
         0x0
     };
+
+    public static GameObject GetMesh(MarchingCubeValues index)
+    {
+        return MeshTable.Instance.GetMesh(index);
+    }
 
     public static int[][] triangulation = new int[256][]
     {
