@@ -46,6 +46,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b24432d92df5ad4e8b13516158b9ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Sockets:
+  - Name: 1
+    Symetrical: 0
+  - Name: -1
+    Symetrical: 0
+  - Name: 1
+    Symetrical: 0
+  - Name: -1
+    Symetrical: 0
+  - Name: 
+    Symetrical: 0
+  - Name: 
+    Symetrical: 0
 --- !u!33 &7859386822226615519
 MeshFilter:
   m_ObjectHideFlags: 0

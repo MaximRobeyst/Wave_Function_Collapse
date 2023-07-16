@@ -1,21 +1,42 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
 public class Socket
 {
-    string name;
+    public string Name;
 
     public bool Symetrical;
+}
+
+enum SocketDirection
+{ 
+    Left = 0,
+    Forward = 1,
+    Right = 2,
+    Backward = 3,
 }
 
 [RequireComponent(typeof(MeshFilter))]
 public class Module : MonoBehaviour
 {
-    private Socket[] Sockets = new Socket[6];
+    [SerializeField]
+    private Socket[] _sockets = new Socket[4];
 
+    public Socket[] Sockets => _sockets;
+
+    private void OnDrawGizmos()
+    {
+#if UNITY_EDITOR
+        Handles.Label(transform.position + -transform.right * 0.5f, _sockets[0].Name);
+        Handles.Label(transform.position + transform.forward * 0.5f, _sockets[1].Name);
+        Handles.Label(transform.position + transform.right * 0.5f, _sockets[2].Name);
+        Handles.Label(transform.position + -transform.forward * 0.5f, _sockets[3].Name);
+#endif
+    }
 
 
 
