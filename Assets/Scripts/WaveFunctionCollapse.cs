@@ -1,11 +1,13 @@
 using NaughtyAttributes;
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Reflection;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-
+using Color = UnityEngine.Color;
 using Random = UnityEngine.Random;
 
 [System.Serializable]
@@ -16,6 +18,85 @@ class ModulePosibilities
     public bool Collapsed = false;
 
     public Vector3 Coords;
+
+    public bool PropogateLeft(ModulePosibilities module)
+    {
+        bool removed = false;
+        for (int i = 0; i < Modules.Count; ++i)
+        {
+            ModuleDescriptor moduleDescriptor = Modules[i];
+            var NonFittingResults = module.Modules.Where(descriptor => descriptor.FitsLeft(moduleDescriptor));
+            if (!NonFittingResults.Any()) continue;
+
+            removed = true;
+            for (int j = 0; j < NonFittingResults.Count(); ++j)
+            {
+                module.Modules.Remove(NonFittingResults.ElementAt(j));
+            }
+
+            Entropy = Modules.Count;
+        }
+        return removed;
+    }
+
+    public bool PropogateRight(ModulePosibilities module)
+    {
+        bool removed = false;
+        for (int i = 0; i < Modules.Count; ++i)
+        {
+            ModuleDescriptor moduleDescriptor = Modules[i];
+            var NonFittingResults = module.Modules.Where(descriptor => descriptor.FitsRight(moduleDescriptor));
+            if (!NonFittingResults.Any()) continue;
+
+            removed = true;
+            for (int j = 0; j < NonFittingResults.Count(); ++j)
+            {
+                module.Modules.Remove(NonFittingResults.ElementAt(j));
+            }
+            Entropy = Modules.Count;
+        }
+        return removed;
+    }
+
+    public bool PropogateForward(ModulePosibilities module)
+    {
+        bool removed = false;
+        for (int i = 0; i < Modules.Count; ++i)
+        {
+            ModuleDescriptor moduleDescriptor = Modules[i];
+            var NonFittingResults = module.Modules.Where(descriptor => descriptor.FitsForward(moduleDescriptor));
+            if (!NonFittingResults.Any()) continue;
+
+            removed = true;
+            for (int j = 0; j < NonFittingResults.Count(); ++j)
+            {
+                module.Modules.Remove(NonFittingResults.ElementAt(j));
+            }
+            Entropy = Modules.Count;
+        }
+        return removed;
+    }
+
+    public bool PropogateBackward(ModulePosibilities module)
+    {
+        bool removed = false;
+        for (int i = 0; i < Modules.Count; ++i)
+        {
+            ModuleDescriptor moduleDescriptor = Modules[i];
+            var NonFittingResults = module.Modules.Where(descriptor => descriptor.FitsBackward(moduleDescriptor));
+            if (!NonFittingResults.Any()) continue;
+
+            removed = true;
+            for (int j = 0; j < NonFittingResults.Count(); ++j)
+            {
+                module.Modules.Remove(NonFittingResults.ElementAt(j));
+            }
+            Entropy = Modules.Count;
+        }
+
+        return removed;
+
+    }
 }
 
 //[System.Serializable]
@@ -65,6 +146,29 @@ class ModuleDescriptor
     {
         return Module.Sockets[(int)(SocketDirection.Backward + Rotation) % 4].Name;
     }
+
+    public bool FitsLeft(ModuleDescriptor modulePosibilities2)
+    {
+        return GetLeft() == modulePosibilities2.GetRight();
+    }
+    public bool FitsRight(ModuleDescriptor modulePosibilities2)
+    {
+        return GetRight() == modulePosibilities2.GetLeft();
+    }
+    public bool FitsForward(ModuleDescriptor modulePosibilities2)
+    {
+        return GetForward() == modulePosibilities2.GetBackwards();
+    }
+    public bool FitsBackward(ModuleDescriptor modulePosibilities2)
+    {
+        return GetBackwards() == modulePosibilities2.GetForward();
+    }
+}
+enum State
+{
+    Propogate,
+    Propogating,
+    Observe,
 }
 
 public class WaveFunctionCollapse : MonoBehaviour
@@ -77,11 +181,20 @@ public class WaveFunctionCollapse : MonoBehaviour
 
     [SerializeField] private ModuleDescriptor[] _modules;
 
+    [SerializeField] private Vector2Int _checkCoords;
+
     [ReadOnly, SerializeField] private bool _isRunning;
 
     private ModulePosibilities[] _modulePosibilities;
 
     private List<Module> _instances = new();
+    private List<Module> _checkInstances = new();
+
+    private State _currentState = State.Observe;
+
+    private Vector3 _coords;
+    private Vector3 _currentPropogateCoords;
+    private ModuleDescriptor _moduleDescriptor;
 
     int GetIndex(float x, float y)
     {
@@ -102,7 +215,7 @@ public class WaveFunctionCollapse : MonoBehaviour
         {
             for (int j = 0; j < _depth; ++j)
             {
-                if (_modulePosibilities.Length == 0 || _modulePosibilities[GetIndex(i,j)] == null) return;
+                if (_modulePosibilities == null || _modulePosibilities.Length == 0 || _modulePosibilities[GetIndex(i,j)] == null) return;
                 float percentage = _modulePosibilities[GetIndex(i,j)].Entropy / _modules.Length;
 #if UNITY_EDITOR
                 Handles.Label(position + new Vector3(i + .5f, 0, j + .5f) + transform.up, "Entropy: " + percentage);
@@ -120,6 +233,26 @@ public class WaveFunctionCollapse : MonoBehaviour
     }
 
     [Button]
+    void CheckTile()
+    {
+        foreach(var instance in _checkInstances)
+        {
+            DestroyImmediate(instance.gameObject);
+        }
+        _checkInstances.Clear();
+
+        ModulePosibilities posibilities = _modulePosibilities[GetIndex(_checkCoords.x, _checkCoords.y)];
+
+        int steps = 0;
+        float distance = 1.5f;
+        foreach(ModuleDescriptor moduleDescriptor in posibilities.Modules)
+        {
+            moduleDescriptor.SpawnModule(new Vector3(_width + (steps * distance), 0, 0), _checkInstances);
+            steps++;
+        }
+    }
+
+    [Button]
     void RunStep()
     {
         if (!_isRunning)
@@ -130,7 +263,7 @@ public class WaveFunctionCollapse : MonoBehaviour
 
         if (!IsWaveFunctionCollapsed())
         {
-            Observe();
+            Observe(ref _coords, ref _moduleDescriptor);
         }
     }
 
@@ -144,110 +277,111 @@ public class WaveFunctionCollapse : MonoBehaviour
     [Button]
     void Clear()
     {
+        _currentState = State.Observe;
         RemovePreviousResult();
+
+        foreach (var instance in _checkInstances)
+        {
+            DestroyImmediate(instance.gameObject);
+        }
+        _checkInstances.Clear();
     }
 
     bool IsWaveFunctionCollapsed()
     {
-        foreach(ModulePosibilities posibilities in _modulePosibilities)
-        {
-            if (!posibilities.Collapsed)
-                return false;
-        }
+        return !_modulePosibilities.Where(slot => !slot.Collapsed).Any();
 
-        return true;
+        //foreach(ModulePosibilities posibilities in _modulePosibilities)
+        //{
+        //    if (!posibilities.Collapsed)
+        //        return false;
+        //}
+        //
+        //return true;
     }
 
-    void Observe()
+    void Observe(ref Vector3 coords, ref ModuleDescriptor module)
     {
         Vector3 startPosition = new Vector3(-_width / 2.0f, 0, -_depth / 2.0f);
         var moduleResult = FindLowestEntropy();
 
-        var module = moduleResult.Modules[UnityEngine.Random.Range(0, moduleResult.Modules.Count)];
+        if(moduleResult.Modules.Count == 0)
+        {
+            Debug.LogError("no modules found");
+            return;
+        }
+        ModuleDescriptor moduleDescriptor = moduleResult.Modules[UnityEngine.Random.Range(0, moduleResult.Modules.Count)];
         Debug.Log("Cell " + new Vector2(moduleResult.Coords.x, moduleResult.Coords.z) + " Collapsed");
         Debug.Log("Spawn at: " + (startPosition + moduleResult.Coords + new Vector3(.5f, .0f, .5f)));
 
-        module.SpawnModule(startPosition + moduleResult.Coords + new Vector3(.5f, .0f, .5f), _instances);
+        moduleDescriptor.SpawnModule(startPosition + moduleResult.Coords + new Vector3(.5f, .0f, .5f), _instances);
         moduleResult.Collapsed = true;
-        moduleResult.Modules.Clear();
         moduleResult.Entropy = 0;
+        var modulesToRemove = moduleResult.Modules.Where(discriptor => discriptor != moduleDescriptor);
 
-        Propogate(moduleResult.Coords, module);
+        for (int i = 0; i < modulesToRemove.Count(); ++i)
+        {
+            moduleResult.Modules.Remove(modulesToRemove.ElementAt(i));
+        }
+        Propogate(coords, null);
+
+        coords = moduleResult.Coords;
+        module = moduleDescriptor;
     }
 
     /// <summary>
     /// Recursion method to propogate
     /// </summary>
     /// <param name="coords"></param>
-    void Propogate(Vector3 coords, ModuleDescriptor chosenModule)
+    void Propogate(Vector3 coords, ModulePosibilities collapsedCell)
     {
-        for (int y = (int)coords.z; y < _depth - coords.z; ++y)
-        {
-            string forward = chosenModule.GetForward();
-            ModulePosibilities posibilities = _modulePosibilities[GetIndex(coords.x, y)];
+        Stack<ModulePosibilities> changedCells = new();
+        changedCells.Push(collapsedCell);
 
-            for (int descriptor = 0; descriptor < posibilities.Modules.Count; ++descriptor)
+
+
+        while(changedCells.Count > 0)
+        {
+            var currentCell = changedCells.Pop();
+            var neighbors = GetNeighbors(currentCell);
+
+            foreach (var neighbor in neighbors)
             {
-                if (posibilities.Modules[descriptor].GetBackwards() != forward)
+                //Disregard cells that have already been collapsed
+                if (_modulePosibilities[GetIndex(neighbor.Coords.x, neighbor.Coords.z)].Collapsed)
+                    continue;
+
+                //Detect the compatibilities and check if something changed
+                var somethingChanged = RemoveImpossibleStates(currentCell, neighbor);
+
+                if (somethingChanged)
                 {
-                    int index = GetIndex(coords.x, y); //(int)(coords.x * _width + y);
-                    _modulePosibilities[index].Modules.Remove(posibilities.Modules[descriptor]);
-                    _modulePosibilities[index].Entropy = _modulePosibilities[index].Modules.Count;
+                    changedCells.Push(neighbor);
                 }
             }
         }
+    }
 
-        for (int y = (int)coords.z; y > 0; --y)
-        {
-            string backward = chosenModule.GetBackwards();
-            ModulePosibilities posibilities = _modulePosibilities[GetIndex(coords.x, y)];
+    bool RemoveImpossibleStates(ModulePosibilities modulePosibilities1, ModulePosibilities modulePosibilities2)
+    {
+        var changed = false;
 
-            for (int descriptor = 0; descriptor < posibilities.Modules.Count; ++descriptor)
-            {
-                if (posibilities.Modules[descriptor].GetForward() != backward)
-                {
-                    int index = GetIndex(coords.x, y); // //(int)(coords.x * _width + y);
+        return changed;
+    }
 
-                    _modulePosibilities[index].Modules.Remove(posibilities.Modules[descriptor]);
-                    _modulePosibilities[index].Entropy = _modulePosibilities[index].Modules.Count;
-                }
-            }
-        }
+    List<ModulePosibilities> GetNeighbors(ModulePosibilities cell)
+    {
+        List<ModulePosibilities> modulePosibilities = new();
 
-        for (int x = (int)coords.x; x < _width - coords.x; ++x)
-        {
-            string right = chosenModule.GetRight();
-            ModulePosibilities posibilities = _modulePosibilities[GetIndex(x, coords.z)];
-
-            for (int descriptor = 0; descriptor < posibilities.Modules.Count; ++descriptor)
-            {
-                if (posibilities.Modules[descriptor].GetLeft() != right)
-                {
-                    int index = GetIndex(x, coords.z); // //(int)(x * _width + coords.y);
-
-                    _modulePosibilities[index].Modules.Remove(posibilities.Modules[descriptor]);
-                    _modulePosibilities[index].Entropy = _modulePosibilities[index].Modules.Count;
-                }
-            }
-        }
-
-        for (int x = (int)coords.x; x > 0; --x)
-        {
-            string left = chosenModule.GetLeft();
-            ModulePosibilities posibilities = _modulePosibilities[GetIndex(x, coords.z)];
-
-            for (int descriptor = 0; descriptor < posibilities.Modules.Count; ++descriptor)
-            {
-                if (posibilities.Modules[descriptor].GetLeft() != left)
-                {
-                    int index = GetIndex(x, coords.z); //(int)(x * _width + coords.y);
-
-                    _modulePosibilities[index].Modules.Remove(posibilities.Modules[descriptor]);
-                    _modulePosibilities[index].Entropy = _modulePosibilities[index].Modules.Count;
-                }
-            }
-        }
-
+        if (cell.Coords.x - 1 >= 0)
+            modulePosibilities.Add(_modulePosibilities[GetIndex(cell.Coords.x - 1, cell.Coords.z)]);
+        if (cell.Coords.x + 1 < _width)
+            modulePosibilities.Add(_modulePosibilities[GetIndex(cell.Coords.x + 1, cell.Coords.z)]);
+        if (cell.Coords.y - 1 >= 0)
+            modulePosibilities.Add(_modulePosibilities[GetIndex(cell.Coords.x, cell.Coords.z - 1)]);
+        if (cell.Coords.y + 1 < _depth)
+            modulePosibilities.Add(_modulePosibilities[GetIndex(cell.Coords.x, cell.Coords.z + 1)]);
+        return modulePosibilities;
     }
 
     ModulePosibilities FindLowestEntropy()
@@ -275,14 +409,18 @@ public class WaveFunctionCollapse : MonoBehaviour
     }
 
 
+
     IEnumerator Alogirthm()
     {
         _isRunning = true;
         InitializeAlgorithm();
+
+        Vector3 coords = new Vector3();
+        ModuleDescriptor module = null;
+
         while (!IsWaveFunctionCollapsed())
         {
-            Vector3 coordChanged;
-            Observe();
+            Observe(ref coords, ref module);
 
             yield return null;
         }
@@ -304,17 +442,18 @@ public class WaveFunctionCollapse : MonoBehaviour
         RemovePreviousResult();
         _modulePosibilities = new ModulePosibilities[_width * _depth];
 
-        for(int i = 0; i < _depth; ++i)
+        for(int i = 0; i < _width; ++i)
         {
-            for (int j = 0; j < _width; ++j)
+            for (int j = 0; j < _depth; ++j)
             {
-                _modulePosibilities[i * _width + j] = new ModulePosibilities();
+                int index = GetIndex(i, j);
+                _modulePosibilities[index] = new ModulePosibilities();
 
-                _modulePosibilities[i * _width + j].Modules = new();
-                _modulePosibilities[i * _width + j].Modules.AddRange(_modules);
-                _modulePosibilities[i * _width + j].Entropy = _modules.Length;
-                _modulePosibilities[i * _width + j].Collapsed = false;
-                _modulePosibilities[i * _width + j].Coords = new Vector3(j, 0, i);
+                _modulePosibilities[index].Modules = new();
+                _modulePosibilities[index].Modules.AddRange(_modules);
+                _modulePosibilities[index].Entropy = _modules.Length;
+                _modulePosibilities[index].Collapsed = false;
+                _modulePosibilities[index].Coords = new Vector3(i, 0, j);
             }
         }
     }
@@ -351,6 +490,14 @@ public class WaveFunctionCollapse : MonoBehaviour
                 Gizmos.DrawLine(position + new Vector3(i+1, 0, j+1), position + new Vector3(i, 0, j+1));
             }
         }
+
+
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawLine(position + new Vector3(_checkCoords.x, 0, _checkCoords.y), position + new Vector3(_checkCoords.x, 0, _checkCoords.y + 1));
+        Gizmos.DrawLine(position + new Vector3(_checkCoords.x, 0, _checkCoords.y), position + new Vector3(_checkCoords.x + 1, 0, _checkCoords.y));
+        Gizmos.DrawLine(position + new Vector3(_checkCoords.x + 1, 0, _checkCoords.y + 1), position + new Vector3(_checkCoords.x + 1, 0, _checkCoords.y));
+        Gizmos.DrawLine(position + new Vector3(_checkCoords.x + 1, 0, _checkCoords.y + 1), position + new Vector3(_checkCoords.x, 0, _checkCoords.y + 1));
 
     }
 }
