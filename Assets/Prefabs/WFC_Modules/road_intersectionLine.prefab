@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b24432d92df5ad4e8b13516158b9ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _3D: 0
   Left:
     Name: 1
     Symetrical: 0
@@ -57,6 +58,12 @@ MonoBehaviour:
     Symetrical: 0
   Backward:
     Name: 0
+    Symetrical: 0
+  Up:
+    Name: 
+    Symetrical: 0
+  Down:
+    Name: 
     Symetrical: 0
 --- !u!33 &5413421243747885486
 MeshFilter:

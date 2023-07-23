@@ -15,10 +15,10 @@ public class Socket
 
 enum SocketDirection
 { 
-    Left = 0,
-    Forward = 1,
-    Right = 2,
-    Backward = 3,
+    Forward = 0,
+    Left = 1,
+    Backward = 2,
+    Right = 3,
 
     Up = 4,
     Down = 5
@@ -66,10 +66,15 @@ public class Module : MonoBehaviour
         if (_3D) DebugGizmos.DrawCube(transform.position, 1.0f, 1.0f, 1.0f, Color.white);
 
 #if UNITY_EDITOR
-        Handles.Label(transform.position + -transform.right * 0.5f, _sockets[0].Name);
-        Handles.Label(transform.position + transform.forward * 0.5f, _sockets[1].Name);
-        Handles.Label(transform.position + transform.right * 0.5f, _sockets[2].Name);
-        Handles.Label(transform.position + -transform.forward * 0.5f, _sockets[3].Name);
+        GUIStyle style = new GUIStyle();
+        style.normal.textColor = Color.magenta;
+        Handles.Label(transform.position + -transform.right * 0.5f, _sockets[(int)SocketDirection.Left].Name, style);
+        style.normal.textColor = Color.green;
+        Handles.Label(transform.position + transform.forward * 0.5f, _sockets[(int)SocketDirection.Forward].Name, style);
+        style.normal.textColor = Color.blue;
+        Handles.Label(transform.position + transform.right * 0.5f, _sockets[(int)SocketDirection.Right].Name, style);
+        style.normal.textColor = Color.red;
+        Handles.Label(transform.position + -transform.forward * 0.5f, _sockets[(int)SocketDirection.Backward].Name, style);
 
         if (!_3D && _sockets.Count() >= (int)SocketDirection.Up) return;
 

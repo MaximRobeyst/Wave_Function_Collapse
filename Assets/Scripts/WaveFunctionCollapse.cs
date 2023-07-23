@@ -64,28 +64,28 @@ class ModuleDescriptor
 
     public string GetLeft()
     {
-        Debug.Log("GetLeft() Module id: " + (int)(SocketDirection.Left + (Rotation + 1)) % 4);
-        return Module.Sockets[(int)(SocketDirection.Left + (Rotation + 1)) % 4].Name;
+        Debug.Log(Module.name + ".GetLeft() Module id: " + (SocketDirection)((int)(SocketDirection.Left + (Rotation)) % 4));
+        return Module.Sockets[(int)(SocketDirection.Left + (Rotation)) % 4].Name;
     }
 
     public string GetForward()
     {
-        Debug.Log("GetForward() Module id: " + (int)(SocketDirection.Forward + (Rotation + 1)) % 4);
+        Debug.Log(Module.name + ".GetForward() Module id: " + (SocketDirection)((int)(SocketDirection.Forward + (Rotation)) % 4));
 
-        return Module.Sockets[(int)(SocketDirection.Forward + (Rotation + 1)) % 4].Name;
+        return Module.Sockets[(int)(SocketDirection.Forward + (Rotation)) % 4].Name;
     }
 
     public string GetRight()
     {
-        Debug.Log("GetRight() Module id: " + (int)(SocketDirection.Right + (Rotation + 1)) % 4);
-        return Module.Sockets[(int)(SocketDirection.Right + (Rotation + 1)) % 4].Name;
+        Debug.Log(Module.name + ".GetRight() Module id: " + (SocketDirection)((int)(SocketDirection.Right + (Rotation)) % 4));
+        return Module.Sockets[(int)(SocketDirection.Right + (Rotation)) % 4].Name;
     }
 
     public string GetBackwards()
     {
-        Debug.Log("GetBackwards Module id: " + (int)(SocketDirection.Backward + (Rotation + 1)) % 4);
+        Debug.Log(Module.name + ".GetBackwards Module id: " + (SocketDirection)((int)(SocketDirection.Backward + (Rotation)) % 4));
 
-        return Module.Sockets[(int)(SocketDirection.Backward + (Rotation + 1)) % 4].Name;
+        return Module.Sockets[(int)(SocketDirection.Backward + (Rotation)) % 4].Name;
     }
 
     public string GetUp()
@@ -368,13 +368,13 @@ public class WaveFunctionCollapse : MonoBehaviour
         if (modulePosibilities1.Coords.z - modulePosibilities2.Coords.z == 1)
         {
             // Forward
-            checkDirection = SocketDirection.Forward;
+            checkDirection = SocketDirection.Backward;
             DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, 0, _depth / 2.0f) + new Vector3(0.5f, 0, 0.5f), 0.5f, Color.green, time);
         }
         if (modulePosibilities1.Coords.z - modulePosibilities2.Coords.z == -1)
         {
             // Backward
-            checkDirection = SocketDirection.Backward;
+            checkDirection = SocketDirection.Forward;
             DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, 0, _depth / 2.0f) + new Vector3(0.5f, 0, 0.5f), 0.5f, Color.red, time);
         }
 

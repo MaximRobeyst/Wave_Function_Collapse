@@ -49,11 +49,11 @@ public class TestModule : MonoBehaviour
     {
         Clear();
 
-        _currentModule.SpawnModule(transform.position + Vector3.forward * .5f, _instances);
-        _otherModule.SpawnModule(transform.position + Vector3.back * .5f, _instances);
+        _currentModule.SpawnModule(transform.position + Vector3.back * .5f, _instances);
+        _otherModule.SpawnModule(transform.position + Vector3.forward * .5f, _instances);
 
         Debug.Log("Checking currentModule left: " + _currentModule.GetForward() + " other module right: " + _otherModule.GetBackwards());
-        DebugGizmos.DrawSpehere(_instances[0].GetBackward(), 0.25f, _currentModule.FitsForward(_otherModule) ? Color.green : Color.red, 1.0f);
+        DebugGizmos.DrawSpehere(_instances[0].GetForward(), 0.25f, _currentModule.FitsForward(_otherModule) ? Color.green : Color.red, 1.0f);
     }
 
     [Button]
@@ -61,11 +61,11 @@ public class TestModule : MonoBehaviour
     {
         Clear();
 
-        _currentModule.SpawnModule(transform.position + Vector3.back * .5f, _instances);
-        _otherModule.SpawnModule(transform.position + Vector3.forward * .5f, _instances);
+        _currentModule.SpawnModule(transform.position + Vector3.forward * .5f, _instances);
+        _otherModule.SpawnModule(transform.position + Vector3.back * .5f, _instances);
 
         Debug.Log("Checking currentModule left: " + _currentModule.GetBackwards() + " other module right: " + _otherModule.GetForward());
-        DebugGizmos.DrawSpehere(_instances[0].GetForward(), 0.25f, _currentModule.FitsBackward(_otherModule) ? Color.green : Color.red, 1.0f);
+        DebugGizmos.DrawSpehere(_instances[0].GetBackward(), 0.25f, _currentModule.FitsBackward(_otherModule) ? Color.green : Color.red, 1.0f);
     }
 
     [Button]
