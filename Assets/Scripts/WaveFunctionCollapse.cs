@@ -18,85 +18,6 @@ class ModulePosibilities
     public bool Collapsed = false;
 
     public Vector3 Coords;
-
-    public bool PropogateLeft(ModulePosibilities module)
-    {
-        bool removed = false;
-        for (int i = 0; i < Modules.Count; ++i)
-        {
-            ModuleDescriptor moduleDescriptor = Modules[i];
-            var NonFittingResults = module.Modules.Where(descriptor => descriptor.FitsLeft(moduleDescriptor));
-            if (!NonFittingResults.Any()) continue;
-
-            removed = true;
-            for (int j = 0; j < NonFittingResults.Count(); ++j)
-            {
-                module.Modules.Remove(NonFittingResults.ElementAt(j));
-            }
-
-            Entropy = Modules.Count;
-        }
-        return removed;
-    }
-
-    public bool PropogateRight(ModulePosibilities module)
-    {
-        bool removed = false;
-        for (int i = 0; i < Modules.Count; ++i)
-        {
-            ModuleDescriptor moduleDescriptor = Modules[i];
-            var NonFittingResults = module.Modules.Where(descriptor => descriptor.FitsRight(moduleDescriptor));
-            if (!NonFittingResults.Any()) continue;
-
-            removed = true;
-            for (int j = 0; j < NonFittingResults.Count(); ++j)
-            {
-                module.Modules.Remove(NonFittingResults.ElementAt(j));
-            }
-            Entropy = Modules.Count;
-        }
-        return removed;
-    }
-
-    public bool PropogateForward(ModulePosibilities module)
-    {
-        bool removed = false;
-        for (int i = 0; i < Modules.Count; ++i)
-        {
-            ModuleDescriptor moduleDescriptor = Modules[i];
-            var NonFittingResults = module.Modules.Where(descriptor => descriptor.FitsForward(moduleDescriptor));
-            if (!NonFittingResults.Any()) continue;
-
-            removed = true;
-            for (int j = 0; j < NonFittingResults.Count(); ++j)
-            {
-                module.Modules.Remove(NonFittingResults.ElementAt(j));
-            }
-            Entropy = Modules.Count;
-        }
-        return removed;
-    }
-
-    public bool PropogateBackward(ModulePosibilities module)
-    {
-        bool removed = false;
-        for (int i = 0; i < Modules.Count; ++i)
-        {
-            ModuleDescriptor moduleDescriptor = Modules[i];
-            var NonFittingResults = module.Modules.Where(descriptor => descriptor.FitsBackward(moduleDescriptor));
-            if (!NonFittingResults.Any()) continue;
-
-            removed = true;
-            for (int j = 0; j < NonFittingResults.Count(); ++j)
-            {
-                module.Modules.Remove(NonFittingResults.ElementAt(j));
-            }
-            Entropy = Modules.Count;
-        }
-
-        return removed;
-
-    }
 }
 
 //[System.Serializable]
@@ -113,11 +34,10 @@ class ModuleDescriptor
     public Module Module;
     public int Rotation = 0;
 
-    //public List<PossibleNeighbour> PossibleNeighbours;
-
     public void SpawnModule(Vector3 location, List<Module> instances = null)
     {
         var newInstance = GameObject.Instantiate(Module, location, Quaternion.Euler(0, 90 * Rotation, 0));
+        Module.SetupSockets();
 
         if(instances != null)
         {
@@ -125,43 +45,106 @@ class ModuleDescriptor
         }
     }
 
+    public string GetSlot(SocketDirection direction)
+    {
+        switch(direction)
+        {
+            case SocketDirection.Left:
+                return GetLeft();
+            case SocketDirection.Right:
+                return GetRight();
+            case SocketDirection.Forward:
+                return GetForward();
+            case SocketDirection.Backward:
+                return GetBackwards();
+            default:
+                return "";
+        }
+    }
+
     public string GetLeft()
     {
-        return Module.Sockets[(int)(SocketDirection.Left + Rotation) % 4].Name;
+        Debug.Log("GetLeft() Module id: " + (int)(SocketDirection.Left + (Rotation + 1)) % 4);
+        return Module.Sockets[(int)(SocketDirection.Left + (Rotation + 1)) % 4].Name;
     }
 
     public string GetForward()
     {
-        //Debug.Log("GetForward() Socket ID: " + (int)(SocketDirection.Forward + Rotation) % 4);
+        Debug.Log("GetForward() Module id: " + (int)(SocketDirection.Forward + (Rotation + 1)) % 4);
 
-        return Module.Sockets[(int)(SocketDirection.Forward + Rotation) % 4].Name;
+        return Module.Sockets[(int)(SocketDirection.Forward + (Rotation + 1)) % 4].Name;
     }
 
     public string GetRight()
     {
-        return Module.Sockets[(int)(SocketDirection.Right + Rotation) % 4].Name;
+        Debug.Log("GetRight() Module id: " + (int)(SocketDirection.Right + (Rotation + 1)) % 4);
+        return Module.Sockets[(int)(SocketDirection.Right + (Rotation + 1)) % 4].Name;
     }
 
     public string GetBackwards()
     {
-        return Module.Sockets[(int)(SocketDirection.Backward + Rotation) % 4].Name;
+        Debug.Log("GetBackwards Module id: " + (int)(SocketDirection.Backward + (Rotation + 1)) % 4);
+
+        return Module.Sockets[(int)(SocketDirection.Backward + (Rotation + 1)) % 4].Name;
+    }
+
+    public string GetUp()
+    {
+        return Module.Sockets[(int)SocketDirection.Up].Name;
+    }
+
+    public string GetDown()
+    {
+        return Module.Sockets[(int)SocketDirection.Down].Name;
+    }
+
+    public bool FitsDirection(SocketDirection direction, ModuleDescriptor moduleDescriptor)
+    {
+        switch(direction)
+        {
+            case SocketDirection.Left:
+                return FitsLeft(moduleDescriptor);
+            case SocketDirection.Right:
+                return FitsRight(moduleDescriptor);
+            case SocketDirection.Forward:
+                return FitsForward(moduleDescriptor);
+            case SocketDirection.Backward:
+                return FitsBackward(moduleDescriptor);
+        }
+        return false;
     }
 
     public bool FitsLeft(ModuleDescriptor modulePosibilities2)
     {
+        Debug.Log("checking Left Connector " + GetLeft() + " with right  " + modulePosibilities2.GetRight());
+
+
         return GetLeft() == modulePosibilities2.GetRight();
     }
     public bool FitsRight(ModuleDescriptor modulePosibilities2)
     {
+        Debug.Log("checking right Connector " + GetRight() + " with left  " + modulePosibilities2.GetLeft());
         return GetRight() == modulePosibilities2.GetLeft();
     }
     public bool FitsForward(ModuleDescriptor modulePosibilities2)
     {
+        Debug.Log("checking forward Connector " + GetForward() + " with backward  " + modulePosibilities2.GetBackwards());
         return GetForward() == modulePosibilities2.GetBackwards();
     }
     public bool FitsBackward(ModuleDescriptor modulePosibilities2)
     {
+        Debug.Log("checking backward Connector " + GetBackwards() + " with forward  " + modulePosibilities2.GetForward());
         return GetBackwards() == modulePosibilities2.GetForward();
+    }
+    public bool FitsUp(ModuleDescriptor modulePosibilities2)
+    {
+        Debug.Log("checking backward Connector " + GetBackwards() + " with forward  " + modulePosibilities2.GetForward());
+        return GetUp() == modulePosibilities2.GetDown();
+    }
+    public bool FitsDown(ModuleDescriptor modulePosibilities2)
+    {
+        Debug.Log("checking backward Connector " + GetBackwards() + " with forward  " + modulePosibilities2.GetForward());
+        return GetDown() == modulePosibilities2.GetUp();
     }
 }
 enum State
@@ -253,6 +236,12 @@ public class WaveFunctionCollapse : MonoBehaviour
     }
 
     [Button]
+    void ObserveTile()
+    {
+        Observe();
+    }
+
+    [Button]
     void RunStep()
     {
         if (!_isRunning)
@@ -263,7 +252,7 @@ public class WaveFunctionCollapse : MonoBehaviour
 
         if (!IsWaveFunctionCollapsed())
         {
-            Observe(ref _coords, ref _moduleDescriptor);
+            Observe();
         }
     }
 
@@ -282,6 +271,7 @@ public class WaveFunctionCollapse : MonoBehaviour
 
         foreach (var instance in _checkInstances)
         {
+            if (instance == null) continue;
             DestroyImmediate(instance.gameObject);
         }
         _checkInstances.Clear();
@@ -300,7 +290,7 @@ public class WaveFunctionCollapse : MonoBehaviour
         //return true;
     }
 
-    void Observe(ref Vector3 coords, ref ModuleDescriptor module)
+    void Observe()
     {
         Vector3 startPosition = new Vector3(-_width / 2.0f, 0, -_depth / 2.0f);
         var moduleResult = FindLowestEntropy();
@@ -317,16 +307,10 @@ public class WaveFunctionCollapse : MonoBehaviour
         moduleDescriptor.SpawnModule(startPosition + moduleResult.Coords + new Vector3(.5f, .0f, .5f), _instances);
         moduleResult.Collapsed = true;
         moduleResult.Entropy = 0;
-        var modulesToRemove = moduleResult.Modules.Where(discriptor => discriptor != moduleDescriptor);
+        moduleResult.Modules.Clear();
+        moduleResult.Modules.Add(moduleDescriptor);
 
-        for (int i = 0; i < modulesToRemove.Count(); ++i)
-        {
-            moduleResult.Modules.Remove(modulesToRemove.ElementAt(i));
-        }
-        Propogate(coords, null);
-
-        coords = moduleResult.Coords;
-        module = moduleDescriptor;
+        Propogate(moduleResult.Coords, moduleResult);
     }
 
     /// <summary>
@@ -338,15 +322,15 @@ public class WaveFunctionCollapse : MonoBehaviour
         Stack<ModulePosibilities> changedCells = new();
         changedCells.Push(collapsedCell);
 
-
-
         while(changedCells.Count > 0)
         {
             var currentCell = changedCells.Pop();
             var neighbors = GetNeighbors(currentCell);
+            Debug.Log("found " + neighbors.Count + " neighbours");
 
             foreach (var neighbor in neighbors)
             {
+               
                 //Disregard cells that have already been collapsed
                 if (_modulePosibilities[GetIndex(neighbor.Coords.x, neighbor.Coords.z)].Collapsed)
                     continue;
@@ -366,6 +350,79 @@ public class WaveFunctionCollapse : MonoBehaviour
     {
         var changed = false;
 
+        float time = 2.0f;
+
+        SocketDirection checkDirection = SocketDirection.Left;
+        if(modulePosibilities1.Coords.x - modulePosibilities2.Coords.x == 1)
+        {
+            // Right
+            checkDirection = SocketDirection.Left;
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, 0, _depth / 2.0f) + new Vector3(0.5f, 0, 0.5f), 0.5f, Color.magenta, time);
+        }
+        if (modulePosibilities1.Coords.x - modulePosibilities2.Coords.x == -1)
+        {
+            // Left
+            checkDirection = SocketDirection.Right;
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, 0, _depth / 2.0f) + new Vector3(0.5f, 0, 0.5f), 0.5f, Color.blue, time);
+        }
+        if (modulePosibilities1.Coords.z - modulePosibilities2.Coords.z == 1)
+        {
+            // Forward
+            checkDirection = SocketDirection.Forward;
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, 0, _depth / 2.0f) + new Vector3(0.5f, 0, 0.5f), 0.5f, Color.green, time);
+        }
+        if (modulePosibilities1.Coords.z - modulePosibilities2.Coords.z == -1)
+        {
+            // Backward
+            checkDirection = SocketDirection.Backward;
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, 0, _depth / 2.0f) + new Vector3(0.5f, 0, 0.5f), 0.5f, Color.red, time);
+        }
+
+        var otherPosibilityTiles = new List<ModuleDescriptor>(modulePosibilities2.Modules);
+
+        var currentPossibleTiles = new List<ModuleDescriptor>(modulePosibilities1.Modules);
+
+        int currentTileId = 0;
+        int neighbourTileId = 0;
+
+        Debug.Log("Checking neigbors of corods " + modulePosibilities1.Coords);
+        foreach(var currentTile in currentPossibleTiles)
+        {
+            List<ModuleDescriptor> compatibleTiles = new List<ModuleDescriptor>();
+
+            neighbourTileId = 0;
+            foreach(var neighborTile in otherPosibilityTiles)
+            {
+                if (currentTile.FitsDirection(checkDirection, neighborTile))
+                {
+                    Debug.Log("neigbhor tile " + neighbourTileId + " compatible with " + currentTileId);
+                    compatibleTiles.Add(neighborTile);
+                }
+                else
+                {
+                    Debug.Log("neigbhor tile " + neighbourTileId + "not compatible with " + currentTileId);
+                }
+
+                neighbourTileId++;
+            }
+            currentTileId++;
+
+            foreach(var tile in compatibleTiles)
+            {
+                otherPosibilityTiles.Remove(tile);
+            }
+        }
+
+        if (otherPosibilityTiles.Count > 0)
+            changed = true;
+
+        foreach(var tile in otherPosibilityTiles)
+        {
+            modulePosibilities2.Modules.Remove(tile);
+        }
+
+        modulePosibilities2.Entropy = modulePosibilities2.Modules.Count;
+
         return changed;
     }
 
@@ -377,9 +434,9 @@ public class WaveFunctionCollapse : MonoBehaviour
             modulePosibilities.Add(_modulePosibilities[GetIndex(cell.Coords.x - 1, cell.Coords.z)]);
         if (cell.Coords.x + 1 < _width)
             modulePosibilities.Add(_modulePosibilities[GetIndex(cell.Coords.x + 1, cell.Coords.z)]);
-        if (cell.Coords.y - 1 >= 0)
+        if (cell.Coords.z - 1 >= 0)
             modulePosibilities.Add(_modulePosibilities[GetIndex(cell.Coords.x, cell.Coords.z - 1)]);
-        if (cell.Coords.y + 1 < _depth)
+        if (cell.Coords.z + 1 < _depth)
             modulePosibilities.Add(_modulePosibilities[GetIndex(cell.Coords.x, cell.Coords.z + 1)]);
         return modulePosibilities;
     }
@@ -420,7 +477,7 @@ public class WaveFunctionCollapse : MonoBehaviour
 
         while (!IsWaveFunctionCollapsed())
         {
-            Observe(ref coords, ref module);
+            Observe();
 
             yield return null;
         }
@@ -432,6 +489,7 @@ public class WaveFunctionCollapse : MonoBehaviour
     {
         foreach(Module instance in _instances)
         {
+            if (instance == null) continue;
             DestroyImmediate(instance.gameObject);
         }
         _instances.Clear();
@@ -469,7 +527,7 @@ public class WaveFunctionCollapse : MonoBehaviour
             {
                 for (int k = 0; k < _depth; ++k)
                 {
-                    Gizmos.DrawWireCube(position, Vector3.one);
+                    Gizmos.DrawWireCube(position + new Vector3(i,j,k), Vector3.one);
                 }
             }
         }
