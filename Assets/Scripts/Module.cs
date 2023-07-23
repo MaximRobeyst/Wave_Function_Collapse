@@ -63,7 +63,8 @@ public class Module : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (_sockets == null || _sockets.Length < (_3D ? 6 : 4)) SetupSockets();
-        if (_3D) DebugGizmos.DrawCube(transform.position, 1.0f, 1.0f, 1.0f, Color.white);
+        if (_3D) 
+            DebugGizmos.DrawCube(transform.position, 1.0f, 1.0f, 1.0f, Color.white);
 
 #if UNITY_EDITOR
         GUIStyle style = new GUIStyle();

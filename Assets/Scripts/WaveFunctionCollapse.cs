@@ -57,6 +57,10 @@ class ModuleDescriptor
                 return GetForward();
             case SocketDirection.Backward:
                 return GetBackwards();
+            case SocketDirection.Up:
+                return GetUp();
+            case SocketDirection.Down:
+                return GetDown();
             default:
                 return "";
         }
@@ -110,6 +114,10 @@ class ModuleDescriptor
                 return FitsForward(moduleDescriptor);
             case SocketDirection.Backward:
                 return FitsBackward(moduleDescriptor);
+            case SocketDirection.Up:
+                return FitsUp(moduleDescriptor);
+            case SocketDirection.Down:
+                return FitsDown(moduleDescriptor);
         }
         return false;
     }
@@ -138,12 +146,12 @@ class ModuleDescriptor
     }
     public bool FitsUp(ModuleDescriptor modulePosibilities2)
     {
-        Debug.Log("checking backward Connector " + GetBackwards() + " with forward  " + modulePosibilities2.GetForward());
+        Debug.Log("checking up Connector " + GetUp() + " with down  " + modulePosibilities2.GetDown());
         return GetUp() == modulePosibilities2.GetDown();
     }
     public bool FitsDown(ModuleDescriptor modulePosibilities2)
     {
-        Debug.Log("checking backward Connector " + GetBackwards() + " with forward  " + modulePosibilities2.GetForward());
+        Debug.Log("checking down Connector " + GetDown() + " with up  " + modulePosibilities2.GetUp());
         return GetDown() == modulePosibilities2.GetUp();
     }
 }
@@ -191,20 +199,23 @@ public class WaveFunctionCollapse : MonoBehaviour
         else
             DrawGrid3D();
 
-        Vector3 position = new Vector3(-_width / 2.0f, 0, -_depth / 2.0f);
+        Vector3 position = new Vector3(-_width / 2.0f, -_height / 2.0f, -_depth / 2.0f);
 
         Gizmos.color = Color.gray;
-        for (int i = 0; i < _width; ++i)
+        for (int x = 0; x < _width; ++x)
         {
-            for (int j = 0; j < _depth; ++j)
+            for(int y = 0; y < _height; ++y)
             {
-                if (_modulePosibilities == null || _modulePosibilities.Length == 0 || _modulePosibilities[GetIndex(i,j)] == null) return;
-                float percentage = _modulePosibilities[GetIndex(i,j)].Entropy / _modules.Length;
+                for (int z = 0; z < _depth; ++z)
+                {
+                    if (_modulePosibilities == null || _modulePosibilities.Length == 0 || _modulePosibilities[GetIndex(x, z)] == null) continue;
+                    float percentage = _modulePosibilities[GetIndex(x, z)].Entropy / _modules.Length;
 #if UNITY_EDITOR
-                Handles.Label(position + new Vector3(i + .5f, 0, j + .5f) + transform.up, "Entropy: " + percentage);
+                    Handles.Label(position + new Vector3(x, y, z) + transform.up, "Entropy: " + percentage);
 #endif
 
-                Gizmos.DrawSphere(position + new Vector3(i + .5f, 0, j +.5f), percentage * 0.25f);
+                    Gizmos.DrawSphere(position + new Vector3(x, y, z), percentage * 0.25f);
+                }
             }
         }
     }
@@ -292,7 +303,7 @@ public class WaveFunctionCollapse : MonoBehaviour
 
     void Observe()
     {
-        Vector3 startPosition = new Vector3(-_width / 2.0f, 0, -_depth / 2.0f);
+        Vector3 startPosition = new Vector3(-_width / 2.0f, -_height / 2.0f, -_depth / 2.0f);
         var moduleResult = FindLowestEntropy();
 
         if(moduleResult.Modules.Count == 0)
@@ -301,10 +312,10 @@ public class WaveFunctionCollapse : MonoBehaviour
             return;
         }
         ModuleDescriptor moduleDescriptor = moduleResult.Modules[UnityEngine.Random.Range(0, moduleResult.Modules.Count)];
-        Debug.Log("Cell " + new Vector2(moduleResult.Coords.x, moduleResult.Coords.z) + " Collapsed");
-        Debug.Log("Spawn at: " + (startPosition + moduleResult.Coords + new Vector3(.5f, .0f, .5f)));
+        //Debug.Log("Cell " + new Vector2(moduleResult.Coords.x, moduleResult.Coords.z) + " Collapsed");
+        //Debug.Log("Spawn at: " + (startPosition + moduleResult.Coords + new Vector3(.5f, .0f, .5f)));
 
-        moduleDescriptor.SpawnModule(startPosition + moduleResult.Coords + new Vector3(.5f, .0f, .5f), _instances);
+        moduleDescriptor.SpawnModule(startPosition + moduleResult.Coords, _instances);
         moduleResult.Collapsed = true;
         moduleResult.Entropy = 0;
         moduleResult.Modules.Clear();
@@ -357,25 +368,25 @@ public class WaveFunctionCollapse : MonoBehaviour
         {
             // Right
             checkDirection = SocketDirection.Left;
-            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, 0, _depth / 2.0f) + new Vector3(0.5f, 0, 0.5f), 0.5f, Color.magenta, time);
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.magenta, time);
         }
         if (modulePosibilities1.Coords.x - modulePosibilities2.Coords.x == -1)
         {
             // Left
             checkDirection = SocketDirection.Right;
-            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, 0, _depth / 2.0f) + new Vector3(0.5f, 0, 0.5f), 0.5f, Color.blue, time);
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.blue, time);
         }
         if (modulePosibilities1.Coords.z - modulePosibilities2.Coords.z == 1)
         {
             // Forward
             checkDirection = SocketDirection.Backward;
-            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, 0, _depth / 2.0f) + new Vector3(0.5f, 0, 0.5f), 0.5f, Color.green, time);
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.green, time);
         }
         if (modulePosibilities1.Coords.z - modulePosibilities2.Coords.z == -1)
         {
             // Backward
             checkDirection = SocketDirection.Forward;
-            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, 0, _depth / 2.0f) + new Vector3(0.5f, 0, 0.5f), 0.5f, Color.red, time);
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.red, time);
         }
 
         var otherPosibilityTiles = new List<ModuleDescriptor>(modulePosibilities2.Modules);
