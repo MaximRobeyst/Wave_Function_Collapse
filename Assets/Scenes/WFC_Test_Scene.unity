@@ -641,7 +641,7 @@ MonoBehaviour:
     Rotation: 2
   - Module: {fileID: -1900566506329878048, guid: faaeeb260a22f524cbdaf38ce55fa774, type: 3}
     Rotation: 3
-  _checkCoords: {x: 7, y: 3}
+  _checkCoords: {x: 7, y: 3, z: 0}
   _isRunning: 0
 --- !u!4 &2136863147
 Transform:

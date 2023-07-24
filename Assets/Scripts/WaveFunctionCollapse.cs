@@ -17,7 +17,7 @@ class ModulePosibilities
     public float Entropy = 0.0f;
     public bool Collapsed = false;
 
-    public Vector3 Coords;
+    public Vector3Int Coords;
 }
 
 //[System.Serializable]
@@ -69,37 +69,37 @@ class ModuleDescriptor
     public string GetLeft()
     {
         Debug.Log(Module.name + ".GetLeft() Module id: " + (SocketDirection)((int)(SocketDirection.Left + (Rotation)) % 4));
-        return Module.Sockets[(int)(SocketDirection.Left + (Rotation)) % 4].Name;
+        return Module.Sockets[(int)(SocketDirection.Left + (Rotation)) % 4].ToString();
     }
 
     public string GetForward()
     {
         Debug.Log(Module.name + ".GetForward() Module id: " + (SocketDirection)((int)(SocketDirection.Forward + (Rotation)) % 4));
 
-        return Module.Sockets[(int)(SocketDirection.Forward + (Rotation)) % 4].Name;
+        return Module.Sockets[(int)(SocketDirection.Forward + (Rotation)) % 4].ToString();
     }
 
     public string GetRight()
     {
         Debug.Log(Module.name + ".GetRight() Module id: " + (SocketDirection)((int)(SocketDirection.Right + (Rotation)) % 4));
-        return Module.Sockets[(int)(SocketDirection.Right + (Rotation)) % 4].Name;
+        return Module.Sockets[(int)(SocketDirection.Right + (Rotation)) % 4].ToString();
     }
 
     public string GetBackwards()
     {
         Debug.Log(Module.name + ".GetBackwards Module id: " + (SocketDirection)((int)(SocketDirection.Backward + (Rotation)) % 4));
 
-        return Module.Sockets[(int)(SocketDirection.Backward + (Rotation)) % 4].Name;
+        return Module.Sockets[(int)(SocketDirection.Backward + (Rotation)) % 4].ToString();
     }
 
     public string GetUp()
     {
-        return Module.Sockets[(int)SocketDirection.Up].Name;
+        return Module.Sockets[(int)SocketDirection.Up].ToString();
     }
 
     public string GetDown()
     {
-        return Module.Sockets[(int)SocketDirection.Down].Name;
+        return Module.Sockets[(int)SocketDirection.Down].ToString();
     }
 
     public bool FitsDirection(SocketDirection direction, ModuleDescriptor moduleDescriptor)
@@ -125,8 +125,6 @@ class ModuleDescriptor
     public bool FitsLeft(ModuleDescriptor modulePosibilities2)
     {
         Debug.Log("checking Left Connector " + GetLeft() + " with right  " + modulePosibilities2.GetRight());
-
-
         return GetLeft() == modulePosibilities2.GetRight();
     }
     public bool FitsRight(ModuleDescriptor modulePosibilities2)
@@ -172,11 +170,11 @@ public class WaveFunctionCollapse : MonoBehaviour
 
     [SerializeField] private ModuleDescriptor[] _modules;
 
-    [SerializeField] private Vector2Int _checkCoords;
+    [SerializeField] private Vector3Int _checkCoords;
 
     [ReadOnly, SerializeField] private bool _isRunning;
 
-    private ModulePosibilities[] _modulePosibilities;
+    private ModulePosibilities[,,] _modulePosibilities;
 
     private List<Module> _instances = new();
     private List<Module> _checkInstances = new();
@@ -190,6 +188,11 @@ public class WaveFunctionCollapse : MonoBehaviour
     int GetIndex(float x, float y)
     {
         return (int)(x * _width + y);
+    }
+
+    int GetIndex(float x, float y, float z)
+    {
+        return 0;
     }
 
     private void OnDrawGizmos()
@@ -208,8 +211,8 @@ public class WaveFunctionCollapse : MonoBehaviour
             {
                 for (int z = 0; z < _depth; ++z)
                 {
-                    if (_modulePosibilities == null || _modulePosibilities.Length == 0 || _modulePosibilities[GetIndex(x, z)] == null) continue;
-                    float percentage = _modulePosibilities[GetIndex(x, z)].Entropy / _modules.Length;
+                    if (_modulePosibilities == null || _modulePosibilities.Length == 0 || _modulePosibilities[x, y, z] == null) continue;
+                    float percentage = _modulePosibilities[x, y, z].Entropy / _modules.Length;
 #if UNITY_EDITOR
                     Handles.Label(position + new Vector3(x, y, z) + transform.up, "Entropy: " + percentage);
 #endif
@@ -235,7 +238,7 @@ public class WaveFunctionCollapse : MonoBehaviour
         }
         _checkInstances.Clear();
 
-        ModulePosibilities posibilities = _modulePosibilities[GetIndex(_checkCoords.x, _checkCoords.y)];
+        ModulePosibilities posibilities = _modulePosibilities[_checkCoords.x, _checkCoords.y, _checkCoords.z];
 
         int steps = 0;
         float distance = 1.5f;
@@ -290,15 +293,7 @@ public class WaveFunctionCollapse : MonoBehaviour
 
     bool IsWaveFunctionCollapsed()
     {
-        return !_modulePosibilities.Where(slot => !slot.Collapsed).Any();
-
-        //foreach(ModulePosibilities posibilities in _modulePosibilities)
-        //{
-        //    if (!posibilities.Collapsed)
-        //        return false;
-        //}
-        //
-        //return true;
+        return !_modulePosibilities.Cast<ModulePosibilities>().Where(slot => !slot.Collapsed).Any();
     }
 
     void Observe()
@@ -312,8 +307,6 @@ public class WaveFunctionCollapse : MonoBehaviour
             return;
         }
         ModuleDescriptor moduleDescriptor = moduleResult.Modules[UnityEngine.Random.Range(0, moduleResult.Modules.Count)];
-        //Debug.Log("Cell " + new Vector2(moduleResult.Coords.x, moduleResult.Coords.z) + " Collapsed");
-        //Debug.Log("Spawn at: " + (startPosition + moduleResult.Coords + new Vector3(.5f, .0f, .5f)));
 
         moduleDescriptor.SpawnModule(startPosition + moduleResult.Coords, _instances);
         moduleResult.Collapsed = true;
@@ -343,7 +336,7 @@ public class WaveFunctionCollapse : MonoBehaviour
             {
                
                 //Disregard cells that have already been collapsed
-                if (_modulePosibilities[GetIndex(neighbor.Coords.x, neighbor.Coords.z)].Collapsed)
+                if (_modulePosibilities[neighbor.Coords.x, neighbor.Coords.y, neighbor.Coords.z].Collapsed)
                     continue;
 
                 //Detect the compatibilities and check if something changed
@@ -386,6 +379,18 @@ public class WaveFunctionCollapse : MonoBehaviour
         {
             // Backward
             checkDirection = SocketDirection.Forward;
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.red, time);
+        }
+        if (modulePosibilities1.Coords.y - modulePosibilities2.Coords.y == -1)
+        {
+            // Backward
+            checkDirection = SocketDirection.Up;
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.red, time);
+        }
+        if (modulePosibilities1.Coords.y - modulePosibilities2.Coords.y == 1)
+        {
+            // Backward
+            checkDirection = SocketDirection.Down;
             DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.red, time);
         }
 
@@ -441,14 +446,23 @@ public class WaveFunctionCollapse : MonoBehaviour
     {
         List<ModulePosibilities> modulePosibilities = new();
 
+        // LEFT AND RIGHT
         if (cell.Coords.x - 1 >= 0)
-            modulePosibilities.Add(_modulePosibilities[GetIndex(cell.Coords.x - 1, cell.Coords.z)]);
+            modulePosibilities.Add(_modulePosibilities[cell.Coords.x - 1, cell.Coords.y, cell.Coords.z]);
         if (cell.Coords.x + 1 < _width)
-            modulePosibilities.Add(_modulePosibilities[GetIndex(cell.Coords.x + 1, cell.Coords.z)]);
+            modulePosibilities.Add(_modulePosibilities[cell.Coords.x + 1, cell.Coords.y, cell.Coords.z]);
+
+        // UP AND DOWN
+        if (cell.Coords.y - 1 >= 0)
+            modulePosibilities.Add(_modulePosibilities[cell.Coords.x, cell.Coords.y - 1, cell.Coords.z]);
+        if (cell.Coords.y + 1 < _height)
+            modulePosibilities.Add(_modulePosibilities[cell.Coords.x, cell.Coords.y + 1, cell.Coords.z]);
+        
+        // FRONT AND BACK
         if (cell.Coords.z - 1 >= 0)
-            modulePosibilities.Add(_modulePosibilities[GetIndex(cell.Coords.x, cell.Coords.z - 1)]);
+            modulePosibilities.Add(_modulePosibilities[cell.Coords.x, cell.Coords.y , cell.Coords.z - 1]);
         if (cell.Coords.z + 1 < _depth)
-            modulePosibilities.Add(_modulePosibilities[GetIndex(cell.Coords.x, cell.Coords.z + 1)]);
+            modulePosibilities.Add(_modulePosibilities[cell.Coords.x, cell.Coords.y , cell.Coords.z + 1]);
         return modulePosibilities;
     }
 
@@ -509,20 +523,25 @@ public class WaveFunctionCollapse : MonoBehaviour
     void InitializeAlgorithm()
     {
         RemovePreviousResult();
-        _modulePosibilities = new ModulePosibilities[_width * _depth];
+        if(_Is2D)
+            _modulePosibilities = new ModulePosibilities[_width, 1, _depth];
+        else
+            _modulePosibilities = new ModulePosibilities[_width, _height, _depth];
 
-        for(int i = 0; i < _width; ++i)
+        for(int x = 0; x < _width; ++x)
         {
-            for (int j = 0; j < _depth; ++j)
+            for (int y = 0; y < _height; ++y)
             {
-                int index = GetIndex(i, j);
-                _modulePosibilities[index] = new ModulePosibilities();
+                for (int z = 0; z < _depth; ++z)
+                {
+                    _modulePosibilities[x,y,z] = new ModulePosibilities();
 
-                _modulePosibilities[index].Modules = new();
-                _modulePosibilities[index].Modules.AddRange(_modules);
-                _modulePosibilities[index].Entropy = _modules.Length;
-                _modulePosibilities[index].Collapsed = false;
-                _modulePosibilities[index].Coords = new Vector3(i, 0, j);
+                    _modulePosibilities[x,y,z].Modules = new();
+                    _modulePosibilities[x,y,z].Modules.AddRange(_modules);
+                    _modulePosibilities[x,y,z].Entropy = _modules.Length;
+                    _modulePosibilities[x,y,z].Collapsed = false;
+                    _modulePosibilities[x,y,z].Coords = new Vector3Int(x, y, z);
+                }
             }
         }
     }
@@ -542,6 +561,9 @@ public class WaveFunctionCollapse : MonoBehaviour
                 }
             }
         }
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(position + _checkCoords, Vector3.one);
     }
 
     void DrawGrid2D()
@@ -563,10 +585,10 @@ public class WaveFunctionCollapse : MonoBehaviour
 
         Gizmos.color = Color.red;
 
-        Gizmos.DrawLine(position + new Vector3(_checkCoords.x, 0, _checkCoords.y), position + new Vector3(_checkCoords.x, 0, _checkCoords.y + 1));
-        Gizmos.DrawLine(position + new Vector3(_checkCoords.x, 0, _checkCoords.y), position + new Vector3(_checkCoords.x + 1, 0, _checkCoords.y));
-        Gizmos.DrawLine(position + new Vector3(_checkCoords.x + 1, 0, _checkCoords.y + 1), position + new Vector3(_checkCoords.x + 1, 0, _checkCoords.y));
-        Gizmos.DrawLine(position + new Vector3(_checkCoords.x + 1, 0, _checkCoords.y + 1), position + new Vector3(_checkCoords.x, 0, _checkCoords.y + 1));
+        Gizmos.DrawLine(position + new Vector3(_checkCoords.x, 0, _checkCoords.z), position + new Vector3(_checkCoords.x, 0, _checkCoords.z + 1));
+        Gizmos.DrawLine(position + new Vector3(_checkCoords.x, 0, _checkCoords.z), position + new Vector3(_checkCoords.x + 1, 0, _checkCoords.z));
+        Gizmos.DrawLine(position + new Vector3(_checkCoords.x + 1, 0, _checkCoords.z + 1), position + new Vector3(_checkCoords.x + 1, 0, _checkCoords.z));
+        Gizmos.DrawLine(position + new Vector3(_checkCoords.x + 1, 0, _checkCoords.z + 1), position + new Vector3(_checkCoords.x, 0, _checkCoords.z + 1));
 
     }
 }

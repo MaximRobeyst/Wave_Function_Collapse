@@ -10,7 +10,13 @@ public class Socket
 {
     public string Name;
 
+    public bool Flipped;
     public bool Symetrical;
+
+    public override string ToString()
+    {
+        return Name + (Flipped ? "F" : "");
+    }
 }
 
 enum SocketDirection
@@ -69,18 +75,18 @@ public class Module : MonoBehaviour
 #if UNITY_EDITOR
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.magenta;
-        Handles.Label(transform.position + -transform.right * 0.5f, _sockets[(int)SocketDirection.Left].Name, style);
+        Handles.Label(transform.position + -transform.right * 0.5f, _sockets[(int)SocketDirection.Left].ToString(), style);
         style.normal.textColor = Color.green;
-        Handles.Label(transform.position + transform.forward * 0.5f, _sockets[(int)SocketDirection.Forward].Name, style);
+        Handles.Label(transform.position + transform.forward * 0.5f, _sockets[(int)SocketDirection.Forward].ToString(), style);
         style.normal.textColor = Color.blue;
-        Handles.Label(transform.position + transform.right * 0.5f, _sockets[(int)SocketDirection.Right].Name, style);
+        Handles.Label(transform.position + transform.right * 0.5f, _sockets[(int)SocketDirection.Right].ToString(), style);
         style.normal.textColor = Color.red;
-        Handles.Label(transform.position + -transform.forward * 0.5f, _sockets[(int)SocketDirection.Backward].Name, style);
+        Handles.Label(transform.position + -transform.forward * 0.5f, _sockets[(int)SocketDirection.Backward].ToString(), style);
 
         if (!_3D && _sockets.Count() >= (int)SocketDirection.Up) return;
 
-        Handles.Label(transform.position + transform.up * 0.5f, _sockets[4].Name);
-        Handles.Label(transform.position + -transform.up * 0.5f, _sockets[5].Name);
+        Handles.Label(transform.position + transform.up * 0.5f, _sockets[4].ToString());
+        Handles.Label(transform.position + -transform.up * 0.5f, _sockets[5].ToString());
 #endif
     }
 

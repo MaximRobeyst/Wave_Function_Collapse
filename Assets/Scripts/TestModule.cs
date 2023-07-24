@@ -15,7 +15,11 @@ public class TestModule : MonoBehaviour
     {
         if (_instances.Count > 0)
         {
-            foreach (Module module in _instances) DestroyImmediate(module.gameObject);
+            foreach (Module module in _instances)
+            {
+                if (module == null) continue;
+                DestroyImmediate(module.gameObject);
+            }
             _instances.Clear();
         }
     }

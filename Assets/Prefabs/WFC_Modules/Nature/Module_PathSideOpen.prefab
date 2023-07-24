@@ -48,21 +48,27 @@ MonoBehaviour:
   _3D: 1
   Left:
     Name: PS
+    Flipped: 0
     Symetrical: 0
   Forward:
     Name: PF
+    Flipped: 0
     Symetrical: 0
   Right:
     Name: PS
+    Flipped: 0
     Symetrical: 0
   Backward:
     Name: P
+    Flipped: 0
     Symetrical: 0
   Up:
     Name: A
+    Flipped: 0
     Symetrical: 0
   Down:
-    Name: D
+    Name: S
+    Flipped: 0
     Symetrical: 0
 --- !u!1001 &4125898181481270236
 PrefabInstance:
@@ -81,7 +87,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f26799b8f4f0c9c4ab54aa690dee774c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.049999997
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f26799b8f4f0c9c4ab54aa690dee774c, type: 3}
       propertyPath: m_LocalPosition.z

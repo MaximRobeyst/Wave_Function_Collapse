@@ -47,22 +47,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _3D: 1
   Left:
-    Name: PF
+    Name: 4
+    Flipped: 0
     Symetrical: 0
   Forward:
-    Name: PF
+    Name: 4
+    Flipped: 0
     Symetrical: 0
   Right:
-    Name: PF
+    Name: 4
+    Flipped: 0
     Symetrical: 0
   Backward:
-    Name: PF
+    Name: 4
+    Flipped: 0
     Symetrical: 0
   Up:
-    Name: A
+    Name: 0
+    Flipped: 0
     Symetrical: 0
   Down:
-    Name: D
+    Name: S
+    Flipped: 0
     Symetrical: 0
 --- !u!1001 &1899913948872772278
 PrefabInstance:
@@ -81,7 +87,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cb9c48d2cee2423498c6c13157c5dcc4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cb9c48d2cee2423498c6c13157c5dcc4, type: 3}
       propertyPath: m_LocalPosition.z
