@@ -51,6 +51,9 @@ public class MarchingCubes : MonoBehaviour
     [Button]
     private void Clear()
     {
+        ClearInstances();
+        _mesh.Clear();
+
         _vertices.Clear();
     }
 

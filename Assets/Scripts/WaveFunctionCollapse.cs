@@ -68,27 +68,21 @@ class ModuleDescriptor
 
     public string GetLeft()
     {
-        Debug.Log(Module.name + ".GetLeft() Module id: " + (SocketDirection)((int)(SocketDirection.Left + (Rotation)) % 4));
         return Module.Sockets[(int)(SocketDirection.Left + (Rotation)) % 4].ToString();
     }
 
     public string GetForward()
     {
-        Debug.Log(Module.name + ".GetForward() Module id: " + (SocketDirection)((int)(SocketDirection.Forward + (Rotation)) % 4));
-
         return Module.Sockets[(int)(SocketDirection.Forward + (Rotation)) % 4].ToString();
     }
 
     public string GetRight()
     {
-        Debug.Log(Module.name + ".GetRight() Module id: " + (SocketDirection)((int)(SocketDirection.Right + (Rotation)) % 4));
         return Module.Sockets[(int)(SocketDirection.Right + (Rotation)) % 4].ToString();
     }
 
     public string GetBackwards()
     {
-        Debug.Log(Module.name + ".GetBackwards Module id: " + (SocketDirection)((int)(SocketDirection.Backward + (Rotation)) % 4));
-
         return Module.Sockets[(int)(SocketDirection.Backward + (Rotation)) % 4].ToString();
     }
 
@@ -124,32 +118,26 @@ class ModuleDescriptor
 
     public bool FitsLeft(ModuleDescriptor modulePosibilities2)
     {
-        Debug.Log("checking Left Connector " + GetLeft() + " with right  " + modulePosibilities2.GetRight());
         return GetLeft() == modulePosibilities2.GetRight();
     }
     public bool FitsRight(ModuleDescriptor modulePosibilities2)
     {
-        Debug.Log("checking right Connector " + GetRight() + " with left  " + modulePosibilities2.GetLeft());
         return GetRight() == modulePosibilities2.GetLeft();
     }
     public bool FitsForward(ModuleDescriptor modulePosibilities2)
     {
-        Debug.Log("checking forward Connector " + GetForward() + " with backward  " + modulePosibilities2.GetBackwards());
         return GetForward() == modulePosibilities2.GetBackwards();
     }
     public bool FitsBackward(ModuleDescriptor modulePosibilities2)
     {
-        Debug.Log("checking backward Connector " + GetBackwards() + " with forward  " + modulePosibilities2.GetForward());
         return GetBackwards() == modulePosibilities2.GetForward();
     }
     public bool FitsUp(ModuleDescriptor modulePosibilities2)
     {
-        Debug.Log("checking up Connector " + GetUp() + " with down  " + modulePosibilities2.GetDown());
         return GetUp() == modulePosibilities2.GetDown();
     }
     public bool FitsDown(ModuleDescriptor modulePosibilities2)
     {
-        Debug.Log("checking down Connector " + GetDown() + " with up  " + modulePosibilities2.GetUp());
         return GetDown() == modulePosibilities2.GetUp();
     }
 }
@@ -303,7 +291,6 @@ public class WaveFunctionCollapse : MonoBehaviour
 
         if(moduleResult.Modules.Count == 0)
         {
-            Debug.LogError("no modules found");
             return;
         }
         ModuleDescriptor moduleDescriptor = moduleResult.Modules[UnityEngine.Random.Range(0, moduleResult.Modules.Count)];
@@ -330,7 +317,6 @@ public class WaveFunctionCollapse : MonoBehaviour
         {
             var currentCell = changedCells.Pop();
             var neighbors = GetNeighbors(currentCell);
-            Debug.Log("found " + neighbors.Count + " neighbours");
 
             foreach (var neighbor in neighbors)
             {
@@ -401,7 +387,6 @@ public class WaveFunctionCollapse : MonoBehaviour
         int currentTileId = 0;
         int neighbourTileId = 0;
 
-        Debug.Log("Checking neigbors of corods " + modulePosibilities1.Coords);
         foreach(var currentTile in currentPossibleTiles)
         {
             List<ModuleDescriptor> compatibleTiles = new List<ModuleDescriptor>();
@@ -410,14 +395,7 @@ public class WaveFunctionCollapse : MonoBehaviour
             foreach(var neighborTile in otherPosibilityTiles)
             {
                 if (currentTile.FitsDirection(checkDirection, neighborTile))
-                {
-                    Debug.Log("neigbhor tile " + neighbourTileId + " compatible with " + currentTileId);
                     compatibleTiles.Add(neighborTile);
-                }
-                else
-                {
-                    Debug.Log("neigbhor tile " + neighbourTileId + "not compatible with " + currentTileId);
-                }
 
                 neighbourTileId++;
             }
