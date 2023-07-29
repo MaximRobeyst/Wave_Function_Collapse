@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 [Flags]
@@ -278,9 +279,30 @@ public class LookUpTable : MonoBehaviour
         0x0
     };
 
-    public static GameObject GetMesh(MarchingCubeValues index)
+    public static bool HasMesh(MarchingCubeValues index)
     {
-        return MeshTable.Instance.GetMesh(index);
+        return MeshTable.Instance.GetMesh(index) != null;
+    }
+
+    public static GameObject GetMesh(MarchingCubeValues index, Vector3 point)
+    {
+        var meshResult = MeshTable.Instance.GetMesh(index);
+        if (meshResult == null)
+        {
+            Debug.LogError("No Result Given for");
+        }
+        else
+        {
+            Debug.Log("Mesh found for index: " + (int)index);
+        }
+
+        GameObject instance = Instantiate(meshResult.Mesh, point, Quaternion.Euler(0.0f, 90 * meshResult.RotationIndex, 0));
+        instance.transform.localScale = new Vector3(
+            meshResult.FlippedX ? -1.0f : 1.0f,
+            meshResult.FlippedY ? -1.0f : 1.0f,
+            meshResult.FlippedZ ? -1.0f : 1.0f);
+
+        return instance;
     }
 
     public static int[][] triangulation = new int[256][]

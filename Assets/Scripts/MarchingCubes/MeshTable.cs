@@ -8,8 +8,14 @@ public class MarchingCubeMeshes
 {
     [EnumFlags]
     public MarchingCubeValues MarchingCubeValues;
+    public int MarchingCubeValue;
     [ShowAssetPreview(128, 128)]
     public GameObject Mesh;
+
+    public bool FlippedX;
+    public bool FlippedY;
+    public bool FlippedZ;
+    public int RotationIndex;
 }
 
 [CreateAssetMenu(fileName = "MeshLookUpTable", menuName = "MeshLookUpTable")]
@@ -29,15 +35,26 @@ public class MeshTable : ScriptableObject
 
     public List<MarchingCubeMeshes> Values;
 
-    public GameObject GetMesh(MarchingCubeValues description)
+    public MarchingCubeMeshes GetMesh(MarchingCubeValues description)
     {
         foreach(MarchingCubeMeshes cubeMeshes in Values)
         {
             if (cubeMeshes.MarchingCubeValues == description)
-                return cubeMeshes.Mesh;
+                return cubeMeshes;
         }
 
         return null;
+    }
+
+    public bool Contains(MarchingCubeValues description)
+    {
+        foreach(MarchingCubeMeshes cubeMesh in Values)
+        {
+            if (cubeMesh.MarchingCubeValues == description)
+                return true;
+        }
+
+        return false;
     }
 
 }

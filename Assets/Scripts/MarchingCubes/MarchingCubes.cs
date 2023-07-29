@@ -15,6 +15,8 @@ public class MarchingCubes : MonoBehaviour
     private MeshRenderer _meshRenderer;
     private Mesh _mesh;
 
+    [SerializeField] private bool _drawMesh = false;
+
     private List<GameObject> _instances = new List<GameObject>();
 
     public static Vector3[] _corners = new Vector3[8]
@@ -88,6 +90,7 @@ public class MarchingCubes : MonoBehaviour
     {
         foreach (GameObject instance in _instances)
         {
+            if (instance == null) continue;
             DestroyImmediate(instance);
         }
         _instances.Clear();
@@ -126,9 +129,9 @@ public class MarchingCubes : MonoBehaviour
     public static void MarchCube(float[] cubeValues, float surfaceLevel, Vector3 point, List<Vector3> vertices, List<GameObject> instances = null)
     {
         MarchingCubeValues index = (MarchingCubeValues)MarchingCubes.GetLookUpIndex(cubeValues, surfaceLevel);
-        if (LookUpTable.GetMesh(index) != null && instances != null)
+        if (LookUpTable.HasMesh(index) && instances != null)
         {
-            GameObject instance = Instantiate(LookUpTable.GetMesh(index), point + Vector3.one * 0.5f, Quaternion.identity);
+            GameObject instance = LookUpTable.GetMesh(index, point + new Vector3(0.5f, 0.5f, 0.5f));
 
             instances.Add(instance);
             return;
@@ -152,9 +155,9 @@ public class MarchingCubes : MonoBehaviour
     public static void MarchCube(bool[] cubeValues, Vector3 point, List<Vector3> vertices, List<GameObject> instances = null)
     {
         MarchingCubeValues index = (MarchingCubeValues)MarchingCubes.GetLookUpIndex(cubeValues);
-        if (LookUpTable.GetMesh(index) != null && instances != null)
+        if (LookUpTable.HasMesh(index) && instances != null)
         {
-            GameObject instance = Instantiate(LookUpTable.GetMesh(index), point, Quaternion.identity);
+            GameObject instance = LookUpTable.GetMesh(index, point);
 
             instances.Add(instance);
             return;
@@ -249,6 +252,7 @@ public class MarchingCubes : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!_drawMesh) return;
         for(int i =0; i < _vertices.Count; i += 3)
         {
             Gizmos.color = Color.white;

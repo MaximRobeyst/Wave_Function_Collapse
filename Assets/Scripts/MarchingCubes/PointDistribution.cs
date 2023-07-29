@@ -12,6 +12,8 @@ public class PointDistribution : MonoBehaviour
     [SerializeField, Range(0, 1)] private float _surfaceLevel = 0.0f;
     [SerializeField] private Material _material;
 
+    [SerializeField] private bool _debugInverse = false;
+
     private float[] _weights;
 
     public float[] Weights => _weights;
@@ -40,7 +42,8 @@ public class PointDistribution : MonoBehaviour
                     }
                     ++step;
 
-                    if (index > _weights.Length || _weights[index] < _surfaceLevel) continue;
+                    if (_debugInverse && (index > _weights.Length || _weights[index] < _surfaceLevel)) continue;
+                    if (!_debugInverse && (index < _weights.Length || _weights[index] > _surfaceLevel)) continue;
                     Gizmos.color = new Color(_weights[index], _weights[index], _weights[index]);
                     Gizmos.DrawSphere(newPosition, 0.1f);
                 }

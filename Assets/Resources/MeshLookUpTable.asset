@@ -12,34 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1005b5085d55fd94bb8793780e28477b, type: 3}
   m_Name: MeshLookUpTable
   m_EditorClassIdentifier: 
-  Values:
-  - MarchingCubeValues: 1
-    Mesh: {fileID: 7981000218811855713, guid: aadbcb7d942da744f83c445f5b0cd14f, type: 3}
-  - MarchingCubeValues: 3
-    Mesh: {fileID: 4330998903461155570, guid: 8171b8db51f68b94f91a00fed2e29525, type: 3}
-  - MarchingCubeValues: 15
-    Mesh: {fileID: 1418917780895813548, guid: d39f8b020e0c9fa4381923828ba847ae, type: 3}
-  - MarchingCubeValues: 63
-    Mesh: {fileID: 2883851191711223815, guid: 5cf0fdfca4afdc1488f4c02e44ddd2ab, type: 3}
-  - MarchingCubeValues: 191
-    Mesh: {fileID: 8082744511191705159, guid: d674a3a3109e9d24e991cb96ec369f0c, type: 3}
-  - MarchingCubeValues: 95
-    Mesh: {fileID: 5219369803119033898, guid: 372f225b8fb1b0e4ab1c25bbc6012123, type: 3}
-  - MarchingCubeValues: 55
-    Mesh: {fileID: 5722470884384020435, guid: da334f2bd3a355a47ba7d2a18ef503ed, type: 3}
-  - MarchingCubeValues: 11
-    Mesh: {fileID: 5405068318430914308, guid: 657251da8e193f14db667a1fcb6c9423, type: 3}
-  - MarchingCubeValues: 27
-    Mesh: {fileID: 2951968476533479327, guid: 21e27411eed01be4baede52defa5c9c7, type: 3}
-  - MarchingCubeValues: 51
-    Mesh: {fileID: 8140916538133265670, guid: cc61eeafbc7bb0e4d97faea666fd03f9, type: 3}
-  - MarchingCubeValues: 35
-    Mesh: {fileID: 3638105254543142826, guid: 75a80dcf78b576d48a4e75f3b8e62cdd, type: 3}
-  - MarchingCubeValues: 174
-    Mesh: {fileID: 3312789448644369530, guid: c488fc32edad2a54da0743e1a41a5b9c, type: 3}
-  - MarchingCubeValues: 10
-    Mesh: {fileID: 8245524334168736501, guid: 0928e4dafc4a910479b59a1455faa87f, type: 3}
-  - MarchingCubeValues: 170
-    Mesh: {fileID: 7422611652507312130, guid: 5afca7fe5e2d54248a5233e8aeca9fd8, type: 3}
-  - MarchingCubeValues: 34
-    Mesh: {fileID: 5537439238600113143, guid: e2050dc5a5462724c9d70eb127b86478, type: 3}
+  Values: []

@@ -9,6 +9,8 @@ public class CubeTest : MonoBehaviour
     [SerializeField, OnValueChanged(nameof(UpdateCube))] private bool[] _points = new bool[8];
     [SerializeField] private Material _material;
 
+    [ReadOnly, SerializeField] private int _currentIndex;
+
     private List<Vector3> _vertices = new List<Vector3>();
 
     private MeshFilter _meshFilter;
@@ -64,6 +66,7 @@ public class CubeTest : MonoBehaviour
         _mesh.normals = normals.ToArray();
 
         _meshFilter.mesh = _mesh;
+        _currentIndex = MarchingCubes.GetLookUpIndex(_points);
     }
 
     private void OnDrawGizmos()
@@ -75,14 +78,14 @@ public class CubeTest : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        Handles.Label(new Vector3(-0.5f, -0.5f, -0.5f) + new Vector3(0,0.2f,0.0f), "A");
-        Handles.Label(new Vector3(0.5f, -0.5f, -0.5f) + new Vector3(0,0.2f,0.0f), "B");
-        Handles.Label(new Vector3(0.5f, -0.5f, 0.5f) + new Vector3(0,0.2f,0.0f), "C");
-        Handles.Label(new Vector3(-0.5f, -0.5f, 0.5f) + new Vector3(0,0.2f,0.0f), "D");
-        Handles.Label(new Vector3(-0.5f, 0.5f, -0.5f) + new Vector3(0,0.2f,0.0f), "E");
-        Handles.Label(new Vector3(0.5f, 0.5f, -0.5f) + new Vector3(0,0.2f,0.0f), "F");
-        Handles.Label(new Vector3(0.5f, 0.5f, 0.5f) + new Vector3(0,0.2f,0.0f), "G");
-        Handles.Label(new Vector3(-0.5f, 0.5f, 0.5f) + new Vector3(0,0.2f,0.0f), "H");
+        Handles.Label(transform.position + new Vector3(-0.0f, -0.0f, -0.0f) + new Vector3(0,0.2f,0.0f), "A");
+        Handles.Label(transform.position + new Vector3(1.0f, -0.0f, -0.0f) + new Vector3(0,0.2f,0.0f), "B");
+        Handles.Label(transform.position + new Vector3(1.0f, -0.0f, 1.0f) + new Vector3(0,0.2f,0.0f), "C");
+        Handles.Label(transform.position + new Vector3(-0.0f, -0.0f, 1.0f) + new Vector3(0,0.2f,0.0f), "D");
+        Handles.Label(transform.position + new Vector3(-0.0f, 1.0f, -0.0f) + new Vector3(0,0.2f,0.0f), "E");
+        Handles.Label(transform.position + new Vector3(1.0f, 1.0f, -0.0f) + new Vector3(0,0.2f,0.0f), "F");
+        Handles.Label(transform.position + new Vector3(1.0f, 1.0f, 1.0f) + new Vector3(0,0.2f,0.0f), "G");
+        Handles.Label(transform.position + new Vector3(-0.0f, 1.0f, 1.0f) + new Vector3(0,0.2f,0.0f), "H");
 #endif
 
         //for (int i = 0; i < _vertices.Count; i += 3)
