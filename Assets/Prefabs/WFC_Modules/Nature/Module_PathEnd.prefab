@@ -46,30 +46,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _3D: 1
-  Left:
-    Name: 1
+  _bounds: 1
+  SocketLeft:
+    Vertices:
+    - {x: -0.49999997, y: 0}
+    - {x: 0.49999997, y: 0}
+    Name: 4
+    Symmetrical: 1
     Flipped: 0
-    Symetrical: 0
-  Forward:
-    Name: 1
+  SocketForward:
+    Vertices:
+    - {x: -0.49999997, y: 0}
+    - {x: 0.49999997, y: 0}
+    Name: 4
+    Symmetrical: 1
     Flipped: 0
-    Symetrical: 0
-  Right:
-    Name: 1
+  SocketRight:
+    Vertices:
+    - {x: -0.49999997, y: 0}
+    - {x: 0.49999997, y: 0}
+    Name: 4
+    Symmetrical: 1
     Flipped: 0
-    Symetrical: 0
-  Backward:
-    Name: 2
+  SocketBack:
+    Vertices:
+    - {x: 0.27899998, y: 0}
+    - {x: 0.37899998, y: 0}
+    - {x: -0.217, y: -0.049999997}
+    - {x: 0.217, y: -0.049999997}
+    - {x: -0.37899998, y: 0}
+    - {x: -0.27899998, y: 0}
+    - {x: 0.49999997, y: 0}
+    - {x: -0.49999997, y: 0}
+    - {x: -0.27899998, y: 0}
+    - {x: -0.217, y: -0.049999997}
+    - {x: 0.217, y: -0.049999997}
+    - {x: 0.27899998, y: 0}
+    Name: 5
+    Symmetrical: 1
     Flipped: 0
-    Symetrical: 0
   Up:
-    Name: 0
+    Vertices: []
+    Name: 1
+    Symmetrical: 1
     Flipped: 0
-    Symetrical: 0
   Down:
-    Name: S
+    Vertices: []
+    Name: 1
+    Symmetrical: 1
     Flipped: 0
-    Symetrical: 0
 --- !u!1001 &1096355257540741614
 PrefabInstance:
   m_ObjectHideFlags: 0

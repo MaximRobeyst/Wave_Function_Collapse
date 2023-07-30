@@ -13,6 +13,27 @@ public class SocketInfo
 
     public bool Symmetrical;
     public bool Flipped;
+
+    public override string ToString()
+    {
+        string name = Name;
+        if (Symmetrical)
+            name = name + "S";
+        if (Flipped)
+            name = name + "F";
+
+        return name;
+    }
+
+    public bool Fits(SocketInfo info)
+    {
+        if (Name != info.Name)
+            return false;
+
+        if (Symmetrical) return Name == info.Name;
+
+        return (Name == info.Name) && (info.Flipped != Flipped);
+    }
 }
 
 [CreateAssetMenu(fileName = "Socket dictionary", menuName = "Socket Dictionary")]
@@ -58,23 +79,23 @@ public class SocketDictionary : ScriptableObject
         return SocketInfo.Count.ToString();
     }
 
-    //public SocketInfo FindSocket(Vector2[] vertices)
-    //{
-    //    foreach( var socket in SocketInfo)
-    //    {
-    //        if (AreVerticesTheSame(vertices, socket.Vertices))
-    //            return socket;
-    //    }
-    //
-    //    return null;
-    //}
+    public SocketInfo FindSocket(Vector2[] vertices)
+    {
+        foreach( var socket in SocketInfo)
+        {
+            if (AreVerticesTheSame(vertices, socket.Vertices))
+                return socket;
+        }
+    
+        return null;
+    }
 
     public Vector2[] GetVerticesForSocket(string name)
     {
         return SocketInfo.Where(socket => (socket.Name == name)).First().Vertices;
     }
 
-    public static List<Vector2> FlipVertices(List<Vector2> list, bool flipX, bool flipZ)
+    public static List<Vector2> FlipVertices(List<Vector2> list, bool flipX)
     {
         List<Vector2> flippedVertices = new();
         foreach (Vector2 point in list)
@@ -88,19 +109,21 @@ public class SocketDictionary : ScriptableObject
         return flippedVertices;
     }
 
-    public static bool AreVerticesTheSame(List<Vector3> list1, List<Vector3> list2)
+    public static bool AreVerticesTheSame(List<Vector2> list1, List<Vector2> list2)
     {
         return AreVerticesTheSame(list1.ToArray(), list2.ToArray());
     }
 
-    public static bool AreVerticesTheSame(Vector3[] list1, Vector3[] list2)
+    public static bool AreVerticesTheSame(Vector2[] list1, Vector2[] list2)
     {
-        foreach (Vector3 ist1Vector in list1)
+        if (list1.Length != list2.Length) return false;
+
+        foreach (Vector2 ist1Vector in list1)
         {
             bool containsList1Vector = false;
-            foreach (Vector3 list2vector in list2)
+            foreach (Vector2 list2vector in list2)
             {
-                if (Vector3.Distance(ist1Vector, list2vector) < 0.001f)
+                if (Vector2.Distance(ist1Vector, list2vector) < 0.001f)
                 {
                     containsList1Vector = true;
                     break;

@@ -158,6 +158,7 @@ MonoBehaviour:
   _step: 0
   _material: {fileID: 2100000, guid: 441aae5b02cd5fc4c8b3335260efe0d4, type: 2}
   _drawMesh: 1
+  _useMeshes: 0
 --- !u!114 &514377080
 MonoBehaviour:
   m_ObjectHideFlags: 0

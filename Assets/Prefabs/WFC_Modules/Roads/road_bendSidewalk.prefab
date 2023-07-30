@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &466548632148049651
+--- !u!1 &150603570720067800
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,68 +8,74 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 950913931769062473}
-  - component: {fileID: 607385898050353922}
+  - component: {fileID: 5559042273652861378}
+  - component: {fileID: 1635157783658825545}
   m_Layer: 0
-  m_Name: road_bend_0
+  m_Name: road_bendSidewalk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &950913931769062473
+--- !u!4 &5559042273652861378
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 466548632148049651}
+  m_GameObject: {fileID: 150603570720067800}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8629473267512827733}
+  - {fileID: 6098082193546623261}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &607385898050353922
+--- !u!114 &1635157783658825545
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 466548632148049651}
+  m_GameObject: {fileID: 150603570720067800}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b24432d92df5ad4e8b13516158b9ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _3D: 1
+  _3D: 0
   _bounds: 1
   SocketLeft:
     Vertices:
-    - {x: 0.49999997, y: 0}
-    - {x: 0.49999997, y: 0.02}
-    - {x: 0.49999997, y: 0.02}
-    - {x: 0.49999997, y: 0}
+    - {x: -0.49999997, y: 0.02}
+    - {x: -0.49999997, y: 0}
     - {x: 0.49999997, y: 0.02}
     - {x: 0.49999997, y: 0}
-    Name: 15
-    Symmetrical: 0
+    - {x: 0.49999997, y: 0.02}
+    - {x: -0.49999997, y: 0.02}
+    - {x: -0.49999997, y: 0}
+    - {x: 0.49999997, y: 0}
+    - {x: -0.49999997, y: 0}
+    - {x: -0.49999997, y: 0.02}
+    - {x: 0.49999997, y: 0.02}
+    - {x: 0.49999997, y: 0}
+    Name: 2
+    Symmetrical: 1
     Flipped: 0
   SocketForward:
     Vertices:
     - {x: 0.39999998, y: 0.009999998}
     - {x: 0.39999998, y: 0.02}
-    - {x: 0.49999997, y: 0}
+    - {x: -0.49999997, y: 0.02}
+    - {x: -0.39999998, y: 0.02}
     - {x: -0.49999997, y: 0}
+    - {x: 0.49999997, y: 0}
     - {x: -0.39999998, y: 0.009999998}
     - {x: -0.39999998, y: 0.02}
     - {x: 0.49999997, y: 0.02}
     - {x: 0.39999998, y: 0.02}
-    - {x: -0.49999997, y: 0.02}
-    - {x: -0.39999998, y: 0.02}
     - {x: -0.49999997, y: 0}
     - {x: -0.49999997, y: 0.02}
     - {x: 0.49999997, y: 0.02}
@@ -92,21 +98,21 @@ MonoBehaviour:
     - {x: -0.009999998, y: 0.009999998}
     - {x: -0.39999998, y: 0.009999998}
     - {x: 0.39999998, y: 0.009999998}
-    Name: 16
+    Name: 3
     Symmetrical: 1
     Flipped: 0
   SocketRight:
     Vertices:
     - {x: 0.39999998, y: 0.009999998}
     - {x: 0.39999998, y: 0.02}
-    - {x: 0.49999997, y: 0}
+    - {x: -0.49999997, y: 0.02}
+    - {x: -0.39999998, y: 0.02}
     - {x: -0.49999997, y: 0}
+    - {x: 0.49999997, y: 0}
     - {x: -0.39999998, y: 0.009999998}
     - {x: -0.39999998, y: 0.02}
     - {x: 0.49999997, y: 0.02}
     - {x: 0.39999998, y: 0.02}
-    - {x: -0.49999997, y: 0.02}
-    - {x: -0.39999998, y: 0.02}
     - {x: -0.49999997, y: 0}
     - {x: -0.49999997, y: 0.02}
     - {x: 0.49999997, y: 0.02}
@@ -129,19 +135,25 @@ MonoBehaviour:
     - {x: -0.009999998, y: 0.009999998}
     - {x: -0.39999998, y: 0.009999998}
     - {x: 0.39999998, y: 0.009999998}
-    Name: 16
+    Name: 3
     Symmetrical: 1
     Flipped: 0
   SocketBack:
     Vertices:
-    - {x: 0.49999997, y: 0}
-    - {x: 0.49999997, y: 0.02}
-    - {x: 0.49999997, y: 0.02}
-    - {x: 0.49999997, y: 0}
+    - {x: -0.49999997, y: 0.02}
+    - {x: -0.49999997, y: 0}
     - {x: 0.49999997, y: 0.02}
     - {x: 0.49999997, y: 0}
-    Name: 15
-    Symmetrical: 0
+    - {x: 0.49999997, y: 0.02}
+    - {x: -0.49999997, y: 0.02}
+    - {x: -0.49999997, y: 0}
+    - {x: 0.49999997, y: 0}
+    - {x: -0.49999997, y: 0}
+    - {x: -0.49999997, y: 0.02}
+    - {x: 0.49999997, y: 0.02}
+    - {x: 0.49999997, y: 0}
+    Name: 2
+    Symmetrical: 1
     Flipped: 0
   Up:
     Vertices: []
@@ -153,89 +165,65 @@ MonoBehaviour:
     Name: 1
     Symmetrical: 1
     Flipped: 0
---- !u!1 &8124941213739791360
-GameObject:
+--- !u!1001 &5992606718046396150
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8629473267512827733}
-  - component: {fileID: 1121038899049853475}
-  - component: {fileID: 2587428150193179094}
-  m_Layer: 0
-  m_Name: road_bend_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8629473267512827733
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5559042273652861378}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+      propertyPath: m_Name
+      value: road_bendSidewalk
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+--- !u!4 &6098082193546623261 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 38565178bb5bb004fb5fdeea2b24a754, type: 3}
+  m_PrefabInstance: {fileID: 5992606718046396150}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8124941213739791360}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 950913931769062473}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1121038899049853475
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8124941213739791360}
-  m_Mesh: {fileID: 8439104543645927819, guid: 01631127d9d48bd42bda27777b522255, type: 3}
---- !u!23 &2587428150193179094
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8124941213739791360}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: -8851711989615107646, guid: 01631127d9d48bd42bda27777b522255, type: 3}
-  - {fileID: 454191482458552811, guid: 01631127d9d48bd42bda27777b522255, type: 3}
-  - {fileID: 4779213091792845149, guid: 01631127d9d48bd42bda27777b522255, type: 3}
-  - {fileID: -8085240283421722666, guid: 01631127d9d48bd42bda27777b522255, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}

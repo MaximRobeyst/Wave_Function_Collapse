@@ -45,7 +45,7 @@ class ModuleDescriptor
         }
     }
 
-    public string GetSlot(SocketDirection direction)
+    public SocketInfo GetSlot(SocketDirection direction)
     {
         switch(direction)
         {
@@ -62,38 +62,38 @@ class ModuleDescriptor
             case SocketDirection.Down:
                 return GetDown();
             default:
-                return "";
+                return null;
         }
     }
 
-    public string GetLeft()
+    public SocketInfo GetLeft()
     {
-        return Module.Sockets[(int)(SocketDirection.Left + (Rotation)) % 4].ToString();
+        return Module.Sockets[(int)(SocketDirection.Left + (Rotation)) % 4];
     }
 
-    public string GetForward()
+    public SocketInfo GetForward()
     {
-        return Module.Sockets[(int)(SocketDirection.Forward + (Rotation)) % 4].ToString();
+        return Module.Sockets[(int)(SocketDirection.Forward + (Rotation)) % 4];
     }
 
-    public string GetRight()
+    public SocketInfo GetRight()
     {
-        return Module.Sockets[(int)(SocketDirection.Right + (Rotation)) % 4].ToString();
+        return Module.Sockets[(int)(SocketDirection.Right + (Rotation)) % 4];
     }
 
-    public string GetBackwards()
+    public SocketInfo GetBackwards()
     {
-        return Module.Sockets[(int)(SocketDirection.Backward + (Rotation)) % 4].ToString();
+        return Module.Sockets[(int)(SocketDirection.Backward + (Rotation)) % 4];
     }
 
-    public string GetUp()
+    public SocketInfo GetUp()
     {
-        return Module.Sockets[(int)SocketDirection.Up].ToString();
+        return Module.Sockets[(int)SocketDirection.Up];
     }
 
-    public string GetDown()
+    public SocketInfo GetDown()
     {
-        return Module.Sockets[(int)SocketDirection.Down].ToString();
+        return Module.Sockets[(int)SocketDirection.Down];
     }
 
     public bool FitsDirection(SocketDirection direction, ModuleDescriptor moduleDescriptor)
@@ -118,27 +118,27 @@ class ModuleDescriptor
 
     public bool FitsLeft(ModuleDescriptor modulePosibilities2)
     {
-        return GetLeft() == modulePosibilities2.GetRight();
+        return GetLeft().Fits(modulePosibilities2.GetRight());
     }
     public bool FitsRight(ModuleDescriptor modulePosibilities2)
     {
-        return GetRight() == modulePosibilities2.GetLeft();
+        return GetRight().Fits(modulePosibilities2.GetLeft());
     }
     public bool FitsForward(ModuleDescriptor modulePosibilities2)
     {
-        return GetForward() == modulePosibilities2.GetBackwards();
+        return GetForward().Fits(modulePosibilities2.GetBackwards());
     }
     public bool FitsBackward(ModuleDescriptor modulePosibilities2)
     {
-        return GetBackwards() == modulePosibilities2.GetForward();
+        return GetBackwards().Fits(modulePosibilities2.GetForward());
     }
     public bool FitsUp(ModuleDescriptor modulePosibilities2)
     {
-        return GetUp() == modulePosibilities2.GetDown();
+        return GetUp().Fits(modulePosibilities2.GetDown());
     }
     public bool FitsDown(ModuleDescriptor modulePosibilities2)
     {
-        return GetDown() == modulePosibilities2.GetUp();
+        return GetDown().Fits(modulePosibilities2.GetUp());
     }
 }
 enum State

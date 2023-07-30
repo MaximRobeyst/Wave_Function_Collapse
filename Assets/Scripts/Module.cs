@@ -34,22 +34,18 @@ enum SocketDirection
 public class Module : MonoBehaviour
 {
     [SerializeField] private bool _3D;
+    [SerializeField] private float _bounds = 1.0f;
 
-    private Socket[] _sockets;
-
-    [SerializeField, OnValueChanged(nameof(SetupSockets))]Socket Left;
-    [SerializeField, OnValueChanged(nameof(SetupSockets))]Socket Forward;
-    [SerializeField, OnValueChanged(nameof(SetupSockets))]Socket Right;
-    [SerializeField, OnValueChanged(nameof(SetupSockets))]Socket Backward;
-    [SerializeField, OnValueChanged(nameof(SetupSockets)), ShowIf(nameof(_3D))]Socket Up;
-    [SerializeField, OnValueChanged(nameof(SetupSockets)), ShowIf(nameof(_3D))] Socket Down;
+    private SocketInfo[] _sockets;
 
     [SerializeField] SocketInfo SocketLeft;
     [SerializeField] SocketInfo SocketForward;
     [SerializeField] SocketInfo SocketRight;
     [SerializeField] SocketInfo SocketBack;
+    [SerializeField, OnValueChanged(nameof(SetupSockets)), ShowIf(nameof(_3D))] SocketInfo Up;
+    [SerializeField, OnValueChanged(nameof(SetupSockets)), ShowIf(nameof(_3D))] SocketInfo Down;
 
-    public Socket[] Sockets 
+    public SocketInfo[] Sockets 
     { 
         get
         {
@@ -70,66 +66,105 @@ public class Module : MonoBehaviour
         List<Vector2> forward = new();
         List<Vector2> back = new();
 
-        //Mesh mesh = meshFilter.sharedMesh;
-        //foreach (Vector3 vertex in mesh.vertices)
-        //{
-        //    if(vertex.x <= mesh.bounds.min.x + 0.001f)
-        //        left.Add(vertex.z);
-        //    if (vertex.z <= mesh.bounds.min.z + 0.001f)
-        //        back.Add(vertex.x);
-        //
-        //    if (vertex.x >= mesh.bounds.max.x - 0.001f)
-        //        right.Add(vertex.z);
-        //    if (vertex.z >= mesh.bounds.max.z - 0.001f)
-        //        forward.Add(vertex.x);
-        //
-        //}
-        //
-        //SocketLeft = SetupHorizontalSocketX(left);
-        //SocketDictionary.Instance.AddSocket(SocketLeft);
-        //SocketBack = SetupHorizontalSocketZ(back);
-        //SocketDictionary.Instance.AddSocket(SocketBack);
-        //
-        //SocketRight = SetupHorizontalSocketX(right);
-        //SocketDictionary.Instance.AddSocket(SocketRight);
-        //SocketForward = SetupHorizontalSocketZ(forward);
-        //SocketDictionary.Instance.AddSocket(SocketForward);
+        Mesh mesh = meshFilter.sharedMesh;
+
+        float minBounds = -_bounds / 2.0f;
+        float maxBounds = _bounds / 2.0f;
+
+        foreach (Vector3 vertex in mesh.vertices)
+        {
+            if (vertex.x <= minBounds + 0.001f)
+                left.Add(new Vector2(vertex.z, vertex.y));
+            if (vertex.z <= minBounds + 0.001f)
+                back.Add(new Vector2(vertex.x, vertex.y));
+            if (vertex.y <= minBounds + 0.001f)
+                down.Add(new Vector2(vertex.x, vertex.z));
+
+            if (vertex.x >= maxBounds - 0.001f)
+                right.Add(new Vector2(vertex.z, vertex.y));
+            if (vertex.z >= maxBounds - 0.001f)
+                forward.Add(new Vector2(vertex.x, vertex.y));
+            if (vertex.y >= maxBounds - 0.001f)
+                up.Add(new Vector2(vertex.x, vertex.z));
+
+        }
+        
+        SocketLeft = SetupHorizontalSocket(left);
+        SocketDictionary.Instance.AddSocket(SocketLeft);
+        SocketBack = SetupHorizontalSocket(back);
+        SocketDictionary.Instance.AddSocket(SocketBack);
+        
+        SocketRight = SetupHorizontalSocket(right);
+        SocketDictionary.Instance.AddSocket(SocketRight);
+        SocketForward = SetupHorizontalSocket(forward);
+        SocketDictionary.Instance.AddSocket(SocketForward);
+
+        Up = SetupVerticalSocket(up);
+        SocketDictionary.Instance.AddSocket(Up);
+
+        Down = SetupVerticalSocket(down);
+        SocketDictionary.Instance.AddSocket(Down);
+
+        SetupSockets();
     }
 
-    //SocketInfo SetupHorizontalSocketX(List<float> left)
-    //{
-    //    SocketInfo socketInfo = SocketDictionary.Instance.FindSocket(left.ToArray());
-    //    if (socketInfo != null)
-    //        return socketInfo;
-    //    socketInfo = SocketDictionary.Instance.FindSocket(SocketDictionary.FlipVertices(left, true, false).ToArray());
-    //    if(socketInfo != null)
-    //    {
-    //        socketInfo.Flipped = true;
-    //
-    //        return socketInfo;
-    //    }
-    //
-    //
-    //    socketInfo = new SocketInfo();
-    //    socketInfo.Name = SocketDictionary.Instance.GetNextSocketName();
-    //    socketInfo.Vertices = left.ToArray();
-    //
-    //    List<Vector3> flippedVertices = SocketDictionary.FlipVertices(left, false, true);
-    //
-    //    if (SocketDictionary.AreVerticesTheSame(left, flippedVertices))
-    //        socketInfo.Symmetrical = true;
-    //
-    //    return socketInfo;
-    //}
+    SocketInfo SetupHorizontalSocket(List<Vector2> list)
+    {
+        SocketInfo socketInfo = SocketDictionary.Instance.FindSocket(list.ToArray());
+        if (socketInfo != null)
+            return socketInfo;
+
+        List<Vector2> flippedVertices = SocketDictionary.FlipVertices(list, true);
+        socketInfo = SocketDictionary.Instance.FindSocket(flippedVertices.ToArray());
+        if(socketInfo != null)
+        {
+            SocketInfo flippedSocket = new SocketInfo();
+            flippedSocket.Vertices = flippedVertices.ToArray();
+            flippedSocket.Name = socketInfo.Name;
+
+            flippedSocket.Symmetrical = false;
+            flippedSocket.Flipped = true;
+
+            SocketDictionary.Instance.AddSocket(flippedSocket);
+
+            return flippedSocket;
+        }
+    
+    
+        socketInfo = new SocketInfo();
+        socketInfo.Name = SocketDictionary.Instance.GetNextSocketName();
+        socketInfo.Vertices = list.ToArray();
+    
+        if (SocketDictionary.AreVerticesTheSame(list, flippedVertices))
+            socketInfo.Symmetrical = true;
+    
+        return socketInfo;
+    }
+
+    SocketInfo SetupVerticalSocket(List<Vector2> list)
+    {
+        SocketInfo socketInfo = SocketDictionary.Instance.FindSocket(list.ToArray());
+        if (socketInfo != null)
+            return socketInfo;
+
+        socketInfo = new SocketInfo();
+        socketInfo.Name = SocketDictionary.Instance.GetNextSocketName();
+        socketInfo.Vertices = list.ToArray();
+
+        //if (SocketDictionary.AreVerticesTheSame(left, flippedVertices))
+        //    socketInfo.Symmetrical = true;
+
+        return socketInfo;
+    }
 
     public void SetupSockets()
     {
-        if(_sockets == null || _sockets.Length < (_3D ? 6 : 4) ) _sockets = new Socket[_3D ? 6 : 4];
+        if(_sockets == null || _sockets.Length < (_3D ? 6 : 4) ) _sockets = new SocketInfo[_3D ? 6 : 4];
 
-        _sockets[(int)SocketDirection.Left] = Left;
-        _sockets[(int)SocketDirection.Forward] = Forward;
-        _sockets[(int)SocketDirection.Right] = Right;
-        _sockets[(int)SocketDirection.Backward] = Backward;
+        _sockets[(int)SocketDirection.Left] = SocketLeft;
+        _sockets[(int)SocketDirection.Forward] = SocketForward;
+        _sockets[(int)SocketDirection.Right] = SocketRight;
+        _sockets[(int)SocketDirection.Backward] = SocketBack;
 
         if (!_3D) return;
         _sockets[(int)SocketDirection.Up] = Up;
@@ -140,7 +175,7 @@ public class Module : MonoBehaviour
     {
         if (_sockets == null || _sockets.Length < (_3D ? 6 : 4)) SetupSockets();
         if (_3D) 
-            DebugGizmos.DrawCube(transform.position, 1.0f, 1.0f, 1.0f, Color.white);
+            DebugGizmos.DrawCube(transform.position, _bounds, _bounds, _bounds, Color.white);
 
 #if UNITY_EDITOR
         GUIStyle style = new GUIStyle();

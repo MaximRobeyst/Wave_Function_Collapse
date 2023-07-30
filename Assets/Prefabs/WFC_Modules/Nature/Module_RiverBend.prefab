@@ -46,24 +46,65 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _3D: 1
-  Left:
-    Name: G
-    Symetrical: 0
-  Forward:
-    Name: G
-    Symetrical: 0
-  Right:
-    Name: R
-    Symetrical: 0
-  Backward:
-    Name: R
-    Symetrical: 0
+  _bounds: 1
+  SocketLeft:
+    Vertices:
+    - {x: -0.49999997, y: 0}
+    - {x: 0.49999997, y: 0}
+    Name: 4
+    Symmetrical: 1
+    Flipped: 0
+  SocketForward:
+    Vertices:
+    - {x: -0.49999997, y: 0}
+    - {x: 0.49999997, y: 0}
+    Name: 4
+    Symmetrical: 1
+    Flipped: 0
+  SocketRight:
+    Vertices:
+    - {x: 0.27899998, y: 0}
+    - {x: 0.37899998, y: 0}
+    - {x: -0.217, y: -0.049999997}
+    - {x: 0.217, y: -0.049999997}
+    - {x: -0.37899998, y: 0}
+    - {x: -0.27899998, y: 0}
+    - {x: 0.49999997, y: 0}
+    - {x: -0.49999997, y: 0}
+    - {x: -0.27899998, y: 0}
+    - {x: -0.217, y: -0.049999997}
+    - {x: 0.217, y: -0.049999997}
+    - {x: 0.27899998, y: 0}
+    Name: 5
+    Symmetrical: 1
+    Flipped: 0
+  SocketBack:
+    Vertices:
+    - {x: 0.27899998, y: 0}
+    - {x: 0.37899998, y: 0}
+    - {x: -0.217, y: -0.049999997}
+    - {x: 0.217, y: -0.049999997}
+    - {x: -0.37899998, y: 0}
+    - {x: -0.27899998, y: 0}
+    - {x: 0.49999997, y: 0}
+    - {x: -0.49999997, y: 0}
+    - {x: -0.27899998, y: 0}
+    - {x: -0.217, y: -0.049999997}
+    - {x: 0.217, y: -0.049999997}
+    - {x: 0.27899998, y: 0}
+    Name: 5
+    Symmetrical: 1
+    Flipped: 0
   Up:
-    Name: A
-    Symetrical: 0
+    Vertices: []
+    Name: 1
+    Symmetrical: 1
+    Flipped: 0
   Down:
-    Name: D
-    Symetrical: 0
+    Vertices: []
+    Name: 1
+    Symmetrical: 1
+    Flipped: 0
 --- !u!1001 &333545659342510263
 PrefabInstance:
   m_ObjectHideFlags: 0
