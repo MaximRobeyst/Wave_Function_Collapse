@@ -16,6 +16,7 @@ public class MarchingCubes : MonoBehaviour
     private Mesh _mesh;
 
     [SerializeField] private bool _drawMesh = false;
+    [SerializeField] private bool _useMeshes = false;
 
     private List<GameObject> _instances = new List<GameObject>();
 
@@ -79,7 +80,7 @@ public class MarchingCubes : MonoBehaviour
                     cubeValues[6] = pointDistribution.Weights[pointDistribution.GetIndex(i + 1, j + 1, k + 1 )];
                     cubeValues[7] = pointDistribution.Weights[pointDistribution.GetIndex(i      , j + 1, k + 1 )];
 
-                    MarchCube(cubeValues, pointDistribution.SurfaceLevel, pointDistribution.GetPosition(i,j,k), _vertices, _instances);
+                    MarchCube(cubeValues, pointDistribution.SurfaceLevel, pointDistribution.GetPosition(i,j,k), _vertices, _instances, _useMeshes);
                 }
             }
         }
@@ -126,10 +127,10 @@ public class MarchingCubes : MonoBehaviour
         }
     }
 
-    public static void MarchCube(float[] cubeValues, float surfaceLevel, Vector3 point, List<Vector3> vertices, List<GameObject> instances = null)
+    public static void MarchCube(float[] cubeValues, float surfaceLevel, Vector3 point, List<Vector3> vertices, List<GameObject> instances = null, bool useCustomMeshes = true)
     {
         MarchingCubeValues index = (MarchingCubeValues)MarchingCubes.GetLookUpIndex(cubeValues, surfaceLevel);
-        if (LookUpTable.HasMesh(index) && instances != null)
+        if (useCustomMeshes && LookUpTable.HasMesh(index) && instances != null)
         {
             GameObject instance = LookUpTable.GetMesh(index, point + new Vector3(0.5f, 0.5f, 0.5f));
 
@@ -152,10 +153,10 @@ public class MarchingCubes : MonoBehaviour
         }
     }
 
-    public static void MarchCube(bool[] cubeValues, Vector3 point, List<Vector3> vertices, List<GameObject> instances = null)
+    public static void MarchCube(bool[] cubeValues, Vector3 point, List<Vector3> vertices, List<GameObject> instances = null, bool useCustomMeshes = true)
     {
         MarchingCubeValues index = (MarchingCubeValues)MarchingCubes.GetLookUpIndex(cubeValues);
-        if (LookUpTable.HasMesh(index) && instances != null)
+        if (useCustomMeshes && LookUpTable.HasMesh(index) && instances != null)
         {
             GameObject instance = LookUpTable.GetMesh(index, point);
 

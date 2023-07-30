@@ -97,15 +97,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _points: 0100000000000000
-  _indices: 01000000080000000400000002000000
+  _indices: 0100000010000000080000008000000004000000400000000200000020000000
   _currentIndex: 1
-  _flip: 0
+  _flip: 1
   _mesh:
     MarchingCubeValues: 1
     MarchingCubeValue: 0
     Mesh: {fileID: 5828905402918574385}
-    FlippedX: 0
     FlippedY: 0
-    FlippedZ: 0
     RotationIndex: 0
   _drawPoints: 1

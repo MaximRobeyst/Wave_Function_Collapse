@@ -298,9 +298,9 @@ public class LookUpTable : MonoBehaviour
 
         GameObject instance = Instantiate(meshResult.Mesh, point, Quaternion.Euler(0.0f, 90 * meshResult.RotationIndex, 0));
         instance.transform.localScale = new Vector3(
-            meshResult.FlippedX ? -1.0f : 1.0f,
+            1.0f,
             meshResult.FlippedY ? -1.0f : 1.0f,
-            meshResult.FlippedZ ? -1.0f : 1.0f);
+            1.0f);
 
         return instance;
     }

@@ -12,9 +12,7 @@ public class MarchingCubeMeshes
     [ShowAssetPreview(128, 128)]
     public GameObject Mesh;
 
-    public bool FlippedX;
     public bool FlippedY;
-    public bool FlippedZ;
     public int RotationIndex;
 }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public class Socket
@@ -43,6 +44,11 @@ public class Module : MonoBehaviour
     [SerializeField, OnValueChanged(nameof(SetupSockets)), ShowIf(nameof(_3D))]Socket Up;
     [SerializeField, OnValueChanged(nameof(SetupSockets)), ShowIf(nameof(_3D))] Socket Down;
 
+    [SerializeField] SocketInfo SocketLeft;
+    [SerializeField] SocketInfo SocketForward;
+    [SerializeField] SocketInfo SocketRight;
+    [SerializeField] SocketInfo SocketBack;
+
     public Socket[] Sockets 
     { 
         get
@@ -51,6 +57,70 @@ public class Module : MonoBehaviour
             return _sockets;
         } 
     }
+
+    [Button]
+    public void AutoSetupSockets()
+    {
+        MeshFilter meshFilter = GetComponentInChildren<MeshFilter>();
+
+        List<Vector2> left = new();
+        List<Vector2> right = new();
+        List<Vector2> down = new();
+        List<Vector2> up = new();
+        List<Vector2> forward = new();
+        List<Vector2> back = new();
+
+        //Mesh mesh = meshFilter.sharedMesh;
+        //foreach (Vector3 vertex in mesh.vertices)
+        //{
+        //    if(vertex.x <= mesh.bounds.min.x + 0.001f)
+        //        left.Add(vertex.z);
+        //    if (vertex.z <= mesh.bounds.min.z + 0.001f)
+        //        back.Add(vertex.x);
+        //
+        //    if (vertex.x >= mesh.bounds.max.x - 0.001f)
+        //        right.Add(vertex.z);
+        //    if (vertex.z >= mesh.bounds.max.z - 0.001f)
+        //        forward.Add(vertex.x);
+        //
+        //}
+        //
+        //SocketLeft = SetupHorizontalSocketX(left);
+        //SocketDictionary.Instance.AddSocket(SocketLeft);
+        //SocketBack = SetupHorizontalSocketZ(back);
+        //SocketDictionary.Instance.AddSocket(SocketBack);
+        //
+        //SocketRight = SetupHorizontalSocketX(right);
+        //SocketDictionary.Instance.AddSocket(SocketRight);
+        //SocketForward = SetupHorizontalSocketZ(forward);
+        //SocketDictionary.Instance.AddSocket(SocketForward);
+    }
+
+    //SocketInfo SetupHorizontalSocketX(List<float> left)
+    //{
+    //    SocketInfo socketInfo = SocketDictionary.Instance.FindSocket(left.ToArray());
+    //    if (socketInfo != null)
+    //        return socketInfo;
+    //    socketInfo = SocketDictionary.Instance.FindSocket(SocketDictionary.FlipVertices(left, true, false).ToArray());
+    //    if(socketInfo != null)
+    //    {
+    //        socketInfo.Flipped = true;
+    //
+    //        return socketInfo;
+    //    }
+    //
+    //
+    //    socketInfo = new SocketInfo();
+    //    socketInfo.Name = SocketDictionary.Instance.GetNextSocketName();
+    //    socketInfo.Vertices = left.ToArray();
+    //
+    //    List<Vector3> flippedVertices = SocketDictionary.FlipVertices(left, false, true);
+    //
+    //    if (SocketDictionary.AreVerticesTheSame(left, flippedVertices))
+    //        socketInfo.Symmetrical = true;
+    //
+    //    return socketInfo;
+    //}
 
     public void SetupSockets()
     {

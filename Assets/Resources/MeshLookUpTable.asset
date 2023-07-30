@@ -12,4 +12,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1005b5085d55fd94bb8793780e28477b, type: 3}
   m_Name: MeshLookUpTable
   m_EditorClassIdentifier: 
-  Values: []
+  Values:
+  - MarchingCubeValues: 1
+    MarchingCubeValue: 1
+    Mesh: {fileID: 5828905402918574385, guid: aadbcb7d942da744f83c445f5b0cd14f, type: 3}
+    FlippedY: 0
+    RotationIndex: 0
+  - MarchingCubeValues: 16
+    MarchingCubeValue: 16
+    Mesh: {fileID: 5828905402918574385, guid: aadbcb7d942da744f83c445f5b0cd14f, type: 3}
+    FlippedY: 1
+    RotationIndex: 0
+  - MarchingCubeValues: 8
+    MarchingCubeValue: 8
+    Mesh: {fileID: 5828905402918574385, guid: aadbcb7d942da744f83c445f5b0cd14f, type: 3}
+    FlippedY: 0
+    RotationIndex: 1
+  - MarchingCubeValues: 128
+    MarchingCubeValue: 128
+    Mesh: {fileID: 5828905402918574385, guid: aadbcb7d942da744f83c445f5b0cd14f, type: 3}
+    FlippedY: 1
+    RotationIndex: 1
+  - MarchingCubeValues: 4
+    MarchingCubeValue: 4
+    Mesh: {fileID: 5828905402918574385, guid: aadbcb7d942da744f83c445f5b0cd14f, type: 3}
+    FlippedY: 0
+    RotationIndex: 2
+  - MarchingCubeValues: 64
+    MarchingCubeValue: 64
+    Mesh: {fileID: 5828905402918574385, guid: aadbcb7d942da744f83c445f5b0cd14f, type: 3}
+    FlippedY: 1
+    RotationIndex: 2
+  - MarchingCubeValues: 2
+    MarchingCubeValue: 2
+    Mesh: {fileID: 5828905402918574385, guid: aadbcb7d942da744f83c445f5b0cd14f, type: 3}
+    FlippedY: 0
+    RotationIndex: 3
+  - MarchingCubeValues: 32
+    MarchingCubeValue: 32
+    Mesh: {fileID: 5828905402918574385, guid: aadbcb7d942da744f83c445f5b0cd14f, type: 3}
+    FlippedY: 1
+    RotationIndex: 3
