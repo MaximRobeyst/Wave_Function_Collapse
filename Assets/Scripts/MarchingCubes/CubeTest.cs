@@ -8,6 +8,7 @@ public class CubeTest : MonoBehaviour
 {
     [SerializeField, OnValueChanged(nameof(UpdateCube))] private bool[] _points = new bool[8];
     [SerializeField] private Material _material;
+    [SerializeField] private bool _useMeshes;
 
     [ReadOnly, SerializeField] private int _currentIndex;
 
@@ -35,7 +36,7 @@ public class CubeTest : MonoBehaviour
         _vertices.Clear();
         SetupMeshes();
 
-        MarchingCubes.MarchCube(_points, transform.position + Vector3.one * 0.5f, _vertices, _instances);
+        MarchingCubes.MarchCube(_points, Vector3.zero, _vertices, _instances, _useMeshes);
 
         _mesh= new Mesh();
         _mesh.name = "Marching Cubes";
@@ -67,6 +68,27 @@ public class CubeTest : MonoBehaviour
 
         _meshFilter.mesh = _mesh;
         _currentIndex = MarchingCubes.GetLookUpIndex(_points);
+    }
+
+    [Button]
+    void FlipX()
+    {
+        _points = MarchingCubeModule.FlipPointsX(_points);
+        UpdateCube();
+    }
+
+    [Button]
+    void FlipY()
+    {
+        _points = MarchingCubeModule.FlipPointsY(_points);
+        UpdateCube();
+    }
+
+    [Button]
+    void FlipZ()
+    {
+        _points = MarchingCubeModule.FlipPointsZ(_points);
+        UpdateCube();
     }
 
     private void OnDrawGizmos()

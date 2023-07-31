@@ -34,20 +34,20 @@ public class MarchingCubeModule : MonoBehaviour
 
             if (_flip)
             {
-                int flippedIndex = MarchingCubes.GetLookUpIndex(FlipPointsX(RotatePoints(i)));
+                //int flippedIndex = MarchingCubes.GetLookUpIndex(FlipPointsX(RotatePoints(i)));
+                //
+                //if (!_indices.Contains(flippedIndex))
+                //    _indices.Add(flippedIndex);
+
+                int flippedIndex = MarchingCubes.GetLookUpIndex(FlipPointsY(RotatePoints(i)));
 
                 if (!_indices.Contains(flippedIndex))
                     _indices.Add(flippedIndex);
 
-                flippedIndex = MarchingCubes.GetLookUpIndex(FlipPointsY(RotatePoints(i)));
-
-                if (!_indices.Contains(flippedIndex))
-                    _indices.Add(flippedIndex);
-
-                flippedIndex = MarchingCubes.GetLookUpIndex(FlipPointsZ(RotatePoints(i)));
-
-                if (!_indices.Contains(flippedIndex))
-                    _indices.Add(flippedIndex);
+                //flippedIndex = MarchingCubes.GetLookUpIndex(FlipPointsZ(RotatePoints(i)));
+                //
+                //if (!_indices.Contains(flippedIndex))
+                //    _indices.Add(flippedIndex);
             }
         }
 
@@ -125,40 +125,89 @@ public class MarchingCubeModule : MonoBehaviour
         return points;
     }
 
-    bool[] FlipPointsX(bool[] oldPoints)
+    public static bool[] RotatePoints(bool[] points, int rotateIndex)
+    {
+        bool[] newPoints = new bool[points.Length];
+
+        for (int i = 0; i < 4; ++i)
+        {
+            newPoints[i] = points[(i + rotateIndex) % 4];
+            newPoints[4 + i] = points[4 + ((i + rotateIndex) % 4)];
+        }
+
+        return newPoints;
+    }
+
+    public static bool[] FlipPointsX(bool[] oldPoints)
+    {
+        bool[] points = new bool[oldPoints.Length];
+
+        //Left
+        points[2] = oldPoints[3];
+        points[1] = oldPoints[0];
+        points[6] = oldPoints[7];
+        points[5] = oldPoints[4];
+
+        //Right
+        points[3] = oldPoints[2];
+        points[0] = oldPoints[1];
+        points[7] = oldPoints[6];
+        points[4] = oldPoints[5];
+
+        return points;
+    }
+
+    public static bool[] FlipPointsY(bool[] oldPoints)
     {
         bool[] points = new bool[oldPoints.Length];
 
         for (int i = 0; i < 4; ++i)
         {
-            points[4 + i] = oldPoints[i % 4];
+            points[4 + i] = oldPoints[i];
             points[i] = oldPoints[4 + i];
         }
 
         return points;
     }
 
-    bool[] FlipPointsY(bool[] oldPoints)
+    public static bool[] FlipPointsZ(bool[] oldPoints)
     {
         bool[] points = new bool[oldPoints.Length];
 
-        for (int i = 0; i < 4; ++i)
-        {
-            points[4 +i] = oldPoints[i % 4];
-            points[i] = oldPoints[4 + i];
-        }
+        //Front
+        points[2] = oldPoints[0];
+        points[3] = oldPoints[1];
+        points[6] = oldPoints[4];
+        points[7] = oldPoints[5];
+
+        //Back
+        points[0] = oldPoints[2];
+        points[1] = oldPoints[3];
+        points[4] = oldPoints[6];
+        points[5] = oldPoints[7];
+
+        ////Front
+        //points[(int)MarchingCubeValues.C_LeftBottomForward  ] = oldPoints[(int)MarchingCubeValues.A_RightBottomBack ];
+        //points[(int)MarchingCubeValues.D_RightBottomForward ] = oldPoints[(int)MarchingCubeValues.B_LeftBottomBack  ];
+        //points[(int)MarchingCubeValues.G_LeftUpForward      ] = oldPoints[(int)MarchingCubeValues.E_RightUpBack     ];
+        //points[(int)MarchingCubeValues.H_RightUpForward     ] = oldPoints[(int)MarchingCubeValues.F_LeftUpBack      ];
+        //
+        ////Back
+        //points[(int)MarchingCubeValues.A_RightBottomBack ] = oldPoints[(int)MarchingCubeValues.C_LeftBottomForward  ];
+        //points[(int)MarchingCubeValues.B_LeftBottomBack  ] = oldPoints[(int)MarchingCubeValues.D_RightBottomForward ];
+        //points[(int)MarchingCubeValues.E_RightUpBack     ] = oldPoints[(int)MarchingCubeValues.G_LeftUpForward      ];
+        //points[(int)MarchingCubeValues.F_LeftUpBack      ] = oldPoints[(int)MarchingCubeValues.H_RightUpForward];
 
         return points;
     }
 
-    bool[] FlipPointsZ(bool[] oldPoints)
+    public static bool[] GetPoints(int index)
     {
-        bool[] points = new bool[oldPoints.Length];
+        bool[] points = new bool[8];
 
-        for (int i = 0; i < 4; ++i)
+        for(int i =0; i < 8; ++i)
         {
-            points[4 + i] = oldPoints[i % 4];
-            points[i] = oldPoints[4 + i];
+            points[i] = (index & (1 << i)) != 0;
         }
 
         return points;

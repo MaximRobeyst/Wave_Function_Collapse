@@ -125,8 +125,6 @@ public class Module : MonoBehaviour
             flippedSocket.Symmetrical = false;
             flippedSocket.Flipped = true;
 
-            SocketDictionary.Instance.AddSocket(flippedSocket);
-
             return flippedSocket;
         }
     
