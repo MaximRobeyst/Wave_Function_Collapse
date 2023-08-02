@@ -2,6 +2,8 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -14,9 +16,7 @@ public class MarchingCubeMeshDescriptor
     public Mesh Mesh;
 
     public int RotationIndex;
-    public bool FlippedX;
-    public bool FlippedY;
-    public bool FlippedZ;
+    public FlipValues Flipped;
 }
 
 public class MarchingCubeExtractor : MonoBehaviour
@@ -60,66 +60,38 @@ public class MarchingCubeExtractor : MonoBehaviour
                     _marchingCubeMeshDescriptor[i].Mesh = cubeMeshDescriptor.Mesh;
 
                     _marchingCubeMeshDescriptor[i].RotationIndex = rotation;
-                    _marchingCubeMeshDescriptor[i].FlippedX = false;
-                    _marchingCubeMeshDescriptor[i].FlippedY = false;
-                    _marchingCubeMeshDescriptor[i].FlippedZ = false;
-
+                    _marchingCubeMeshDescriptor[i].Flipped = FlipValues.None;
                     break;
                 }
 
-                cubeMeshDescriptor = GetDescriptor(MarchingCubes.GetLookUpIndex(MarchingCubeModule.FlipPointsY(MarchingCubeModule.RotatePoints(points, rotation))));
-
-                if(cubeMeshDescriptor != null && _allowYFlipping)
+                for (int flipIndex = 0; flipIndex < (int)FlipValues.All; ++flipIndex)
                 {
-                    foundDuplicate = true;
+                    bool[] result = MarchingCubeModule.RotatePoints(points, rotation);
+                    if ((flipIndex & (int)FlipValues.FlipX) != 0)
+                        result = MarchingCubeModule.FlipPointsX(result);
+                    if ((flipIndex & (int)FlipValues.FlipY) != 0)
+                        result = MarchingCubeModule.FlipPointsY(result);
+                    if ((flipIndex & (int)FlipValues.FlipZ) != 0)
+                        result = MarchingCubeModule.FlipPointsZ(result);
 
-                    _marchingCubeMeshDescriptor[i] = new MarchingCubeMeshDescriptor();
-                    _marchingCubeMeshDescriptor[i].Index = i;
-                    _marchingCubeMeshDescriptor[i].Mesh = cubeMeshDescriptor.Mesh;
+                    cubeMeshDescriptor = GetDescriptor(MarchingCubes.GetLookUpIndex(result));
 
-                    _marchingCubeMeshDescriptor[i].RotationIndex = rotation;
-                    _marchingCubeMeshDescriptor[i].FlippedX = false;
-                    _marchingCubeMeshDescriptor[i].FlippedY = true;
-                    _marchingCubeMeshDescriptor[i].FlippedZ = false;
+                    if (cubeMeshDescriptor != null)
+                    {
+                        foundDuplicate = true;
 
-                    break;
+                        _marchingCubeMeshDescriptor[i] = new MarchingCubeMeshDescriptor();
+                        _marchingCubeMeshDescriptor[i].Index = i;
+                        _marchingCubeMeshDescriptor[i].Mesh = cubeMeshDescriptor.Mesh;
+
+                        _marchingCubeMeshDescriptor[i].RotationIndex = rotation;
+                        _marchingCubeMeshDescriptor[i].Flipped = (FlipValues)flipIndex;
+
+                        break;
+                    }
                 }
-
-                cubeMeshDescriptor = GetDescriptor(MarchingCubes.GetLookUpIndex(MarchingCubeModule.FlipPointsX(MarchingCubeModule.RotatePoints(points, rotation))));
-
-                if (cubeMeshDescriptor != null && _allowXFlipping)
-                {
-                    foundDuplicate = true;
-
-                    _marchingCubeMeshDescriptor[i] = new MarchingCubeMeshDescriptor();
-                    _marchingCubeMeshDescriptor[i].Index = i;
-                    _marchingCubeMeshDescriptor[i].Mesh = cubeMeshDescriptor.Mesh;
-
-                    _marchingCubeMeshDescriptor[i].RotationIndex = rotation;
-                    _marchingCubeMeshDescriptor[i].FlippedX = true;
-                    _marchingCubeMeshDescriptor[i].FlippedY = false;
-                    _marchingCubeMeshDescriptor[i].FlippedZ = false;
-
+                if (foundDuplicate)
                     break;
-                }
-
-                cubeMeshDescriptor = GetDescriptor(MarchingCubes.GetLookUpIndex(MarchingCubeModule.FlipPointsZ(MarchingCubeModule.RotatePoints(points, rotation))));
-
-                if (cubeMeshDescriptor != null && _allowZFlipping)
-                {
-                    foundDuplicate = true;
-
-                    _marchingCubeMeshDescriptor[i] = new MarchingCubeMeshDescriptor();
-                    _marchingCubeMeshDescriptor[i].Index = i;
-                    _marchingCubeMeshDescriptor[i].Mesh = cubeMeshDescriptor.Mesh;
-
-                    _marchingCubeMeshDescriptor[i].RotationIndex = rotation;
-                    _marchingCubeMeshDescriptor[i].FlippedX = false;
-                    _marchingCubeMeshDescriptor[i].FlippedY = false;
-                    _marchingCubeMeshDescriptor[i].FlippedZ = true;
-
-                    break;
-                }
             }
             if (foundDuplicate)
                 continue;
@@ -138,7 +110,7 @@ public class MarchingCubeExtractor : MonoBehaviour
             _marchingCubeMeshDescriptor[i].Mesh = (Mesh)AssetDatabase.LoadAssetAtPath("Assets/Art/MarchingCubeResults/" + ("CubeResult" + i.ToString()) + ".asset", typeof(Mesh));
 
             _marchingCubeMeshDescriptor[i].RotationIndex = 0;
-            _marchingCubeMeshDescriptor[i].FlippedY = false;
+            _marchingCubeMeshDescriptor[i].Flipped = FlipValues.None;
 
             MeshFilter meshFilter = newObject.AddComponent<MeshFilter>();
             meshFilter.mesh = mesh;
@@ -149,6 +121,11 @@ public class MarchingCubeExtractor : MonoBehaviour
 
             _list.Add( newObject );
         }
+    }
+
+    public void CheckTransformations()
+    {
+
     }
 
     public MarchingCubeMeshDescriptor GetDescriptor( int index )

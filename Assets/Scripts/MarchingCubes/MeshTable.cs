@@ -12,7 +12,8 @@ public class MarchingCubeMeshes
     [ShowAssetPreview(128, 128)]
     public GameObject Mesh;
 
-    public bool FlippedY;
+    public FlipValues Flipped;
+
     public int RotationIndex;
 }
 
@@ -55,4 +56,14 @@ public class MeshTable : ScriptableObject
         return false;
     }
 
+
+    [Button]
+    private void CheckForMissingValues()
+    {
+        for(int i =0;i < Mathf.Pow(2, 8); ++i)
+        {
+            if (Values.Find(marchingCubeMesh => marchingCubeMesh.MarchingCubeValue == i) == null)
+                Debug.Log("no mesh found for " + i);
+        }
+    }
 }

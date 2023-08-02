@@ -17,6 +17,15 @@ public enum MarchingCubeValues
     H_RightUpForward = 1 << 7,    //H
 }
 
+public enum FlipValues
+{ 
+    None = 0,
+    All = 7,
+    FlipX = 1 << 0,
+    FlipY = 1 << 1,
+    FlipZ = 1 << 2
+}
+
 public class LookUpTable : MonoBehaviour
 {
     public static int[] edges = new int[256]
@@ -298,9 +307,9 @@ public class LookUpTable : MonoBehaviour
 
         GameObject instance = Instantiate(meshResult.Mesh, point, Quaternion.Euler(0.0f, 90 * meshResult.RotationIndex, 0));
         instance.transform.localScale = new Vector3(
-            1.0f,
-            meshResult.FlippedY ? -1.0f : 1.0f,
-            1.0f);
+            (meshResult.Flipped & FlipValues.FlipX) != 0 ? -1.0f : 1.0f,
+            (meshResult.Flipped & FlipValues.FlipY) != 0 ? -1.0f : 1.0f,
+            (meshResult.Flipped & FlipValues.FlipZ) != 0 ? -1.0f : 1.0f);
 
         return instance;
     }

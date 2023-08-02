@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MarchingCubeModule : MonoBehaviour
 {
@@ -11,7 +12,10 @@ public class MarchingCubeModule : MonoBehaviour
     [ReadOnly, SerializeField] private List<int> _indices = new();
     [ReadOnly, SerializeField] private int _currentIndex;
 
-    [SerializeField] private bool _flip;
+    [SerializeField] private bool _flipX = true;
+    [SerializeField] private bool _flipY = true;
+    [SerializeField] private bool _flipZ = true;
+    [SerializeField] private GameObject _prefab;
     [SerializeField] private MarchingCubeMeshes _mesh;
 
     [SerializeField, OnValueChanged(nameof(ChangeDrawInfo))] private bool _drawPoints = true;
@@ -32,22 +36,20 @@ public class MarchingCubeModule : MonoBehaviour
             if(!_indices.Contains(index))
                 _indices.Add(index);
 
-            if (_flip)
+            for (int flipIndex = 0; flipIndex < (int)FlipValues.All; ++flipIndex)
             {
-                //int flippedIndex = MarchingCubes.GetLookUpIndex(FlipPointsX(RotatePoints(i)));
-                //
-                //if (!_indices.Contains(flippedIndex))
-                //    _indices.Add(flippedIndex);
+                bool[] result = RotatePoints(i);
+                if ((flipIndex & (int)FlipValues.FlipX) != 0)
+                    result = FlipPointsX(result);
+                if ((flipIndex & (int)FlipValues.FlipY) != 0)
+                    result = FlipPointsY(result);
+                if ((flipIndex & (int)FlipValues.FlipZ) != 0)
+                    result = FlipPointsZ(result);
 
-                int flippedIndex = MarchingCubes.GetLookUpIndex(FlipPointsY(RotatePoints(i)));
+                int flippedIndex = MarchingCubes.GetLookUpIndex(result);
 
                 if (!_indices.Contains(flippedIndex))
                     _indices.Add(flippedIndex);
-
-                //flippedIndex = MarchingCubes.GetLookUpIndex(FlipPointsZ(RotatePoints(i)));
-                //
-                //if (!_indices.Contains(flippedIndex))
-                //    _indices.Add(flippedIndex);
             }
         }
 
@@ -66,14 +68,15 @@ public class MarchingCubeModule : MonoBehaviour
         {
             int index = MarchingCubes.GetLookUpIndex(RotatePoints(i));
 
+
             if (!_indices.Contains(index))
                 _indices.Add(index);
 
             MarchingCubeMeshes marchingCubeMeshes = new();
             marchingCubeMeshes.MarchingCubeValues = (MarchingCubeValues)index;
             marchingCubeMeshes.MarchingCubeValue = index;
-            marchingCubeMeshes.Mesh = _mesh.Mesh;
-            marchingCubeMeshes.FlippedY = false;
+            marchingCubeMeshes.Mesh = _prefab;
+            marchingCubeMeshes.Flipped = FlipValues.None;
             marchingCubeMeshes.RotationIndex = i;
 
             if (MeshTable.Instance.Contains((MarchingCubeValues)index))
@@ -83,26 +86,35 @@ public class MarchingCubeModule : MonoBehaviour
 
             MeshTable.Instance.Values.Add(marchingCubeMeshes);
 
-            if (_flip)
+
+            for (int flipIndex = 0; flipIndex < (int)FlipValues.All; ++flipIndex)
             {
-                int flippedIndex = MarchingCubes.GetLookUpIndex(FlipPointsY(RotatePoints(i)));
+                bool[] result = RotatePoints(i);
+                if ((flipIndex & (int)FlipValues.FlipX) != 0)
+                    result = FlipPointsX(result);
+                if ((flipIndex & (int)FlipValues.FlipY) != 0)
+                    result = FlipPointsY(result);
+                if ((flipIndex & (int)FlipValues.FlipZ) != 0)
+                    result = FlipPointsZ(result);
+
+                int flippedIndex = MarchingCubes.GetLookUpIndex(result);
 
                 if (!_indices.Contains(flippedIndex))
                     _indices.Add(flippedIndex);
 
-                MarchingCubeMeshes flippedMarchingCubeMesh = new();
-                flippedMarchingCubeMesh.MarchingCubeValues = (MarchingCubeValues)flippedIndex;
-                flippedMarchingCubeMesh.MarchingCubeValue = flippedIndex;
-                flippedMarchingCubeMesh.Mesh = _mesh.Mesh;
-                flippedMarchingCubeMesh.FlippedY = true;
-                flippedMarchingCubeMesh.RotationIndex = i;
+                MarchingCubeMeshes flippedMarchingCubeMeshes = new();
+                flippedMarchingCubeMeshes.MarchingCubeValues = (MarchingCubeValues)flippedIndex;
+                flippedMarchingCubeMeshes.MarchingCubeValue = flippedIndex;
+                flippedMarchingCubeMeshes.Mesh = _prefab;
+                flippedMarchingCubeMeshes.Flipped = (FlipValues)flipIndex;
+                flippedMarchingCubeMeshes.RotationIndex = i;
 
                 if (MeshTable.Instance.Contains((MarchingCubeValues)flippedIndex))
                 {
                     MeshTable.Instance.Values.Remove(MeshTable.Instance.GetMesh((MarchingCubeValues)flippedIndex));
                 }
 
-                MeshTable.Instance.Values.Add(flippedMarchingCubeMesh);
+                MeshTable.Instance.Values.Add(flippedMarchingCubeMeshes);
             }
         }
     }
