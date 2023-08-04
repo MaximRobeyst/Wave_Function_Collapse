@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _points: 0101010001000100
-  _indices: 57000000ab00000075000000ba0000005d000000ae000000d5000000ea000000
+  _indices: 57000000ab00000075000000ba000000ae0000005d000000ea000000d5000000
   _currentIndex: 87
   _flipX: 1
   _flipY: 1

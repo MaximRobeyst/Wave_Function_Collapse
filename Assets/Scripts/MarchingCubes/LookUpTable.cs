@@ -306,11 +306,15 @@ public class LookUpTable : MonoBehaviour
             Debug.Log("Mesh found for index: " + (int)index);
         }
 
-        GameObject instance = Instantiate(meshResult.Mesh, point, Quaternion.Euler(0.0f,  90 * (meshResult.RotationIndex-1), 0));
-        instance.transform.localScale = new Vector3(
+        GameObject newGameobject = new GameObject("Cube_" + index);
+        GameObject instance = Instantiate(meshResult.Mesh, point, Quaternion.identity, newGameobject.transform);
+
+        newGameobject.transform.localScale = new Vector3(
             (meshResult.Flipped & FlipValues.FlipX) != 0 ? -1.0f : 1.0f,
             (meshResult.Flipped & FlipValues.FlipY) != 0 ? -1.0f : 1.0f,
             (meshResult.Flipped & FlipValues.FlipZ) != 0 ? -1.0f : 1.0f);
+
+        instance.transform.localRotation = Quaternion.Euler(0.0f, meshResult.RotationIndex * 90.0f, 0.0f);
 
         MarchingCubeDescriptor marchingCubeDescriptor = instance.AddComponent<MarchingCubeDescriptor>();
         marchingCubeDescriptor.MarchingCubeMesh = new MarchingCubeMeshes();
@@ -319,7 +323,7 @@ public class LookUpTable : MonoBehaviour
         marchingCubeDescriptor.MarchingCubeMesh.Flipped = meshResult.Flipped;
         marchingCubeDescriptor.MarchingCubeMesh.RotationIndex = meshResult.RotationIndex;
 
-        return instance;
+        return newGameobject;
     }
 
     public static int[][] triangulation = new int[256][]

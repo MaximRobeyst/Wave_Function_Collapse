@@ -119,6 +119,13 @@ public class CubeTest : MonoBehaviour
         UpdateCube();
     }
 
+    [Button]
+    void UpdateIndex()
+    {
+        _points = MarchingCubeModule.GetPoints(_currentIndex + 1);
+        UpdateCube();
+    }
+
 
     private void OnDrawGizmos()
     {

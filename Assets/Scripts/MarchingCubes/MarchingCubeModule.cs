@@ -36,7 +36,7 @@ public class MarchingCubeModule : MonoBehaviour
             if(!_indices.Contains(index))
                 _indices.Add(index);
 
-            for (int flipIndex = 0; flipIndex < (int)FlipValues.All; ++flipIndex)
+            for (int flipIndex = 0; flipIndex <= (int)FlipValues.All; ++flipIndex)
             {
                 bool[] result = RotatePoints(i);
                 if ((flipIndex & (int)FlipValues.FlipX) != 0)
@@ -79,15 +79,13 @@ public class MarchingCubeModule : MonoBehaviour
             marchingCubeMeshes.Flipped = FlipValues.None;
             marchingCubeMeshes.RotationIndex = i;
 
-            if (MeshTable.Instance.Contains((MarchingCubeValues)index))
+            if (!MeshTable.Instance.Contains((MarchingCubeValues)index))
             {
-                MeshTable.Instance.Values.Remove(MeshTable.Instance.GetMesh((MarchingCubeValues)index));
+                MeshTable.Instance.Values.Add(marchingCubeMeshes);
             }
 
-            MeshTable.Instance.Values.Add(marchingCubeMeshes);
 
-
-            for (int flipIndex = 0; flipIndex < (int)FlipValues.All; ++flipIndex)
+            for (int flipIndex = 0; flipIndex <= (int)FlipValues.All; ++flipIndex)
             {
                 bool[] result = RotatePoints(i);
                 if ((flipIndex & (int)FlipValues.FlipX) != 0)
@@ -109,12 +107,11 @@ public class MarchingCubeModule : MonoBehaviour
                 flippedMarchingCubeMeshes.Flipped = (FlipValues)flipIndex;
                 flippedMarchingCubeMeshes.RotationIndex = i;
 
-                if (MeshTable.Instance.Contains((MarchingCubeValues)flippedIndex))
+                if (!MeshTable.Instance.Contains((MarchingCubeValues)flippedIndex))
                 {
-                    MeshTable.Instance.Values.Remove(MeshTable.Instance.GetMesh((MarchingCubeValues)flippedIndex));
+                    MeshTable.Instance.Values.Add(flippedMarchingCubeMeshes);
                 }
 
-                MeshTable.Instance.Values.Add(flippedMarchingCubeMeshes);
             }
         }
     }

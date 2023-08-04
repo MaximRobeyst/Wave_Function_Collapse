@@ -18,58 +18,138 @@ MonoBehaviour:
     Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
     Flipped: 0
     RotationIndex: 0
-  - MarchingCubeValues: 0
-    MarchingCubeValue: 0
+  - MarchingCubeValues: 2
+    MarchingCubeValue: 2
     Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
-    Flipped: 0
+    Flipped: 1
+    RotationIndex: 0
+  - MarchingCubeValues: 16
+    MarchingCubeValue: 16
+    Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
+    Flipped: 2
+    RotationIndex: 0
+  - MarchingCubeValues: 32
+    MarchingCubeValue: 32
+    Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
+    Flipped: 3
     RotationIndex: 0
   - MarchingCubeValues: 8
     MarchingCubeValue: 8
     Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
-    Flipped: 0
-    RotationIndex: 1
-  - MarchingCubeValues: 128
-    MarchingCubeValue: 128
-    Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
-    Flipped: 2
-    RotationIndex: 1
-  - MarchingCubeValues: 16
-    MarchingCubeValue: 16
-    Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
-    Flipped: 3
-    RotationIndex: 1
-  - MarchingCubeValues: 64
-    MarchingCubeValue: 64
-    Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
-    Flipped: 6
-    RotationIndex: 1
+    Flipped: 4
+    RotationIndex: 0
   - MarchingCubeValues: 4
     MarchingCubeValue: 4
     Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
-    Flipped: 0
-    RotationIndex: 2
-  - MarchingCubeValues: 2
-    MarchingCubeValue: 2
+    Flipped: 5
+    RotationIndex: 0
+  - MarchingCubeValues: 128
+    MarchingCubeValue: 128
     Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
+    Flipped: 6
+    RotationIndex: 0
+  - MarchingCubeValues: 64
+    MarchingCubeValue: 64
+    Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
+    Flipped: 7
+    RotationIndex: 0
+  - MarchingCubeValues: 12
+    MarchingCubeValue: 12
+    Mesh: {fileID: 1896254492731966369, guid: c9ae718e38ba41943a7261181a7fb7f9, type: 3}
+    Flipped: 0
+    RotationIndex: 1
+  - MarchingCubeValues: 192
+    MarchingCubeValue: 192
+    Mesh: {fileID: 1896254492731966369, guid: c9ae718e38ba41943a7261181a7fb7f9, type: 3}
+    Flipped: 2
+    RotationIndex: 1
+  - MarchingCubeValues: 3
+    MarchingCubeValue: 3
+    Mesh: {fileID: 1896254492731966369, guid: c9ae718e38ba41943a7261181a7fb7f9, type: 3}
     Flipped: 0
     RotationIndex: 3
-  - MarchingCubeValues: 6
-    MarchingCubeValue: 6
-    Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
-    Flipped: 0
-    RotationIndex: 3
-  - MarchingCubeValues: 96
-    MarchingCubeValue: 96
-    Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
+  - MarchingCubeValues: 48
+    MarchingCubeValue: 48
+    Mesh: {fileID: 1896254492731966369, guid: c9ae718e38ba41943a7261181a7fb7f9, type: 3}
     Flipped: 2
     RotationIndex: 3
   - MarchingCubeValues: 9
     MarchingCubeValue: 9
-    Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
+    Mesh: {fileID: 1896254492731966369, guid: c9ae718e38ba41943a7261181a7fb7f9, type: 3}
     Flipped: 4
-    RotationIndex: 3
+    RotationIndex: 0
+  - MarchingCubeValues: 6
+    MarchingCubeValue: 6
+    Mesh: {fileID: 1896254492731966369, guid: c9ae718e38ba41943a7261181a7fb7f9, type: 3}
+    Flipped: 5
+    RotationIndex: 0
   - MarchingCubeValues: 144
     MarchingCubeValue: 144
-    Mesh: {fileID: 106905845656416018, guid: 1d54b81d84ced724e8ab68a26efe9c60, type: 3}
+    Mesh: {fileID: 1896254492731966369, guid: c9ae718e38ba41943a7261181a7fb7f9, type: 3}
     Flipped: 6
-    RotationIndex: 3
+    RotationIndex: 0
+  - MarchingCubeValues: 96
+    MarchingCubeValue: 96
+    Mesh: {fileID: 1896254492731966369, guid: c9ae718e38ba41943a7261181a7fb7f9, type: 3}
+    Flipped: 7
+    RotationIndex: 0
+  - MarchingCubeValues: 10
+    MarchingCubeValue: 10
+    Mesh: {fileID: 7543891204363734720, guid: efa8f6a92e7d5f845b99b75108efded0, type: 3}
+    Flipped: 4
+    RotationIndex: 0
+  - MarchingCubeValues: 5
+    MarchingCubeValue: 5
+    Mesh: {fileID: 7543891204363734720, guid: efa8f6a92e7d5f845b99b75108efded0, type: 3}
+    Flipped: 5
+    RotationIndex: 0
+  - MarchingCubeValues: 160
+    MarchingCubeValue: 160
+    Mesh: {fileID: 7543891204363734720, guid: efa8f6a92e7d5f845b99b75108efded0, type: 3}
+    Flipped: 6
+    RotationIndex: 0
+  - MarchingCubeValues: 80
+    MarchingCubeValue: 80
+    Mesh: {fileID: 7543891204363734720, guid: efa8f6a92e7d5f845b99b75108efded0, type: 3}
+    Flipped: 7
+    RotationIndex: 0
+  - MarchingCubeValues: 13
+    MarchingCubeValue: 13
+    Mesh: {fileID: 6853217119594705086, guid: 5d3a5260351fb9642a27eb0f35aeff9b, type: 3}
+    Flipped: 0
+    RotationIndex: 0
+  - MarchingCubeValues: 14
+    MarchingCubeValue: 14
+    Mesh: {fileID: 6853217119594705086, guid: 5d3a5260351fb9642a27eb0f35aeff9b, type: 3}
+    Flipped: 1
+    RotationIndex: 0
+  - MarchingCubeValues: 208
+    MarchingCubeValue: 208
+    Mesh: {fileID: 6853217119594705086, guid: 5d3a5260351fb9642a27eb0f35aeff9b, type: 3}
+    Flipped: 2
+    RotationIndex: 0
+  - MarchingCubeValues: 224
+    MarchingCubeValue: 224
+    Mesh: {fileID: 6853217119594705086, guid: 5d3a5260351fb9642a27eb0f35aeff9b, type: 3}
+    Flipped: 3
+    RotationIndex: 0
+  - MarchingCubeValues: 11
+    MarchingCubeValue: 11
+    Mesh: {fileID: 6853217119594705086, guid: 5d3a5260351fb9642a27eb0f35aeff9b, type: 3}
+    Flipped: 4
+    RotationIndex: 0
+  - MarchingCubeValues: 7
+    MarchingCubeValue: 7
+    Mesh: {fileID: 6853217119594705086, guid: 5d3a5260351fb9642a27eb0f35aeff9b, type: 3}
+    Flipped: 5
+    RotationIndex: 0
+  - MarchingCubeValues: 176
+    MarchingCubeValue: 176
+    Mesh: {fileID: 6853217119594705086, guid: 5d3a5260351fb9642a27eb0f35aeff9b, type: 3}
+    Flipped: 6
+    RotationIndex: 0
+  - MarchingCubeValues: 112
+    MarchingCubeValue: 112
+    Mesh: {fileID: 6853217119594705086, guid: 5d3a5260351fb9642a27eb0f35aeff9b, type: 3}
+    Flipped: 7
+    RotationIndex: 0
