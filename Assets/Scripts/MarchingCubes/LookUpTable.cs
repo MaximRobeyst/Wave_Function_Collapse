@@ -17,6 +17,7 @@ public enum MarchingCubeValues
     H_RightUpForward = 1 << 7,    //H
 }
 
+[Flags]
 public enum FlipValues
 { 
     None = 0,
@@ -305,11 +306,18 @@ public class LookUpTable : MonoBehaviour
             Debug.Log("Mesh found for index: " + (int)index);
         }
 
-        GameObject instance = Instantiate(meshResult.Mesh, point, Quaternion.Euler(0.0f, 90 * meshResult.RotationIndex, 0));
+        GameObject instance = Instantiate(meshResult.Mesh, point, Quaternion.Euler(0.0f,  90 * (meshResult.RotationIndex-1), 0));
         instance.transform.localScale = new Vector3(
             (meshResult.Flipped & FlipValues.FlipX) != 0 ? -1.0f : 1.0f,
             (meshResult.Flipped & FlipValues.FlipY) != 0 ? -1.0f : 1.0f,
             (meshResult.Flipped & FlipValues.FlipZ) != 0 ? -1.0f : 1.0f);
+
+        MarchingCubeDescriptor marchingCubeDescriptor = instance.AddComponent<MarchingCubeDescriptor>();
+        marchingCubeDescriptor.MarchingCubeMesh = new MarchingCubeMeshes();
+        marchingCubeDescriptor.MarchingCubeMesh.MarchingCubeValue = (int)index;
+        marchingCubeDescriptor.MarchingCubeMesh.MarchingCubeValues = index;
+        marchingCubeDescriptor.MarchingCubeMesh.Flipped = meshResult.Flipped;
+        marchingCubeDescriptor.MarchingCubeMesh.RotationIndex = meshResult.RotationIndex;
 
         return instance;
     }

@@ -187,28 +187,32 @@ public class MarchingCubeModule : MonoBehaviour
         bool[] points = new bool[oldPoints.Length];
 
         //Front
-        points[2] = oldPoints[0];
-        points[3] = oldPoints[1];
-        points[6] = oldPoints[4];
-        points[7] = oldPoints[5];
+        points[3] = oldPoints[0];
+        points[2] = oldPoints[1];
+        points[7] = oldPoints[4];
+        points[6] = oldPoints[5];
 
         //Back
-        points[0] = oldPoints[2];
-        points[1] = oldPoints[3];
-        points[4] = oldPoints[6];
-        points[5] = oldPoints[7];
+        points[0] = oldPoints[3];
+        points[1] = oldPoints[2];
+        points[4] = oldPoints[7];
+        points[5] = oldPoints[6];
+
+
 
         ////Front
-        //points[(int)MarchingCubeValues.C_LeftBottomForward  ] = oldPoints[(int)MarchingCubeValues.A_RightBottomBack ];
-        //points[(int)MarchingCubeValues.D_RightBottomForward ] = oldPoints[(int)MarchingCubeValues.B_LeftBottomBack  ];
-        //points[(int)MarchingCubeValues.G_LeftUpForward      ] = oldPoints[(int)MarchingCubeValues.E_RightUpBack     ];
-        //points[(int)MarchingCubeValues.H_RightUpForward     ] = oldPoints[(int)MarchingCubeValues.F_LeftUpBack      ];
+        //points[(int)MarchingCubeValues.D_RightBottomForward] = oldPoints[(int)MarchingCubeValues.A_RightBottomBack ];
+        //points[(int)MarchingCubeValues.C_LeftBottomForward ] = oldPoints[(int)MarchingCubeValues.B_LeftBottomBack  ];
         //
-        ////Back
-        //points[(int)MarchingCubeValues.A_RightBottomBack ] = oldPoints[(int)MarchingCubeValues.C_LeftBottomForward  ];
-        //points[(int)MarchingCubeValues.B_LeftBottomBack  ] = oldPoints[(int)MarchingCubeValues.D_RightBottomForward ];
-        //points[(int)MarchingCubeValues.E_RightUpBack     ] = oldPoints[(int)MarchingCubeValues.G_LeftUpForward      ];
-        //points[(int)MarchingCubeValues.F_LeftUpBack      ] = oldPoints[(int)MarchingCubeValues.H_RightUpForward];
+        //points[(int)MarchingCubeValues.H_RightUpForward     ] = oldPoints[(int)MarchingCubeValues.E_RightUpBack   ];
+        //points[(int)MarchingCubeValues.G_LeftUpForward      ] = oldPoints[(int)MarchingCubeValues.F_LeftUpBack      ];
+
+        ////back
+        //points[(int)MarchingCubeValues.A_RightBottomBack] = oldPoints[(int)MarchingCubeValues.D_RightBottomForward];
+        //points[(int)MarchingCubeValues.B_LeftBottomBack] = oldPoints[(int)MarchingCubeValues.C_LeftBottomForward];
+        //
+        //points[(int)MarchingCubeValues.E_RightUpBack] = oldPoints[(int)MarchingCubeValues.H_RightUpForward];
+        //points[(int)MarchingCubeValues.F_LeftUpBack] = oldPoints[(int)MarchingCubeValues.G_LeftUpForward];
 
         return points;
     }

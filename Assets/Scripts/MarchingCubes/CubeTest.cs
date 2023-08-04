@@ -36,7 +36,14 @@ public class CubeTest : MonoBehaviour
         _vertices.Clear();
         SetupMeshes();
 
+        int instancesNow = _instances.Count;
+
         MarchingCubes.MarchCube(_points, Vector3.zero, _vertices, _instances, _useMeshes);
+        if (instancesNow < _instances.Count)
+        {
+            _instances[_instances.Count - 1].transform.parent = transform;
+            _instances[_instances.Count - 1].transform.position = transform.position + Vector3.one * 0.5f;
+        }
 
         _mesh= new Mesh();
         _mesh.name = "Marching Cubes";
@@ -90,6 +97,28 @@ public class CubeTest : MonoBehaviour
         _points = MarchingCubeModule.FlipPointsZ(_points);
         UpdateCube();
     }
+
+    [Button]
+    void Rotate1()
+    {
+        _points = MarchingCubeModule.RotatePoints(_points, 1);
+        UpdateCube();
+    }
+
+    [Button]
+    void Rotate2()
+    {
+        _points = MarchingCubeModule.RotatePoints(_points, 2);
+        UpdateCube();
+    }
+
+    [Button]
+    void Rotate3()
+    {
+        _points = MarchingCubeModule.RotatePoints(_points, 3);
+        UpdateCube();
+    }
+
 
     private void OnDrawGizmos()
     {
