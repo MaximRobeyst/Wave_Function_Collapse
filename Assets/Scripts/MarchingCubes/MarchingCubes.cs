@@ -55,7 +55,8 @@ public class MarchingCubes : MonoBehaviour
     private void Clear()
     {
         ClearInstances();
-        _mesh.Clear();
+        if (_mesh != null)
+            _mesh.Clear();
 
         _vertices.Clear();
     }
@@ -99,6 +100,7 @@ public class MarchingCubes : MonoBehaviour
 
     private void MarchCubes(PointDistribution pointDistribution, int step)
     {
+        ClearInstances();
         _vertices.Clear();
         float[] cubeValues = new float[8];
 
@@ -118,7 +120,8 @@ public class MarchingCubes : MonoBehaviour
                     cubeValues[6] = pointDistribution.Weights[pointDistribution.GetIndex(i + 1, j + 1, k + 1)];
                     cubeValues[7] = pointDistribution.Weights[pointDistribution.GetIndex(i, j + 1, k + 1)];
 
-                    MarchCube(cubeValues, pointDistribution.SurfaceLevel, pointDistribution.GetPosition(i, j, k), _vertices);
+                    Debug.Log("Spawning position : " + pointDistribution.GetPosition(i, j, k));
+                    MarchCube(cubeValues, pointDistribution.SurfaceLevel, pointDistribution.GetPosition(i, j, k), _vertices, _instances, _useMeshes);
                     ++stepCount;
                     if (stepCount > _step)
                         return;

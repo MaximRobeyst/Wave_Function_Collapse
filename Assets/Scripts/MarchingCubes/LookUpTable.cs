@@ -294,6 +294,16 @@ public class LookUpTable : MonoBehaviour
         return MeshTable.Instance.GetMesh(index) != null;
     }
 
+    public static MarchingCubeMeshes GetMesh(MarchingCubeValues index)
+    {
+        return MeshTable.Instance.GetMesh(index);
+    }
+
+    public static List<MarchingCubeMeshes> GetMeshes(MarchingCubeValues index)
+    {
+        return MeshTable.Instance.GetMeshes(index);
+    }
+
     public static GameObject GetMesh(MarchingCubeValues index, Vector3 point)
     {
         var meshResult = MeshTable.Instance.GetMesh(index);
@@ -307,8 +317,9 @@ public class LookUpTable : MonoBehaviour
         }
 
         GameObject newGameobject = new GameObject("Cube_" + index);
-        GameObject instance = Instantiate(meshResult.Mesh, point, Quaternion.identity, newGameobject.transform);
+        GameObject instance = Instantiate(meshResult.Mesh, Vector3.zero, Quaternion.identity, newGameobject.transform);
 
+        newGameobject.transform.position = point;
         newGameobject.transform.localScale = new Vector3(
             (meshResult.Flipped & FlipValues.FlipX) != 0 ? -1.0f : 1.0f,
             (meshResult.Flipped & FlipValues.FlipY) != 0 ? -1.0f : 1.0f,

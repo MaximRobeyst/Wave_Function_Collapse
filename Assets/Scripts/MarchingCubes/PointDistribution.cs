@@ -13,6 +13,7 @@ public class PointDistribution : MonoBehaviour
     [SerializeField] private Material _material;
 
     [SerializeField] private bool _debugInverse = false;
+    [SerializeField] private bool _drawStep = false;
 
     private float[] _weights;
 
@@ -35,7 +36,7 @@ public class PointDistribution : MonoBehaviour
                     Vector3 newPosition = startPosition + new Vector3(i, j, k);
                     int index = GetIndex(i, j, k);
 
-                    if (_step == step)
+                    if (_step == step && _drawStep)
                     {
                         Gizmos.color = Color.red;
                         Gizmos.DrawWireCube(GetPosition(i, j, k) + (Vector3.one / 2.0f), Vector3.one);
@@ -49,6 +50,12 @@ public class PointDistribution : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SetupPointDistribution(int size)
+    {
+        _Size = size;
+        GeneratePoints();
     }
 
     public int GetIndex(int x, int y, int z)

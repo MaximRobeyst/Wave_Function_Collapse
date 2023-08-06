@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4747972217358056358}
   - component: {fileID: 8168461067095528256}
   - component: {fileID: 3159876384721327543}
+  - component: {fileID: -5233190772486022275}
   m_Layer: 0
   m_Name: Cube_26
   m_TagString: Untagged
@@ -62,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 19ab0395321856546951fce67c517fcc, type: 3}
+  - {fileID: 2100000, guid: 441aae5b02cd5fc4c8b3335260efe0d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,9 +105,53 @@ MonoBehaviour:
   _flipZ: 1
   _prefab: {fileID: 718368563827024021}
   _mesh:
-    MarchingCubeValues: 26
+    MarchingCubeValues: 1
     MarchingCubeValue: 0
     Mesh: {fileID: 0}
     Flipped: 0
     RotationIndex: 0
   _drawPoints: 1
+--- !u!114 &-5233190772486022275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718368563827024021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b24432d92df5ad4e8b13516158b9ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _3D: 1
+  _bounds: 1
+  SocketLeft:
+    Vertices: []
+    Name: Gray
+    Symmetrical: 0
+    Flipped: 0
+  SocketForward:
+    Vertices: []
+    Name: Gray
+    Symmetrical: 0
+    Flipped: 0
+  SocketRight:
+    Vertices: []
+    Name: Gray
+    Symmetrical: 0
+    Flipped: 0
+  SocketBack:
+    Vertices: []
+    Name: Gray
+    Symmetrical: 0
+    Flipped: 0
+  Up:
+    Vertices: []
+    Name: Gray
+    Symmetrical: 0
+    Flipped: 0
+  Down:
+    Vertices: []
+    Name: Gray
+    Symmetrical: 0
+    Flipped: 0

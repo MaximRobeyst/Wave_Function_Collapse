@@ -21,6 +21,16 @@ public class MarchingCubeModule : MonoBehaviour
     [SerializeField, OnValueChanged(nameof(ChangeDrawInfo))] private bool _drawPoints = true;
 
     private static bool _staticDrawPoints = false;
+    private Module _module;
+
+    public Module Module
+    {
+        get
+        {
+            if (_module == null) _module = GetComponent<Module>();
+            return _module;
+        }
+    }
 
     [Button]
     void ConfigurePoints()
@@ -79,7 +89,7 @@ public class MarchingCubeModule : MonoBehaviour
             marchingCubeMeshes.Flipped = FlipValues.None;
             marchingCubeMeshes.RotationIndex = i;
 
-            if (!MeshTable.Instance.Contains((MarchingCubeValues)index))
+            if (!MeshTable.Instance.Contains((MarchingCubeValues)index, _prefab))
             {
                 MeshTable.Instance.Values.Add(marchingCubeMeshes);
             }
@@ -107,7 +117,7 @@ public class MarchingCubeModule : MonoBehaviour
                 flippedMarchingCubeMeshes.Flipped = (FlipValues)flipIndex;
                 flippedMarchingCubeMeshes.RotationIndex = i;
 
-                if (!MeshTable.Instance.Contains((MarchingCubeValues)flippedIndex))
+                if (!MeshTable.Instance.Contains((MarchingCubeValues)flippedIndex, _prefab))
                 {
                     MeshTable.Instance.Values.Add(flippedMarchingCubeMeshes);
                 }

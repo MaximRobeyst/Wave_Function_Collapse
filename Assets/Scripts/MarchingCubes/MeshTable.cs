@@ -45,11 +45,34 @@ public class MeshTable : ScriptableObject
         return null;
     }
 
+    public List<MarchingCubeMeshes> GetMeshes(MarchingCubeValues description)
+    {
+        List<MarchingCubeMeshes> meshes = new();
+        foreach (MarchingCubeMeshes cubeMeshes in Values)
+        {
+            if (cubeMeshes.MarchingCubeValues == description)
+                meshes.Add(cubeMeshes);
+        }
+
+        return meshes;
+    }
+
     public bool Contains(MarchingCubeValues description)
     {
         foreach(MarchingCubeMeshes cubeMesh in Values)
         {
             if (cubeMesh.MarchingCubeValues == description)
+                return true;
+        }
+
+        return false;
+    }
+
+    public bool Contains(MarchingCubeValues description, GameObject prefab)
+    {
+        foreach (MarchingCubeMeshes cubeMesh in Values)
+        {
+            if (cubeMesh.MarchingCubeValues == description && cubeMesh.Mesh == prefab)
                 return true;
         }
 

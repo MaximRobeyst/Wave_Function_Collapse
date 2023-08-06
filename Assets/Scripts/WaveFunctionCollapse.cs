@@ -156,6 +156,8 @@ public class WaveFunctionCollapse : MonoBehaviour
     [SerializeField] private int _depth = 16;
     [SerializeField, HideIf(nameof(_Is2D))] private int _height = 16;
 
+    [SerializeField] private bool _drawMeshes;
+
     [SerializeField] private ModuleDescriptor[] _modules;
 
     [SerializeField] private Vector3Int _checkCoords;
@@ -206,6 +208,17 @@ public class WaveFunctionCollapse : MonoBehaviour
 #endif
 
                     Gizmos.DrawSphere(position + new Vector3(x, y, z), percentage * 0.25f);
+
+                    if (_modulePosibilities == null || _modulePosibilities.Length == 0) continue;
+                    if (_modulePosibilities[x, y, z].Collapsed && _modulePosibilities[x, y, z].Modules != null) continue;
+
+                    MeshFilter meshFilter = _modulePosibilities[x, y, z].Modules[0].Module.GetComponent<MeshFilter>();
+                    if (meshFilter == null) continue;
+
+                    Gizmos.DrawMesh(
+                        meshFilter.mesh,
+                        position + new Vector3(x,y,z),
+                        Quaternion.Euler(0, 90 * _modulePosibilities[x, y, z].Modules[0].Rotation, 0.0f));
                 }
             }
         }
@@ -508,7 +521,7 @@ public class WaveFunctionCollapse : MonoBehaviour
 
         for(int x = 0; x < _width; ++x)
         {
-            for (int y = 0; y < _height; ++y)
+            for (int y = 0; y < (_Is2D ? 1 : _height); ++y)
             {
                 for (int z = 0; z < _depth; ++z)
                 {
