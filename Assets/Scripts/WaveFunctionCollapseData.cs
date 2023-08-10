@@ -21,7 +21,7 @@ public class MarchingCubeWFCPosibilities
         MarchingCubeMeshes mesh = Modules[index];
 
         GameObject newGameobject = new GameObject("Cube_" + mesh.MarchingCubeValue);
-        GameObject instance = GameObject.Instantiate(mesh.Mesh, Vector3.zero, Quaternion.identity, newGameobject.transform);
+        GameObject instance = GameObject.Instantiate(mesh.Mesh.gameObject, Vector3.zero, Quaternion.identity, newGameobject.transform);
 
         newGameobject.transform.position = position;
         newGameobject.transform.localScale = new Vector3(
@@ -108,6 +108,7 @@ public class WaveFunctionCollapseData : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!DebugData) return;
         Vector3 position = new Vector3(-_width / 2.0f, -_height / 2.0f, -_depth / 2.0f);
 
         Gizmos.color = Color.gray;

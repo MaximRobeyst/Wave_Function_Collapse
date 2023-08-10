@@ -103,7 +103,7 @@ MonoBehaviour:
   _flipX: 1
   _flipY: 1
   _flipZ: 1
-  _prefab: {fileID: 4513199254294265247}
+  _prefab: {fileID: 8924056523140177755}
   _mesh:
     MarchingCubeValues: 1
     MarchingCubeValue: 0
@@ -128,30 +128,30 @@ MonoBehaviour:
   SocketLeft:
     Vertices: []
     Name: Gray
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0
   SocketForward:
     Vertices: []
     Name: Gray
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0
   SocketRight:
     Vertices: []
     Name: Gray
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0
   SocketBack:
     Vertices: []
     Name: Gray
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0
   Up:
     Vertices: []
     Name: Gray
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0
   Down:
     Vertices: []
     Name: Gray
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0

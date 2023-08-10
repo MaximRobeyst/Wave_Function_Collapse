@@ -52,6 +52,7 @@ public class MarchingCubeWaveFunctionCollapse : MonoBehaviour
     {
         Clear();
         _isRunning = true;
+        WaveFunctionCollapseData.DebugData = false;
         InitializeAlgorithm();
 
         while (!IsWaveFunctionCollapsed())
@@ -66,6 +67,10 @@ public class MarchingCubeWaveFunctionCollapse : MonoBehaviour
 
     void InitializeAlgorithm()
     {
+        AlgorithmCombine combine = GetComponent<AlgorithmCombine>();
+        if (combine != null)
+            combine.SetupPosibilities();
+
         _modulePosibilities = WaveFunctionCollapseData.WaveFunctionCollapsePosibilities;
 
         _width = WaveFunctionCollapseData.Width;
@@ -135,88 +140,88 @@ public class MarchingCubeWaveFunctionCollapse : MonoBehaviour
     {
         // TODO: Finish this 
 
-        //var changed = false;
-        //
-        //float time = 2.0f;
-        //
-        //SocketDirection checkDirection = SocketDirection.Left;
-        //if (modulePosibilities1.Coords.x - modulePosibilities2.Coords.x == 1)
-        //{
-        //    // Right
-        //    checkDirection = SocketDirection.Left;
-        //    DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.magenta, time);
-        //}
-        //if (modulePosibilities1.Coords.x - modulePosibilities2.Coords.x == -1)
-        //{
-        //    // Left
-        //    checkDirection = SocketDirection.Right;
-        //    DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.blue, time);
-        //}
-        //if (modulePosibilities1.Coords.z - modulePosibilities2.Coords.z == 1)
-        //{
-        //    // Forward
-        //    checkDirection = SocketDirection.Backward;
-        //    DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.green, time);
-        //}
-        //if (modulePosibilities1.Coords.z - modulePosibilities2.Coords.z == -1)
-        //{
-        //    // Backward
-        //    checkDirection = SocketDirection.Forward;
-        //    DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.red, time);
-        //}
-        //if (modulePosibilities1.Coords.y - modulePosibilities2.Coords.y == -1)
-        //{
-        //    // Backward
-        //    checkDirection = SocketDirection.Up;
-        //    DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.red, time);
-        //}
-        //if (modulePosibilities1.Coords.y - modulePosibilities2.Coords.y == 1)
-        //{
-        //    // Backward
-        //    checkDirection = SocketDirection.Down;
-        //    DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.red, time);
-        //}
-        //
-        //var otherPosibilityTiles = new List<MarchingCubeMeshes>(modulePosibilities2.Modules);
-        //
-        //var currentPossibleTiles = new List<MarchingCubeMeshes>(modulePosibilities1.Modules);
-        //
-        //int currentTileId = 0;
-        //int neighbourTileId = 0;
-        //
-        //foreach (var currentTile in currentPossibleTiles)
-        //{
-        //    List<ModuleDescriptor> compatibleTiles = new List<ModuleDescriptor>();
-        //
-        //    neighbourTileId = 0;
-        //    foreach (var neighborTile in otherPosibilityTiles)
-        //    {
-        //        if (currentTile.FitsDirection(checkDirection, neighborTile))
-        //            compatibleTiles.Add(neighborTile);
-        //
-        //        neighbourTileId++;
-        //    }
-        //    currentTileId++;
-        //
-        //    foreach (var tile in compatibleTiles)
-        //    {
-        //        otherPosibilityTiles.Remove(tile);
-        //    }
-        //}
-        //
-        //if (otherPosibilityTiles.Count > 0)
-        //    changed = true;
-        //
-        //foreach (var tile in otherPosibilityTiles)
-        //{
-        //    modulePosibilities2.Modules.Remove(tile);
-        //}
-        //
-        //modulePosibilities2.Entropy = modulePosibilities2.Modules.Count;
-        //
-        //return changed;
+        var changed = false;
+        
+        float time = 2.0f;
+        
+        SocketDirection checkDirection = SocketDirection.Left;
+        if (modulePosibilities1.Coords.x - modulePosibilities2.Coords.x == 1)
+        {
+            // Right
+            checkDirection = SocketDirection.Left;
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.magenta, time);
+        }
+        if (modulePosibilities1.Coords.x - modulePosibilities2.Coords.x == -1)
+        {
+            // Left
+            checkDirection = SocketDirection.Right;
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.blue, time);
+        }
+        if (modulePosibilities1.Coords.z - modulePosibilities2.Coords.z == 1)
+        {
+            // Forward
+            checkDirection = SocketDirection.Backward;
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.green, time);
+        }
+        if (modulePosibilities1.Coords.z - modulePosibilities2.Coords.z == -1)
+        {
+            // Backward
+            checkDirection = SocketDirection.Forward;
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.red, time);
+        }
+        if (modulePosibilities1.Coords.y - modulePosibilities2.Coords.y == -1)
+        {
+            // Backward
+            checkDirection = SocketDirection.Up;
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.red, time);
+        }
+        if (modulePosibilities1.Coords.y - modulePosibilities2.Coords.y == 1)
+        {
+            // Backward
+            checkDirection = SocketDirection.Down;
+            DebugGizmos.DrawSpehere(modulePosibilities2.Coords - new Vector3(_width / 2.0f, _height / 2.0f, _depth / 2.0f), 0.5f, Color.red, time);
+        }
+        
+        var otherPosibilityTiles = new List<MarchingCubeMeshes>(modulePosibilities2.Modules);
+        
+        var currentPossibleTiles = new List<MarchingCubeMeshes>(modulePosibilities1.Modules);
+        
+        int currentTileId = 0;
+        int neighbourTileId = 0;
+        
+        foreach (var currentTile in currentPossibleTiles)
+        {
+            List<MarchingCubeMeshes> compatibleTiles = new List<MarchingCubeMeshes>();
+        
+            neighbourTileId = 0;
+            foreach (var neighborTile in otherPosibilityTiles)
+            {
+                if (currentTile.FitsDirection(checkDirection, neighborTile))
+                    compatibleTiles.Add(neighborTile);
+        
+                neighbourTileId++;
+            }
+            currentTileId++;
+        
+            foreach (var tile in compatibleTiles)
+            {
+                otherPosibilityTiles.Remove(tile);
+            }
+        }
+        
+        if (otherPosibilityTiles.Count > 0)
+            changed = true;
+        
+        foreach (var tile in otherPosibilityTiles)
+        {
+            modulePosibilities2.Modules.Remove(tile);
+        }
+        
+        modulePosibilities2.Entropy = modulePosibilities2.Modules.Count;
+        
+        return changed;
 
-        return false;
+        //return false;
     }
 
     List<MarchingCubeWFCPosibilities> GetNeighbors(MarchingCubeWFCPosibilities cell)
@@ -265,6 +270,29 @@ public class MarchingCubeWaveFunctionCollapse : MonoBehaviour
         }
 
         return list[Random.Range(0, list.Count)];
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!_isRunning) return;
+        Vector3 position = new Vector3(-_width / 2.0f, -_height / 2.0f, -_depth / 2.0f);
+
+        Gizmos.color = Color.gray;
+        for (int x = 0; x < _width; ++x)
+        {
+            for (int y = 0; y < _height; ++y)
+            {
+                for (int z = 0; z < _depth; ++z)
+                {
+                    if (_modulePosibilities == null || _modulePosibilities.Length == 0 ||
+                        _modulePosibilities[x, y, z] == null || _modulePosibilities[x, y, z].Collapsed)
+                        continue;
+                    float percentage = _modulePosibilities[x, y, z].Modules.Count;
+
+                    Gizmos.DrawSphere(position + new Vector3(x, y, z), percentage * 0.25f);
+                }
+            }
+        }
     }
 
     [Button]

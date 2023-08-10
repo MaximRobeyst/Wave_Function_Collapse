@@ -11,7 +11,7 @@ using Color = UnityEngine.Color;
 using Random = UnityEngine.Random;
 
 [System.Serializable]
-class ModulePosibilities
+public class ModulePosibilities
 {
     public List<ModuleDescriptor> Modules = new();
     public float Entropy = 0.0f;
@@ -28,7 +28,7 @@ class ModulePosibilities
 //}
 
 [System.Serializable]
-class ModuleDescriptor
+public class ModuleDescriptor
 {
     [ShowAssetPreview]
     public Module Module;

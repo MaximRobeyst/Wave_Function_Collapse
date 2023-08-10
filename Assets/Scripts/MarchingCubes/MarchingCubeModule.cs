@@ -15,7 +15,7 @@ public class MarchingCubeModule : MonoBehaviour
     [SerializeField] private bool _flipX = true;
     [SerializeField] private bool _flipY = true;
     [SerializeField] private bool _flipZ = true;
-    [SerializeField] private GameObject _prefab;
+    [SerializeField] private MarchingCubeModule _prefab;
     [SerializeField] private MarchingCubeMeshes _mesh;
 
     [SerializeField, OnValueChanged(nameof(ChangeDrawInfo))] private bool _drawPoints = true;

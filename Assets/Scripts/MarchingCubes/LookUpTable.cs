@@ -317,7 +317,7 @@ public class LookUpTable : MonoBehaviour
         }
 
         GameObject newGameobject = new GameObject("Cube_" + index);
-        GameObject instance = Instantiate(meshResult.Mesh, Vector3.zero, Quaternion.identity, newGameobject.transform);
+        GameObject instance = Instantiate(meshResult.Mesh.gameObject, Vector3.zero, Quaternion.identity, newGameobject.transform);
 
         newGameobject.transform.position = point;
         newGameobject.transform.localScale = new Vector3(

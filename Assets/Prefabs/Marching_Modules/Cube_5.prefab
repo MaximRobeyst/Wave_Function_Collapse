@@ -103,7 +103,7 @@ MonoBehaviour:
   _flipX: 1
   _flipY: 1
   _flipZ: 1
-  _prefab: {fileID: 7543891204363734720}
+  _prefab: {fileID: 8883899726150670941}
   _mesh:
     MarchingCubeValues: 1
     MarchingCubeValue: 0

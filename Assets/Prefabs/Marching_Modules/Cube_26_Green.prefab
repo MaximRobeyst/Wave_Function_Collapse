@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 441aae5b02cd5fc4c8b3335260efe0d4, type: 2}
+  - {fileID: 2100000, guid: 926d631a59ae4a9408f1b154ffbeed32, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   _flipX: 1
   _flipY: 1
   _flipZ: 1
-  _prefab: {fileID: 718368563827024021}
+  _prefab: {fileID: 3159876384721327543}
   _mesh:
     MarchingCubeValues: 1
     MarchingCubeValue: 0

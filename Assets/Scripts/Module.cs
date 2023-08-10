@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ public class Socket
     }
 }
 
-enum SocketDirection
+public enum SocketDirection
 { 
     Forward = 0,
     Left = 1,
@@ -51,7 +52,12 @@ public class Module : MonoBehaviour
         {
             SetupSockets();
             return _sockets;
-        } 
+        }
+        set
+        {
+            _sockets = value;
+            UpdateSockets();
+        }
     }
 
     [Button]
@@ -155,6 +161,17 @@ public class Module : MonoBehaviour
         return socketInfo;
     }
 
+    public void UpdateSockets()
+    {
+        SocketLeft = _sockets[(int)SocketDirection.Left];
+        SocketForward = _sockets[(int)SocketDirection.Forward];
+        SocketRight = _sockets[(int)SocketDirection.Right];
+        SocketBack = _sockets[(int)SocketDirection.Backward];
+
+        Up = _sockets[(int)SocketDirection.Up];
+        Down = _sockets[(int)SocketDirection.Down];
+    }
+
     public void SetupSockets()
     {
         if(_sockets == null || _sockets.Length < (_3D ? 6 : 4) ) _sockets = new SocketInfo[_3D ? 6 : 4];
@@ -221,6 +238,89 @@ public class Module : MonoBehaviour
     public Vector3 GetDown()
     {
         return transform.position + Vector3.down * 0.5f;
+    }
+
+    public static SocketInfo[] TransformSockets(int rotation, FlipValues flipValues, SocketInfo[] oldSockets)
+    {
+        var newSockets = RotatePoints(oldSockets, rotation);
+        if ((flipValues & FlipValues.FlipX) != 0)
+            newSockets = FlipPointsX(newSockets);
+        if ((flipValues & FlipValues.FlipY) != 0)
+            newSockets = FlipPointsY(newSockets);
+        if ((flipValues & FlipValues.FlipZ) != 0)
+            newSockets = FlipPointsZ(newSockets);
+
+        return newSockets;
+    }
+
+    private static SocketInfo[] RotatePoints(SocketInfo[] oldSockets, int rotationIndex)
+    {
+        SocketInfo[] points = new SocketInfo[oldSockets.Length];
+        Array.Copy(oldSockets, points, oldSockets.Length);
+
+        for (int i = 0; i < 4; ++i)
+        {
+            points[i] = oldSockets[(i + rotationIndex) % 4];
+        }
+
+        return points;
+    }
+
+    private static SocketInfo[] FlipPointsX(SocketInfo[] oldSockets)
+    {
+        SocketInfo[] points = new SocketInfo[oldSockets.Length];
+        Array.Copy(oldSockets, points, oldSockets.Length);
+
+        points[(int)SocketDirection.Left] = oldSockets[(int)SocketDirection.Right];
+        points[(int)SocketDirection.Right] = oldSockets[(int)SocketDirection.Left];
+
+        return points;
+    }
+
+    private static SocketInfo[] FlipPointsY(SocketInfo[] oldSockets)
+    {
+        SocketInfo[] points = new SocketInfo[oldSockets.Length];
+        Array.Copy(oldSockets, points, oldSockets.Length);
+
+        points[(int)SocketDirection.Up] = oldSockets[(int)SocketDirection.Down];
+        points[(int)SocketDirection.Down] = oldSockets[(int)SocketDirection.Up];
+
+        return points;
+    }
+
+    [Button]
+    private void FlipX()
+    {
+        _sockets = FlipPointsX(_sockets);
+    }
+
+    [Button]
+    private void FlipY()
+    {
+        _sockets = FlipPointsY(_sockets);
+    }
+
+    [Button]
+    private void FlipZ()
+    {
+        _sockets = FlipPointsZ(_sockets);
+    }
+
+    [Button]
+    private void Rotate()
+    {
+        _sockets = RotatePoints(_sockets, 1);
+    }
+
+    private static SocketInfo[] FlipPointsZ(SocketInfo[] oldSockets)
+    {
+        SocketInfo[] points = new SocketInfo[oldSockets.Length];
+        Array.Copy(oldSockets, points, oldSockets.Length);
+
+        points[(int)SocketDirection.Forward] = oldSockets[(int)SocketDirection.Backward];
+        points[(int)SocketDirection.Backward] = oldSockets[(int)SocketDirection.Forward];
+
+        return points;
     }
 
 

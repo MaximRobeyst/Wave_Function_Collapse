@@ -16,10 +16,12 @@ public class AlgorithmCombine : MonoBehaviour
     [SerializeField] private List<MeshTable> _lookupTable = new();
 
     [Button]
-    private void SetupPosibilities()
+    public void SetupPosibilities()
     {
         WaveFunctionCollapseData data = GetComponent<WaveFunctionCollapseData>();
         PointDistribution pointDistribution = GetComponent<PointDistribution>();
+
+        data.DebugData = true;
 
         pointDistribution.SetupPointDistribution(_size+1);
         data.SetupData(_size, _size, _size, pointDistribution);
