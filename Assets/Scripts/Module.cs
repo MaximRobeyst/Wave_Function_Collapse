@@ -95,7 +95,6 @@ public class Module : MonoBehaviour
 
         }
 
-        
         SocketLeft = SetupHorizontalSocket(left);
         SocketDictionary.Instance.AddSocket(SocketLeft);
         SocketBack = SetupHorizontalSocket(back);
@@ -122,7 +121,11 @@ public class Module : MonoBehaviour
         // if we find socket in socketdictionary we have found our socket
         SocketInfo socketInfo = SocketDictionary.Instance.FindSocket(list.ToArray());
         if (socketInfo != null)
+        {
+            socketInfo = new SocketInfo(socketInfo);
+            socketInfo.Vertices = list.ToArray();
             return socketInfo;
+        }
 
         // if we find a flipped version of our socket in the socket dictionary we have found a flipped socket
         List<Vector2> flippedVertices = SocketDictionary.FlipVertices(list, true);
@@ -132,10 +135,10 @@ public class Module : MonoBehaviour
             SocketInfo flippedSocket = new SocketInfo();
             flippedSocket.Vertices = flippedVertices.ToArray();
             flippedSocket.Name = socketInfo.Name;
-
+        
             flippedSocket.Symmetrical = false;
             flippedSocket.Flipped = true;
-
+        
             return flippedSocket;
         }
         

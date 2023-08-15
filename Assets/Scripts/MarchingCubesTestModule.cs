@@ -13,6 +13,8 @@ public class MarchingCubesTestModule : MonoBehaviour
     [SerializeField, ReadOnly]private MarchingCubeMeshes _currentModule;
     [SerializeField, ReadOnly]private MarchingCubeMeshes _otherModule;
 
+    [SerializeField] private bool _debug;
+
     void HandleCurrentModuleChanged()
     {
         var currentModule = MeshTable.Instance.GetMesh((MarchingCubeValues)_currentModuleIndex);
@@ -71,6 +73,8 @@ public class MarchingCubesTestModule : MonoBehaviour
         SpawnModule(transform.position + Vector3.right * .5f, _currentModule, _instances);
         SpawnModule(transform.position + Vector3.left * .5f,_otherModule, _instances);
 
+        if (_debug)
+            Debug.Log("Checking currentModule left: " + _currentModule.Mesh.Module.Sockets[(int)SocketDirection.Left] + " other module right: " + _otherModule.Mesh.Module.Sockets[(int)SocketDirection.Right]);
         DebugGizmos.DrawSpehere(transform.position, 0.25f, _currentModule.FitsDirection(SocketDirection.Left, _otherModule) ? Color.green : Color.red, 1.0f);
     }
 
@@ -82,6 +86,8 @@ public class MarchingCubesTestModule : MonoBehaviour
         SpawnModule(transform.position + Vector3.left * .5f, _currentModule, _instances);
         SpawnModule(transform.position + Vector3.right * .5f,_otherModule, _instances);
 
+        if (_debug)
+            Debug.Log("Checking currentModule right: " + _currentModule.Mesh.Module.Sockets[(int)SocketDirection.Right] + " other module left: " + _otherModule.Mesh.Module.Sockets[(int)SocketDirection.Left]);
         DebugGizmos.DrawSpehere(transform.position, 0.25f, _currentModule.FitsDirection(SocketDirection.Right, _otherModule) ? Color.green : Color.red, 1.0f);
     }
 
@@ -93,6 +99,8 @@ public class MarchingCubesTestModule : MonoBehaviour
         SpawnModule(transform.position + Vector3.back * .5f, _currentModule, _instances);
         SpawnModule(transform.position + Vector3.forward * .5f,_otherModule, _instances);
 
+        if (_debug)
+            Debug.Log("Checking currentModule forward: " + _currentModule.Mesh.Module.Sockets[(int)SocketDirection.Forward] + " other module right: " + _otherModule.Mesh.Module.Sockets[(int)SocketDirection.Backward]);
         DebugGizmos.DrawSpehere(transform.position, 0.25f, _currentModule.FitsDirection(SocketDirection.Forward, _otherModule) ? Color.green : Color.red, 1.0f);
     }
 
@@ -104,6 +112,8 @@ public class MarchingCubesTestModule : MonoBehaviour
         SpawnModule(transform.position + Vector3.forward * .5f, _currentModule, _instances);
         SpawnModule(transform.position + Vector3.back * .5f,_otherModule, _instances);
 
+        if (_debug)
+            Debug.Log("Checking currentModule backwards: " + _currentModule.Mesh.Module.Sockets[(int)SocketDirection.Backward] + " other module forward: " + _otherModule.Mesh.Module.Sockets[(int)SocketDirection.Forward]);
         DebugGizmos.DrawSpehere(transform.position, 0.25f, _currentModule.FitsDirection(SocketDirection.Backward, _otherModule) ? Color.green : Color.red, 1.0f);
     }
 
@@ -115,7 +125,8 @@ public class MarchingCubesTestModule : MonoBehaviour
         SpawnModule(transform.position + Vector3.down * .5f, _currentModule, _instances);
         SpawnModule(transform.position + Vector3.up * .5f,_otherModule, _instances);
 
-        //Debug.Log("Checking currentModule left: " + _currentModule.GetBackwards() + " other module right: " + _otherModule.GetForward());
+        if (_debug)
+            Debug.Log("Checking currentModule up: " + _currentModule.Mesh.Module.Sockets[(int)SocketDirection.Up] + " other module down: " + _otherModule.Mesh.Module.Sockets[(int)SocketDirection.Down]);
         DebugGizmos.DrawSpehere(transform.position, 0.25f, _currentModule.FitsDirection(SocketDirection.Up, _otherModule) ? Color.green : Color.red, 1.0f);
     }
 
@@ -127,7 +138,8 @@ public class MarchingCubesTestModule : MonoBehaviour
         SpawnModule(transform.position + Vector3.up * .5f, _currentModule, _instances);
         SpawnModule(transform.position + Vector3.down * .5f, _otherModule, _instances);
 
-        //Debug.Log("Checking currentModule left: " + _currentModule.GetBackwards() + " other module right: " + _otherModule.GetForward());
+        if (_debug)
+            Debug.Log("Checking currentModule down: " + _currentModule.Mesh.Module.Sockets[(int)SocketDirection.Down] + " other module up: " + _otherModule.Mesh.Module.Sockets[(int)SocketDirection.Up]);
         DebugGizmos.DrawSpehere(transform.position, 0.25f, _currentModule.FitsDirection(SocketDirection.Down, _otherModule) ? Color.green : Color.red, 1.0f);
     }
 

@@ -14,6 +14,19 @@ public class SocketInfo
     public bool Symmetrical;
     public bool Flipped;
 
+    public SocketInfo()
+    {
+
+    }
+
+    public SocketInfo(SocketInfo socketInfo)
+    {
+        Vertices = socketInfo.Vertices;
+        Name = socketInfo.Name;
+        Symmetrical = socketInfo.Symmetrical;
+        Flipped = socketInfo.Flipped;
+    }
+
     public override string ToString()
     {
         string name = Name;
@@ -71,7 +84,7 @@ public class SocketDictionary : ScriptableObject
 
     public void AddSocket(SocketInfo socketInfo)
     {
-        if (SocketInfo.Contains(socketInfo)) return;
+        if (SocketInfo.Any(socket => socket.Name == socketInfo.Name || AreVerticesTheSame(socket.Vertices, socketInfo.Vertices))) return;
 
         SocketInfo.Add(socketInfo);
     }

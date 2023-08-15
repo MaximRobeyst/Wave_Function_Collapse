@@ -123,35 +123,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b24432d92df5ad4e8b13516158b9ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _3D: 0
+  _3D: 1
   _bounds: 1
   SocketLeft:
     Vertices: []
-    Name: 
-    Symmetrical: 0
+    Name: House
+    Symmetrical: 1
     Flipped: 0
   SocketForward:
     Vertices: []
-    Name: 
-    Symmetrical: 0
+    Name: House
+    Symmetrical: 1
     Flipped: 0
   SocketRight:
     Vertices: []
-    Name: 
-    Symmetrical: 0
+    Name: House
+    Symmetrical: 1
     Flipped: 0
   SocketBack:
     Vertices: []
-    Name: 
-    Symmetrical: 0
+    Name: House
+    Symmetrical: 1
     Flipped: 0
   Up:
     Vertices: []
-    Name: 
-    Symmetrical: 0
+    Name: 0
+    Symmetrical: 1
     Flipped: 0
   Down:
     Vertices: []
-    Name: 
-    Symmetrical: 0
+    Name: House
+    Symmetrical: 1
     Flipped: 0
