@@ -28,7 +28,7 @@ public class MarchingCubeWaveFunctionCollapse : MonoBehaviour
     private List<GameObject> _instances = new();
 
     [Button]
-    void RunAlgorithm()
+    public void RunAlgorithm()
     {
         StartCoroutine(Alogirthm());
     }
@@ -88,7 +88,7 @@ public class MarchingCubeWaveFunctionCollapse : MonoBehaviour
         Vector3 startPosition = new Vector3(-_width / 2.0f, -_height / 2.0f, -_depth / 2.0f);
         var moduleResult = FindLowestEntropy();
 
-        if (moduleResult.Modules.Count == 0)
+        if (moduleResult == null || moduleResult.Modules.Count == 0)
         {
             return;
         }
@@ -216,7 +216,29 @@ public class MarchingCubeWaveFunctionCollapse : MonoBehaviour
         {
             modulePosibilities2.Modules.Remove(tile);
         }
-        
+
+
+        if (modulePosibilities2.Modules.Count == 0)
+        {
+            Debug.Log("all modules were removed");
+            Debug.Log("Which were: ");
+
+            foreach (var tile in otherPosibilityTiles)
+            {
+                Debug.Log(tile.Mesh.name, tile.Mesh);
+            }
+
+            Debug.Log("Removed all possiblities with placemet of: " + modulePosibilities1.Coords);
+
+            string modules = "which had these modules: ";
+            for (int i =0;i < modulePosibilities1.Modules.Count; ++i)
+            {
+                modules += $"{modulePosibilities1.Modules[i].Mesh.name}, ";
+            }
+            Debug.Log(modules);
+        }
+
+
         modulePosibilities2.Entropy = modulePosibilities2.Modules.Count;
         
         return changed;

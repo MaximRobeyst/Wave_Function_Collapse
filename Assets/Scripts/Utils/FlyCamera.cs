@@ -67,6 +67,12 @@ public class FlyCamera : MonoBehaviour
             if (meshRenderer != null)
                 meshRenderer.enabled = true;
         }
+
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            MarchingCubeWaveFunctionCollapse algorithmObject = FindObjectOfType<MarchingCubeWaveFunctionCollapse>();
+            algorithmObject.RunAlgorithm();
+        }
     }
 
     Vector3 GetAccelerationVector()

@@ -128,30 +128,30 @@ MonoBehaviour:
   SocketLeft:
     Vertices: []
     Name: ()
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0
   SocketForward:
     Vertices: []
     Name: ()
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0
   SocketRight:
     Vertices: []
     Name: ()
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0
   SocketBack:
     Vertices: []
     Name: ()
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0
   Up:
     Vertices: []
     Name: ()
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0
   Down:
     Vertices: []
     Name: ()
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0

@@ -1,0 +1,205 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2325500057084629490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5854422590001367785}
+  - component: {fileID: 6147941822245742253}
+  - component: {fileID: 6459416444353095520}
+  - component: {fileID: 6190015957322300951}
+  - component: {fileID: -8110774942827009330}
+  m_Layer: 0
+  m_Name: Cube_18
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5854422590001367785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2325500057084629490}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -12, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6147941822245742253
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2325500057084629490}
+  m_Mesh: {fileID: -2467725122001757131, guid: 1f1997e0686d61744926806cddc3adab, type: 3}
+--- !u!23 &6459416444353095520
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2325500057084629490}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: f7b97b09be6de9744a22652e4120a77b, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6190015957322300951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2325500057084629490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d82db5a7c6cc8a2439f5fbe32f472b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _points: 0001000001000000
+  _indices: 1200000021000000840000004800000081000000420000001800000024000000
+  _currentIndex: 18
+  _flipX: 1
+  _flipY: 1
+  _flipZ: 1
+  _prefab: {fileID: 6190015957322300951}
+  _mesh:
+    MarchingCubeValues: 18
+    MarchingCubeValue: 0
+    Mesh: {fileID: 0}
+    Flipped: 0
+    RotationIndex: 0
+  _drawPoints: 1
+--- !u!114 &-8110774942827009330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2325500057084629490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b24432d92df5ad4e8b13516158b9ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _3D: 1
+  _bounds: 1
+  SocketLeft:
+    Vertices:
+    - {x: -0.100000046, y: 0.5}
+    - {x: -0.100000046, y: 0.15}
+    - {x: -0.475, y: 0.099999994}
+    - {x: -0.10000002, y: 0.099999994}
+    - {x: -0.5, y: 0.099999994}
+    Name: HouseOrange
+    Symmetrical: 1
+    Flipped: 0
+  SocketForward:
+    Vertices: []
+    Name: 0
+    Symmetrical: 1
+    Flipped: 0
+  SocketRight:
+    Vertices:
+    - {x: -0.100000046, y: -0.5}
+    - {x: -0.100000046, y: -0.14999995}
+    - {x: -0.475, y: -0.09999995}
+    - {x: -0.10000002, y: -0.09999995}
+    - {x: -0.5, y: -0.09999995}
+    Name: HouseOrange
+    Symmetrical: 1
+    Flipped: 0
+  SocketBack:
+    Vertices:
+    - {x: -0.09999998, y: 0.099999994}
+    - {x: -0.09999998, y: 0.15}
+    - {x: 0.09999998, y: -0.09999999}
+    - {x: 0.09999999, y: -0.15}
+    - {x: -0.10000005, y: 0.5}
+    - {x: -0.49999994, y: 0.099999994}
+    - {x: -0.47500017, y: 0.099999994}
+    - {x: 0.10000009, y: -0.5}
+    - {x: 0.49999994, y: -0.09999995}
+    - {x: 0.47500017, y: -0.09999995}
+    Name: HouseOrange
+    Symmetrical: 1
+    Flipped: 0
+  Up:
+    Vertices:
+    - {x: -0.16767769, y: -0.13232234}
+    - {x: -0.17500001, y: -0.12500001}
+    - {x: -0.47500038, y: -0.12500004}
+    - {x: -0.12499957, y: -0.475}
+    - {x: -0.124999985, y: -0.17500001}
+    - {x: -0.13232234, y: -0.16767767}
+    - {x: -0.13232234, y: -0.14646445}
+    - {x: -0.14646448, y: -0.13232234}
+    - {x: -0.15707108, y: -0.12792894}
+    - {x: -0.12792894, y: -0.15707107}
+    - {x: -0.475, y: -0.100000046}
+    - {x: -0.4999996, y: -0.100000046}
+    - {x: -0.10000005, y: -0.475}
+    - {x: -0.10000005, y: -0.4999996}
+    Name: HouseOrange
+    Symmetrical: 1
+    Flipped: 0
+  Down:
+    Vertices:
+    - {x: 0.1676777, y: -0.13232234}
+    - {x: 0.17500007, y: -0.12500001}
+    - {x: 0.47500038, y: -0.12500004}
+    - {x: 0.12499961, y: -0.475}
+    - {x: 0.12500003, y: -0.17500001}
+    - {x: 0.1323224, y: -0.16767767}
+    - {x: 0.1323224, y: -0.14646445}
+    - {x: 0.14646451, y: -0.13232234}
+    - {x: 0.15707114, y: -0.12792894}
+    - {x: 0.127929, y: -0.15707107}
+    - {x: 0.47500002, y: -0.100000046}
+    - {x: 0.49999964, y: -0.100000046}
+    - {x: 0.10000009, y: -0.475}
+    - {x: 0.10000009, y: -0.4999996}
+    Name: HouseOrange
+    Symmetrical: 1
+    Flipped: 0

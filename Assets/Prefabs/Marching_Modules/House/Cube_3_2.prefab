@@ -128,7 +128,7 @@ MonoBehaviour:
   SocketLeft:
     Vertices: []
     Name: RoofHouse
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0
   SocketForward:
     Vertices: []
@@ -148,7 +148,7 @@ MonoBehaviour:
   Up:
     Vertices: []
     Name: 0
-    Symmetrical: 0
+    Symmetrical: 1
     Flipped: 0
   Down:
     Vertices: []
