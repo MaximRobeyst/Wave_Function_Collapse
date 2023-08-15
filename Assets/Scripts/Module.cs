@@ -34,7 +34,7 @@ public enum SocketDirection
 
 public class Module : MonoBehaviour
 {
-    [SerializeField] private bool _3D;
+    [SerializeField] public bool _3D;
     [SerializeField] private float _bounds = 1.0f;
 
     private SocketInfo[] _sockets;
@@ -94,6 +94,7 @@ public class Module : MonoBehaviour
                 up.Add(new Vector2(vertex.x, vertex.z));
 
         }
+
         
         SocketLeft = SetupHorizontalSocket(left);
         SocketDictionary.Instance.AddSocket(SocketLeft);
@@ -116,10 +117,14 @@ public class Module : MonoBehaviour
 
     SocketInfo SetupHorizontalSocket(List<Vector2> list)
     {
+        list = SocketDictionary.RemoveDuplicates(list);
+
+        // if we find socket in socketdictionary we have found our socket
         SocketInfo socketInfo = SocketDictionary.Instance.FindSocket(list.ToArray());
         if (socketInfo != null)
             return socketInfo;
 
+        // if we find a flipped version of our socket in the socket dictionary we have found a flipped socket
         List<Vector2> flippedVertices = SocketDictionary.FlipVertices(list, true);
         socketInfo = SocketDictionary.Instance.FindSocket(flippedVertices.ToArray());
         if(socketInfo != null)
@@ -133,12 +138,13 @@ public class Module : MonoBehaviour
 
             return flippedSocket;
         }
-    
-    
+        
+        // if we haven't found any results we have to make a new entry in the socket dictionary
         socketInfo = new SocketInfo();
         socketInfo.Name = SocketDictionary.Instance.GetNextSocketName();
         socketInfo.Vertices = list.ToArray();
     
+        // if our flipped version is the same as our normal one then our socket is symmetrical
         if (SocketDictionary.AreVerticesTheSame(list, flippedVertices))
             socketInfo.Symmetrical = true;
     
@@ -147,6 +153,8 @@ public class Module : MonoBehaviour
 
     SocketInfo SetupVerticalSocket(List<Vector2> list)
     {
+        list = SocketDictionary.RemoveDuplicates(list);
+
         SocketInfo socketInfo = SocketDictionary.Instance.FindSocket(list.ToArray());
         if (socketInfo != null)
             return socketInfo;
@@ -159,6 +167,13 @@ public class Module : MonoBehaviour
         //    socketInfo.Symmetrical = true;
 
         return socketInfo;
+    }
+
+    public bool AnyEmpty()
+    {
+        if (Sockets.Length < 6) return true;
+
+        return Sockets.Any(socket => socket.Name == "");
     }
 
     public void UpdateSockets()

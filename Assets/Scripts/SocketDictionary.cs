@@ -27,6 +27,8 @@ public class SocketInfo
 
     public bool Fits(SocketInfo info)
     {
+        if (Name == "()" || info.Name == "()") return true;
+
         if (Name != info.Name)
             return false;
 
@@ -112,6 +114,19 @@ public class SocketDictionary : ScriptableObject
     public static bool AreVerticesTheSame(List<Vector2> list1, List<Vector2> list2)
     {
         return AreVerticesTheSame(list1.ToArray(), list2.ToArray());
+    }
+
+    public static List<Vector2> RemoveDuplicates(List<Vector2> list1, float distance = 0.001f)
+    {
+        List<Vector2> newList = new();
+        foreach(Vector2 point in list1)
+        {
+            if (newList.Any(listPoint => Vector3.Distance(listPoint, point) < distance)) continue;
+            newList.Add(point);
+
+        }
+
+        return newList;
     }
 
     public static bool AreVerticesTheSame(Vector2[] list1, Vector2[] list2)

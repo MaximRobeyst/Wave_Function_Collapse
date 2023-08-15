@@ -75,31 +75,31 @@ MonoBehaviour:
   _bounds: 1
   SocketLeft:
     Vertices: []
-    Name: 0
+    Name: ()
     Symmetrical: 1
     Flipped: 0
   SocketForward:
     Vertices: []
-    Name: 0
+    Name: ()
     Symmetrical: 1
     Flipped: 0
   SocketRight:
     Vertices: []
-    Name: 0
+    Name: ()
     Symmetrical: 1
     Flipped: 0
   SocketBack:
     Vertices: []
-    Name: 0
+    Name: ()
     Symmetrical: 1
     Flipped: 0
   Up:
     Vertices: []
-    Name: 0
+    Name: ()
     Symmetrical: 1
     Flipped: 0
   Down:
     Vertices: []
-    Name: 0
+    Name: ()
     Symmetrical: 1
     Flipped: 0

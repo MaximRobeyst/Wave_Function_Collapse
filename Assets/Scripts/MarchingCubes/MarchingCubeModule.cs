@@ -23,6 +23,12 @@ public class MarchingCubeModule : MonoBehaviour
     private static bool _staticDrawPoints = false;
     private Module _module;
 
+    public MarchingCubeModule MarchingCubePrefab 
+    {
+        get => _prefab;
+        set => _prefab = value;
+    }
+
     public Module Module
     {
         get
@@ -49,11 +55,11 @@ public class MarchingCubeModule : MonoBehaviour
             for (int flipIndex = 0; flipIndex <= (int)FlipValues.All; ++flipIndex)
             {
                 bool[] result = RotatePoints(i);
-                if ((flipIndex & (int)FlipValues.FlipX) != 0)
+                if (_flipX && (flipIndex & (int)FlipValues.FlipX) != 0)
                     result = FlipPointsX(result);
-                if ((flipIndex & (int)FlipValues.FlipY) != 0)
+                if (_flipY && (flipIndex & (int)FlipValues.FlipY) != 0)
                     result = FlipPointsY(result);
-                if ((flipIndex & (int)FlipValues.FlipZ) != 0)
+                if (_flipZ && (flipIndex & (int)FlipValues.FlipZ) != 0)
                     result = FlipPointsZ(result);
 
                 int flippedIndex = MarchingCubes.GetLookUpIndex(result);
@@ -70,8 +76,14 @@ public class MarchingCubeModule : MonoBehaviour
         _staticDrawPoints = _drawPoints;
     }
 
+    public void SetIndex(int index)
+    {
+        _currentIndex = index;
+        _points = GetPoints(index);
+    }
+
     [Button]
-    void AddToTable()
+    public void AddToTable()
     {
         _indices.Clear();
         for (int i = 0; i < 4; ++i)
@@ -98,11 +110,11 @@ public class MarchingCubeModule : MonoBehaviour
             for (int flipIndex = 0; flipIndex <= (int)FlipValues.All; ++flipIndex)
             {
                 bool[] result = RotatePoints(i);
-                if ((flipIndex & (int)FlipValues.FlipX) != 0)
+                if (_flipX && (flipIndex & (int)FlipValues.FlipX) != 0)
                     result = FlipPointsX(result);
-                if ((flipIndex & (int)FlipValues.FlipY) != 0)
+                if (_flipY && (flipIndex & (int)FlipValues.FlipY) != 0)
                     result = FlipPointsY(result);
-                if ((flipIndex & (int)FlipValues.FlipZ) != 0)
+                if (_flipZ && (flipIndex & (int)FlipValues.FlipZ) != 0)
                     result = FlipPointsZ(result);
 
                 int flippedIndex = MarchingCubes.GetLookUpIndex(result);
