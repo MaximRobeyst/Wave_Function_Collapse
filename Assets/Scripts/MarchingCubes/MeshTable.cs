@@ -19,6 +19,9 @@ public class MarchingCubeMeshes
     public bool FitsDirection(SocketDirection socketDirection, MarchingCubeMeshes marchingCubeMeshes)
     {
         var sockets1 = Module.TransformSockets(RotationIndex, Flipped, Mesh.Module.Sockets);
+        if (marchingCubeMeshes.Mesh.Module.AnyEmpty())
+            Debug.LogError("no module sockets found in: " + marchingCubeMeshes.Mesh.name, marchingCubeMeshes.Mesh.gameObject);
+
         var sockets2 = Module.TransformSockets(marchingCubeMeshes.RotationIndex, marchingCubeMeshes.Flipped, marchingCubeMeshes.Mesh.Module.Sockets);
 
         switch (socketDirection)

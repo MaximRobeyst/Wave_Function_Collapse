@@ -254,7 +254,7 @@ public class MarchingCubeWaveFunctionCollapse : MonoBehaviour
         List<MarchingCubeWFCPosibilities> list = new();
         foreach (MarchingCubeWFCPosibilities posibilities in _modulePosibilities)
         {
-            if (posibilities.Entropy > lowestEntropy || posibilities.Collapsed) continue;
+            if (posibilities.Entropy > lowestEntropy || posibilities.Collapsed || posibilities.Modules.Count == 0) continue;
 
             if (lowestEntropy != posibilities.Entropy && list.Count != 0)
                 list.Clear();
@@ -303,8 +303,12 @@ public class MarchingCubeWaveFunctionCollapse : MonoBehaviour
     }
 
     [Button]
-    void Clear()
+    public void Clear()
     {
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        if(meshRenderer != null)
+            meshRenderer.enabled = false;
+
         foreach(GameObject instance in _instances)
         {
             DestroyImmediate(instance);

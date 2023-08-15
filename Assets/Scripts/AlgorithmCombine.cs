@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -19,11 +20,11 @@ public class AlgorithmCombine : MonoBehaviour
     public void SetupPosibilities()
     {
         WaveFunctionCollapseData data = GetComponent<WaveFunctionCollapseData>();
-        PointDistribution pointDistribution = GetComponent<PointDistribution>();
+        PointDistribution pointDistribution = data.GetComponent<PointDistribution>();
 
         data.DebugData = true;
+        if (pointDistribution.Weights == null || pointDistribution.Weights.Length <= 0) pointDistribution.GeneratePoints();
 
-        pointDistribution.SetupPointDistribution(_size+1);
-        data.SetupData(_size, _size, _size, pointDistribution);
+        data.SetupData(pointDistribution.Size-1, pointDistribution.Size-1, pointDistribution.Size - 1, pointDistribution);
     }
 }

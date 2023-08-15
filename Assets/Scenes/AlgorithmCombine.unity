@@ -123,67 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &19229472
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_Name
-      value: MarchingCubesResults
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 19ab0395321856546951fce67c517fcc, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 19ab0395321856546951fce67c517fcc, type: 3}
 --- !u!1 &202365980
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,69 +217,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 202365980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a32e7cdf9cc8dd4b9348bd8db77fdea, type: 3}
+  m_Script: {fileID: 11500000, guid: 83a4b5250dda1fd40ac5d6934672e362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0
-  _radius: 15
---- !u!1 &901680333
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 901680335}
-  - component: {fileID: 901680334}
-  m_Layer: 0
-  m_Name: TestModule
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &901680334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901680333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de7cfe1c340557549905dac410123d48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentModuleIndex: 0
-  _otherModuleIndex: 4
-  _currentModule:
-    MarchingCubeValues: 0
-    MarchingCubeValue: 0
-    Mesh: {fileID: 6892639970697318783, guid: 0cc1c01ce9650a74ba943b79939e0b69, type: 3}
-    Flipped: 0
-    RotationIndex: 0
-  _otherModule:
-    MarchingCubeValues: 4
-    MarchingCubeValue: 4
-    Mesh: {fileID: 3915686630863528681, guid: 8243f2b8fa94d0443818268af3ac7451, type: 3}
-    Flipped: 5
-    RotationIndex: 0
---- !u!4 &901680335
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901680333}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  acceleration: 50
+  accSprintMultiplier: 4
+  lookSensitivity: 1
+  dampingCoefficient: 5
+  focusOnEnable: 0
 --- !u!1 &1422099936
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,12 +301,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Is2D: 0
-  _Size: 9
+  _size: 8
   _step: 0
-  _surfaceLevel: 0.8
+  _surfaceLevel: 0.2
   _material: {fileID: 0}
   _debugInverse: 1
   _drawStep: 0
+  _paintable: 0
+  _radius: 1
+  _weight: 0.25
 --- !u!114 &1422099941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,74 +324,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DebugData: 1
   _checkCoords: {x: 1, y: 0, z: 0}
---- !u!1 &1954705677
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1954705679}
-  - component: {fileID: 1954705678}
-  - component: {fileID: 1954705680}
-  m_Layer: 0
-  m_Name: MarchingCubes
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1954705678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1954705677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2679dbd2af5ca84da6c75ae320724ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Is2D: 0
-  _Size: 8
-  _step: 0
-  _surfaceLevel: 0.616
-  _material: {fileID: 0}
-  _debugInverse: 1
-  _drawStep: 0
---- !u!4 &1954705679
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1954705677}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1954705680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1954705677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e70230a875424144eaf354f90c2bcd9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _step: 0
-  _material: {fileID: 2100000, guid: 441aae5b02cd5fc4c8b3335260efe0d4, type: 2}
-  _drawMesh: 0
-  _useMeshes: 0
 --- !u!1 &2046797433
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,47 +418,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!4 &7097964700556909630
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7623144898027619972}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7623144898027619972
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7097964700556909630}
-  - component: {fileID: 7623144898027619973}
-  m_Layer: 0
-  m_Name: MarchingCubeHouseKit
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &7623144898027619973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7623144898027619972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 959c07b8f0bffa144919b0bdd0d1a471, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

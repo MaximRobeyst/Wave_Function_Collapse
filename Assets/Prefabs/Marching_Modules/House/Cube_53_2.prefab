@@ -63,8 +63,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 1f1997e0686d61744926806cddc3adab, type: 3}
-  - {fileID: -6478536213147159724, guid: 1f1997e0686d61744926806cddc3adab, type: 3}
+  - {fileID: 2100000, guid: 5165f2b75e0e46b4ea8200e0e5d25aaa, type: 2}
+  - {fileID: 2100000, guid: 5165f2b75e0e46b4ea8200e0e5d25aaa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
   _flipX: 1
   _flipY: 0
   _flipZ: 1
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 2358674220415750285}
   _mesh:
     MarchingCubeValues: 53
     MarchingCubeValue: 0
@@ -138,7 +138,7 @@ MonoBehaviour:
     Flipped: 0
   SocketRight:
     Vertices: []
-    Name: House
+    Name: HouseRoof
     Symmetrical: 1
     Flipped: 0
   SocketBack:

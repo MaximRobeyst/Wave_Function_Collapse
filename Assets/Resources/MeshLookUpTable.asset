@@ -1758,3 +1758,123 @@ MonoBehaviour:
     Mesh: {fileID: 6892639970697318783, guid: e545ba965f0deec4da97f9e5d2f98d3a, type: 3}
     Flipped: 0
     RotationIndex: 0
+  - MarchingCubeValues: 19
+    MarchingCubeValue: 19
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 0
+    RotationIndex: 0
+  - MarchingCubeValues: 35
+    MarchingCubeValue: 35
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 1
+    RotationIndex: 0
+  - MarchingCubeValues: 49
+    MarchingCubeValue: 49
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 2
+    RotationIndex: 0
+  - MarchingCubeValues: 50
+    MarchingCubeValue: 50
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 3
+    RotationIndex: 0
+  - MarchingCubeValues: 140
+    MarchingCubeValue: 140
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 4
+    RotationIndex: 0
+  - MarchingCubeValues: 76
+    MarchingCubeValue: 76
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 5
+    RotationIndex: 0
+  - MarchingCubeValues: 200
+    MarchingCubeValue: 200
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 6
+    RotationIndex: 0
+  - MarchingCubeValues: 196
+    MarchingCubeValue: 196
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 7
+    RotationIndex: 0
+  - MarchingCubeValues: 137
+    MarchingCubeValue: 137
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 0
+    RotationIndex: 1
+  - MarchingCubeValues: 70
+    MarchingCubeValue: 70
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 1
+    RotationIndex: 1
+  - MarchingCubeValues: 152
+    MarchingCubeValue: 152
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 2
+    RotationIndex: 1
+  - MarchingCubeValues: 100
+    MarchingCubeValue: 100
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 3
+    RotationIndex: 1
+  - MarchingCubeValues: 25
+    MarchingCubeValue: 25
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 4
+    RotationIndex: 1
+  - MarchingCubeValues: 38
+    MarchingCubeValue: 38
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 5
+    RotationIndex: 1
+  - MarchingCubeValues: 145
+    MarchingCubeValue: 145
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 6
+    RotationIndex: 1
+  - MarchingCubeValues: 98
+    MarchingCubeValue: 98
+    Mesh: {fileID: 7940649176704482052, guid: 419d24f405d1f9549ad8254175a840a2, type: 3}
+    Flipped: 7
+    RotationIndex: 1
+  - MarchingCubeValues: 1
+    MarchingCubeValue: 1
+    Mesh: {fileID: 8556212795403136124, guid: 1d31e669c3243804aa272c20f5402156, type: 3}
+    Flipped: 0
+    RotationIndex: 0
+  - MarchingCubeValues: 2
+    MarchingCubeValue: 2
+    Mesh: {fileID: 8556212795403136124, guid: 1d31e669c3243804aa272c20f5402156, type: 3}
+    Flipped: 1
+    RotationIndex: 0
+  - MarchingCubeValues: 8
+    MarchingCubeValue: 8
+    Mesh: {fileID: 8556212795403136124, guid: 1d31e669c3243804aa272c20f5402156, type: 3}
+    Flipped: 4
+    RotationIndex: 0
+  - MarchingCubeValues: 4
+    MarchingCubeValue: 4
+    Mesh: {fileID: 8556212795403136124, guid: 1d31e669c3243804aa272c20f5402156, type: 3}
+    Flipped: 5
+    RotationIndex: 0
+  - MarchingCubeValues: 9
+    MarchingCubeValue: 9
+    Mesh: {fileID: 3766660573965718470, guid: e346976676f0cff4191395d08fbb1040, type: 3}
+    Flipped: 0
+    RotationIndex: 0
+  - MarchingCubeValues: 6
+    MarchingCubeValue: 6
+    Mesh: {fileID: 3766660573965718470, guid: e346976676f0cff4191395d08fbb1040, type: 3}
+    Flipped: 1
+    RotationIndex: 0
+  - MarchingCubeValues: 12
+    MarchingCubeValue: 12
+    Mesh: {fileID: 3766660573965718470, guid: e346976676f0cff4191395d08fbb1040, type: 3}
+    Flipped: 0
+    RotationIndex: 1
+  - MarchingCubeValues: 3
+    MarchingCubeValue: 3
+    Mesh: {fileID: 3766660573965718470, guid: e346976676f0cff4191395d08fbb1040, type: 3}
+    Flipped: 4
+    RotationIndex: 1

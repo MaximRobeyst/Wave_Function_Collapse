@@ -61,7 +61,7 @@ public class MarchingCubes : MonoBehaviour
         _vertices.Clear();
     }
 
-    private void MarchCubes(PointDistribution pointDistribution)
+    public void MarchCubes(PointDistribution pointDistribution)
     {
         ClearInstances();
         _vertices.Clear();
@@ -207,7 +207,7 @@ public class MarchingCubes : MonoBehaviour
     }
 
     [Button]
-    private void GenerateMesh()
+    public void GenerateMesh()
     {
         SetupMesh();
 
